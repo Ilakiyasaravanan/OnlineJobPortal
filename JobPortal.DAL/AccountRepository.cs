@@ -18,6 +18,7 @@ namespace JobPortal.DAL
         public AccountRepository()
         {
         }
+
         public IEnumerable<AccountDetails> GetDetails()
         {
             return details;
