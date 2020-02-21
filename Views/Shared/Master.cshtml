@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div align="center">
+        <h2 align="Center"> @Html.ActionLink("Future Feature JobPortal", "Home", "Common")</h2>
+    </div>
+
+    <div align="right">
+
+        @Html.ActionLink("Help", "Help", "Common")
+    </div>
+    @Html.ActionLink("Register", "SignUp", "Account")
+    @Html.ActionLink("Log In", "LogIn", "Account")
+
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

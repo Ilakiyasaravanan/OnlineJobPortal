@@ -1,0 +1,134 @@
+﻿@model JobPortal.Entity.AccountDetails
+
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>SignUp</h2>
+
+@if (ViewBag.Message != null)
+{
+    Response.Write(ViewBag.Message);
+}
+
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+
+            <td>
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+
+            </td>
+            <td>
+                <div>
+                    @Html.RadioButtonFor(model => model.Gender, "Male")
+                    Male
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    Female
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                <div>
+                    @Html.RadioButtonFor(model => model.Role, "Recruiter")
+                    Recruiter
+
+                    @Html.RadioButtonFor(model => model.Role, "Searcher")
+                    Searcher
+                </div>
+
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.country, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+
+                @Html.EnumDropDownListFor(model => model.country, "Select Country")
+                @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="Submit" value="Create" class="btn btn-default" />
+            </td>
+        </tr>
+
+    </table>
+    @Html.ValidationSummary(false, "Please fix the following error and then submit the form", new { @class = "text-danger" })
+}
+
