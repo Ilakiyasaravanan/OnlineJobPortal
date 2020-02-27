@@ -1,0 +1,79 @@
+﻿@model JobPortal.Entity.AccountDetails
+
+@{
+    ViewBag.Title = "Display";
+  
+}
+
+<h2>Display</h2>
+<table border="1">
+    <tr>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Phone Number
+        </th>
+        <th>
+            Password
+        </th>
+        <th>
+            Confirm Password
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Country
+        </th>
+    </tr>
+    @foreach (JobPortal.Entity.AccountDetails item in (List<JobPortal.Entity.AccountDetails>)ViewData["AccountDetails"])
+    {
+        <tr>
+            <td>
+               @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.PhoneNumber
+            </td>
+            <td>
+                @item.Password
+            </td>
+            <td>
+                @item.ConfirmPassword
+            </td>
+            <td>
+                @item.Gender
+            </td>
+            <td>
+                @item.Role
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.country
+            </td>
+           
+        </tr>
+    }
+</table>
+

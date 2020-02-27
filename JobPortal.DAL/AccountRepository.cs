@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JobPortal.Entity;
 using JobPortal.Common;
 namespace JobPortal.DAL
@@ -15,53 +13,64 @@ namespace JobPortal.DAL
 
             details.Add(new AccountDetails { FirstName = "Ilakiya", LastName = "Saravanan", Address = "Salem", Gender = "Female", PhoneNumber = 9443322727, Password = "ilakiya", ConfirmPassword = "ilakiya", Role = "Recruiter", country = (Country)Enum.Parse(typeof(Country), "India"), Email = "ilakya@gmail.com" });
         }
+
         public AccountRepository()
         {
         }
-
         public IEnumerable<AccountDetails> GetDetails()
         {
-            return details;
+            DBUtills dBUtills = new DBUtills();
+            return dBUtills.AccountDb.ToList();
         }
-        public bool Add(AccountDetails job)
+        public void Add(AccountDetails job)
         {
-            bool registerStatus = false;
-            try
-            {
-                details.Add(job);
-                return registerStatus = true; ;
-            }
-            catch
-            {
-                return registerStatus;
-
-            }
-
-
+            DBUtills db = new DBUtills();
+            db.AccountDb.Add(job);
+            db.SaveChanges();
         }
-        public bool Check(AccountDetails log)
+        public string Check(AccountDetails log)
         {
-            bool status = false;
-            foreach (AccountDetails i in details)
+            string role = "empty";
+            using (DBUtills db = new DBUtills())
             {
-                try
+                var get_user = db.AccountDb.Single(p => p.Email == log.Email
+                && p.Password == log.Password);
+                if (get_user != null)
                 {
-                    if ((log.Email.Equals(i.Email) && log.Password.Equals(i.Password)))
-
-                        status = true;
+                    //Session["UserId"] = get_user.UserID.ToString();
+                    //Session["UserName"] = get_user.UserName.ToString();
+                    //return RedirectToAction("LoggedIn");
+                    role = get_user.Email;
                 }
-                catch
-                {
-                    return status = false;
-                }
-               
-               
             }
+           return role;
+            //else
+            //{
+            //    ModelState.AddModelError("", "UserName or Password does not match.");
+            //}
 
-            return status;
+            //string role = "empty";
+            //foreach (AccountDetails i in details)
+            //{
+            //    try
+            //    {
+            //        if ((log.Email.Equals(i.Email) && log.Password.Equals(i.Password)))
+            //        {
+            //            role = i.Role;
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        throw new Exception("ErrorMessage");
+            //    }              
+
+            //}
+
+
         }
     }
-
-
 }
+
+
+
 

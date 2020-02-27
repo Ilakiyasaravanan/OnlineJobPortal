@@ -13,4 +13,23 @@ namespace JobPortal.Common
         Pakisthan,
         Nepal
     }
+    public enum Graduation
+    {
+        BE,
+        BTech
+    }
+    public enum Location
+    {
+        Chennai,
+        Hyderabad,
+        Banglore,
+        Kolkatta,
+        Mumbai
+    }
+    public enum JobType
+    {
+        Fulltime,
+        Parttime,
+        Contract        
+    }
 }

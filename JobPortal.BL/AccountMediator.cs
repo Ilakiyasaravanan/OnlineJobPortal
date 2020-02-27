@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JobPortal.Entity;
 using JobPortal.DAL;
 namespace JobPortal.BL
 {
     public class AccountMediator
     {
-         public AccountMediator()
+        public void AddAccountDetails(AccountDetails account)
+        {
+            new AccountRepository().Add(account);
+            
+        }
+        public string CheckAccountDetails(AccountDetails acc)
             {
-            }
-            public bool AddAccountDetails(AccountDetails account)
-            {
-                bool status = new AccountRepository().Add(account);
-                return status;
-            }
-            public bool CheckAccountDetails(AccountDetails acc)
-            {
-                bool loginStatus = new AccountRepository().Check(acc);
+                string loginStatus = new AccountRepository().Check(acc);
                 return loginStatus;
             }
+           public IEnumerable<AccountDetails> View()
+           {
+            return new AccountRepository().GetDetails();
 
-        }
+          }
+            }
     }
