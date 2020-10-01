@@ -1,0 +1,34 @@
+﻿@model OnlineJobPortal.Models.LocationViewModel
+
+@{
+    ViewBag.Title = "EditLocation";
+    
+}
+
+<h2 class="heading">Edit Location</h2>
+
+@using (Html.BeginForm("EditLocation", "Job", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.LocationId)
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Location)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update" class="button" />
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "Location", "Job")
+            </td>
+
+        </tr>
+    </table>
+}
+

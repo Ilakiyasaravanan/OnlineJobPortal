@@ -1,0 +1,91 @@
+﻿@model OnlineJobPortal.Models.AccountViewModel
+
+@{
+    ViewBag.Title = "Edit";
+
+}
+<h2 class="heading">Edit Profile</h2>
+
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.AccountId)
+    @Html.HiddenFor(model => model.Email)
+    @Html.HiddenFor(model => model.Role)
+    @Html.HiddenFor(model => model.Password)
+
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.FirstName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.LastName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Address)
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+
+                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.PhoneNumber)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.RadioButtonFor(model => model.Gender, "Male")
+                Male
+                @Html.RadioButtonFor(model => model.Gender, "Female")
+                Female
+                @Html.RadioButtonFor(model => model.Gender, "Female")
+                Other
+                &nbsp; &nbsp; &nbsp;
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })
+            </td>
+        </tr>
+       
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.DateofBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.DateofBirth, new { htmlAttributes = new { @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update" class="button" />
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "DisplayDetail", "Account", htmlAttributes: new { @class = "ActionLink" })
+            </td>
+
+        </tr>
+    </table>
+}

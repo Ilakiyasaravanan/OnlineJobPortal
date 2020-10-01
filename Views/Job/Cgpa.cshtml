@@ -1,0 +1,36 @@
+﻿@model OnlineJobPortal.Models.CgpaViewModel
+
+@{
+    ViewBag.Title = "Cgpa";
+
+}
+
+<h2 class="heading">Cgpa</h2>
+
+
+<table border="1" class="tableborder">
+    <tr>
+        <th>
+            CGPA        </th>
+        <th colspan="2">Action</th>
+    </tr>
+    @foreach (JobPortal.Entity.Cgpas item in (List<JobPortal.Entity.Cgpas>)ViewData["CgpaDisplay"])
+    {
+
+        <tr>
+            <td>
+                @item.CGPA
+            </td>
+            <td> @Html.ActionLink("Edit", "EditCgpa", new { id = item.CgpaId })</td>
+            <td>@Html.ActionLink("Delete", "DeleteCgpa", new { id = item.CgpaId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.ActionLink("Add CGPA", "AddCgpa", "Job")
+        </td>
+
+    </tr>
+
+</table>
+

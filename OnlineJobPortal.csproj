@@ -46,8 +46,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=6.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>packages\AutoMapper.6.2.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -56,6 +56,12 @@
       <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mvc.RazorTools, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mvc.RazorTools.Base.1.0.5\lib\net45\Mvc.RazorTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Mvc.RazorTools.FontAwesome, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mvc.RazorTools.FontAwesome.4.3.0.0\lib\net45\Mvc.RazorTools.FontAwesome.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
       <HintPath>packages\ServiceStack.5.8.0\lib\net45\ServiceStack.dll</HintPath>
     </Reference>
@@ -81,6 +87,9 @@
       <HintPath>packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -88,6 +97,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -95,6 +105,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -142,6 +155,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -158,7 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\MapConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Razor Tools\FontAwesome.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -167,6 +185,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\CgpaViewModel.cs" />
+    <Compile Include="Models\JobTypeViewModel.cs" />
+    <Compile Include="Models\LocationViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RecruiterJobViewModel.cs" />
+    <Compile Include="Models\RecruiterProfileViewModel.cs" />
+    <Compile Include="Models\ResumeViewModel.cs" />
+    <Compile Include="Models\SearcherJobViewModel.cs" />
+    <Compile Include="Models\SearcherSkillsViewModel.cs" />
+    <Compile Include="Models\WorkExperienceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,23 +202,35 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Styles\Home.css" />
+    <Content Include="Images\Interview.jpg" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Styles\JobPortal.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomScript.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\SubJobPortalPage.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -204,13 +244,42 @@
     <Content Include="Views\Shared\Master.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
-    <Content Include="Views\Shared\Logout.cshtml" />
     <Content Include="Views\Common\Home.cshtml" />
-    <Content Include="Views\Common\Help.cshtml" />
     <Content Include="Views\Account\Display.cshtml" />
-    <Content Include="Views\Job\RecruiterJobSpecification.cshtml" />
+    <Content Include="Views\Job\RecruiterJobDetails.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Job\CandidateJobDetails.cshtml" />
+    <Content Include="Views\Account\DisplayDetail.cshtml" />
+    <Content Include="Views\Account\Country.cshtml" />
+    <Content Include="Views\Account\AddCountry.cshtml" />
+    <Content Include="Views\Account\AdminDisplay.cshtml" />
+    <Content Include="Views\Job\JobTypes.cshtml" />
+    <Content Include="Views\Job\AddJobTypes.cshtml" />
+    <Content Include="Views\Job\EditJobType.cshtml" />
+    <Content Include="Views\Job\Location.cshtml" />
+    <Content Include="Views\Job\AddLocation.cshtml" />
+    <Content Include="Views\Job\EditLocation.cshtml" />
+    <Content Include="Views\Job\WorkExperienceDetails.cshtml" />
+    <Content Include="Views\Job\SearcherSkillDetails.cshtml" />
+    <Content Include="Views\Job\ProfileDetails.cshtml" />
+    <Content Include="Views\Common\Help.cshtml" />
+    <Content Include="Views\Job\RecruiterVacancyDetails.cshtml" />
+    <Content Include="Views\Job\SearcherJobDetails.cshtml" />
+    <Content Include="Views\Job\EditProfile.cshtml" />
+    <Content Include="Views\Job\DisplayProfile.cshtml" />
+    <Content Include="Views\Job\DisplaySkills.cshtml" />
+    <Content Include="Views\Common\Contact.cshtml" />
+    <Content Include="Views\Job\DisplayJobVacancy.cshtml" />
     <Content Include="Views\Job\CandidateDetails.cshtml" />
-    <Content Include="Views\Shared\ErrorMessage.cshtml" />
+    <Content Include="Views\Job\Searcher.cshtml" />
+    <Content Include="Views\Job\DisplayCandidateDetails.cshtml" />
+    <Content Include="Views\Job\UploadResume.cshtml" />
+    <Content Include="Views\Job\Recruiter.cshtml" />
+    <Content Include="Views\Job\DisplayWorkExperience.cshtml" />
+    <Content Include="Views\Job\EditWorkExperience.cshtml" />
+    <Content Include="Views\Job\Cgpa.cshtml" />
+    <Content Include="Views\Job\EditCgpa.cshtml" />
+    <Content Include="Views\Job\AddCgpa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -226,8 +295,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="JobPortal.BL\JobPortal.BL.csproj">

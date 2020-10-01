@@ -1,0 +1,35 @@
+﻿@model OnlineJobPortal.Models.JobTypeViewModel
+
+@{
+    ViewBag.Title = "JobTypes";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2 class="heading">JobTypes</h2>
+
+<table border="1" class="tableborder">
+    <tr>
+        <th>
+            JobTypes
+        </th>
+        <th colspan="2">Action</th>
+    </tr>
+    @foreach (JobPortal.Entity.JobTypes item in (List<JobPortal.Entity.JobTypes>)ViewData["JobTypeDisplay"])
+    {
+
+        <tr>
+            <td>
+                @item.JobType
+            </td>
+            <td> @Html.ActionLink("Edit", "EditJobType", new { id = item.JobTypeId })</td>
+            <td>@Html.ActionLink("Delete", "DeleteJobType", new { id = item.JobTypeId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.ActionLink("AddJobTypes", "AddJobTypes", "Job")
+        </td>
+
+    </tr>
+
+</table>

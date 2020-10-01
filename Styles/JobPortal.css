@@ -1,0 +1,207 @@
+﻿
+.header {
+    overflow: hidden;
+   
+    background-color: #859FEC;
+    /* position: fixed;
+    width: 100%;*/
+}   
+
+    .header a {
+        display: block;
+        color: royalblue;
+        padding: 1%;
+        font-family:'Times New Roman';
+       
+    }
+        .header a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+.tableborder {
+    border-collapse: collapse;
+}
+/* The navbar container */
+.topnav {
+    overflow: hidden;
+    background-image: linear-gradient(to right,#859FEC,#121B3B);     
+}
+    /* Navbar links */
+    .topnav a {        
+        float: right;
+        display: block;
+        color: #f2f2f2;
+        padding: 1% 1%;
+        font-family: 'Times New Roman';
+    }
+
+        /* Links - change color on hover */
+        .topnav a:hover {
+            text-decoration:none;
+            background-color: #ddd;
+            color: black;
+        }
+
+/* The navbar container */
+/*.sidenav {
+    overflow: hidden;
+    background-color: royalblue;
+    width: 10%;
+}*/
+
+    /* Navbar links */
+    /*.sidenav a {
+        display: block;
+        color: #f2f2f2;
+        padding: 1% 1%;
+        text-decoration: none;
+    }*/
+
+        /* Links - change color on hover */
+        /*.sidenav a:hover {
+            background-color: #ddd;
+            color: black;
+        }*/
+
+.textbox {
+    width: 100%;
+    padding: 1% 1%;
+    margin: 1% 1%;    
+    border: none;
+    border-bottom: 2px solid #cce6ff;
+}
+
+.button {
+    border-color: royalblue;
+    color: black;
+    padding: 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+    .button:hover {
+        background-color: royalblue;
+        color: black;
+    }
+
+.ActionLink {
+    border-color: royalblue;
+    color: black;
+    padding: 3%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.search {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+.footer {
+    background-color: #cce6ff;
+    text-align: center;
+    padding: 1%;
+    bottom: 0;
+    color: royalblue;
+    position: relative;
+    width: 100%;
+    font-family:'Times New Roman';
+}
+
+.ErrorMessage {
+    color: red;
+}
+
+.mix {
+    /*border-color:mediumpurple;
+    width:50%;
+    color:royalblue;
+    display:inline;
+    border-style: dotted dashed solid double;*/
+    background-color: lightcyan;
+    width: 300px;
+    border: 10px solid royalblue;
+    padding: 1%;
+    margin: 1%;
+}
+.textcolor {
+    color: blueviolet;
+}
+.heading {
+  text-align:center;
+  color:royalblue;
+  font-size:larger;
+}
+.colorTextbox{
+    width: 100%;
+    padding: 1% 2%;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    background-color: #3CBC8D;
+    color: white;
+}
+.Label{
+    color:darkslateblue;
+    font-size:medium;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    background: skyblue;
+    margin-top: 20px;
+}
+
+    .container ul {
+        padding: 0px;
+        margin: 0px;
+    }
+
+
+        .container ul li {
+            float: left;
+            list-style: none;
+            width: 20%;
+            height: 170px;
+            background: yellow;
+            margin: 20px 0px 20px 55px;
+            border: 2px solid blue;
+            box-sizing: border-box;
+        }
+
+            .container ul li:hover {
+                transform: scale(1.3);
+                background: lightyellow;
+                z-index: 2;
+                box-shadow: 2px 2px 2px #000;
+            }
+
+            .container ul li .bottom {
+                width: 100%;
+                height: 50px;
+                line-height: 50px;
+                background: blue;
+                text-align: center;
+                color: white;
+                font-size: 20px;
+            }
+ 

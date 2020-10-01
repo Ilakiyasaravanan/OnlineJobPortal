@@ -1,0 +1,39 @@
+﻿@model OnlineJobPortal.Models.WorkExperienceViewModel
+
+@{
+    ViewBag.Title = "WorkExperienceDetails";
+    
+}
+
+<h2 class="heading">Work Experience Details</h2>
+
+@using (Html.BeginForm("WorkExperienceDetails", "Job", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.WorkCompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.WorkCompanyName)
+                @Html.ValidationMessageFor(model => model.WorkCompanyName, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CompletedExpereince, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CompletedExpereince)
+                @Html.ValidationMessageFor(model => model.CompletedExpereince, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit" class="button"/>
+            </td>
+           
+        </tr>
+    </table>
+}

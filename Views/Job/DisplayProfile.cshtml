@@ -1,0 +1,57 @@
+﻿@model JobPortal.Entity.RecruiterProfile
+
+@{
+    ViewBag.Title = "DisplayProfile";
+
+}
+<h2 class="heading">Display Profile</h2>
+
+
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.WorkingCompany)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.WorkingCompany)
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.WorkingLocation)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.WorkingLocation)
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Position)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Position)
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.CompanyDescription)
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.CompanyDescription)            
+        </td>
+
+    </tr>
+    <tr>
+        
+        <td>@Html.ActionLink("EditProfile", "EditProfile", new { id = Model.AccountId })</td>
+        
+    </tr>
+</table>
+
+
+
+

@@ -1,0 +1,45 @@
+﻿@model OnlineJobPortal.Models.WorkExperienceViewModel
+
+@{
+    ViewBag.Title = "EditWorkExperience";
+}
+
+<h2 class="heading">Edit experience</h2>
+
+
+@using (Html.BeginForm("EditWorkExperience", "Job", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.AccountId)
+    @Html.HiddenFor(model => model.WorkExperienceId)
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.WorkCompanyName)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.WorkCompanyName)
+                @Html.ValidationMessageFor(model => model.WorkCompanyName, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CompletedExpereince)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CompletedExpereince)
+                @Html.ValidationMessageFor(model => model.CompletedExpereince, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update" class="button" />
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "DisplayWorkExperience", "Job", htmlAttributes: new { @class = "button" })
+            </td>
+        </tr>
+    </table>
+}
+
+

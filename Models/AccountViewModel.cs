@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using JobPortal.Common;
 using JobPortal.Entity;
 namespace OnlineJobPortal.Models
@@ -7,15 +8,16 @@ namespace OnlineJobPortal.Models
 	{
 		public int AccountId { get; set; }
 
-		[Required(ErrorMessage = "First Name is required")]
-		[DataType(DataType.Text)]
+		[Required(ErrorMessage = "First name is required")]
+		[RegularExpression("[A-Z][a-z][a-z][a-zA-Z]*",ErrorMessage="Invalid Name/First letter should be capital")]
+		[StringLength(20)]
 		[Display(Name = "First Name")]
-		[StringLength(20, MinimumLength = 5)]
+		
 		public string FirstName { get; set; }
 
-		[DataType(DataType.Text)]
+	
 		[StringLength(20)]
-
+		[RegularExpression("[a-zA-Z]*", ErrorMessage = "Invalid Name")]
 		[Display(Name = "Last Name")]
 		public string LastName { get; set; }
 
@@ -24,76 +26,42 @@ namespace OnlineJobPortal.Models
 		[DataType(DataType.MultilineText)]
 		public string Address { get; set; }
 
-		[Required(ErrorMessage = "Select option")]
+		[Required(ErrorMessage = "Select gender")]
 		[Display(Name = "Gender")]
 		public string Gender { get; set; }
 
 		[Display(Name = "Phone Number")]
+		[Required(ErrorMessage = "Phone number field is required")]
 		[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
 		public long PhoneNumber { get; set; }
 
-		[Display(Name = "Password")]
+		[RegularExpression("^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$", ErrorMessage = "Must have 1 Uppercase,1 Lowercase,1 special,Minimum 6 characters")]
 		[Required(ErrorMessage = "Password is required")]
 		[DataType(DataType.Password)]
-		[StringLength(20)]
+		
 		public string Password { get; set; }
 
 		[DataType(DataType.Password)]
-		[StringLength(20)]
+		
 		[Compare("Password")]
-		[Display(Name = "Confirm Password")]
+		[Display(Name = "Confirm password")]
 		public string ConfirmPassword { get; set; }
 
-
-
 		[Display(Name = "Role")]
-		[Required(ErrorMessage = "Select option")]
+		[Required(ErrorMessage = "Select role")]
 		public string Role { get; set; }
-		[Display(Name = "Country")]
-		public Country country { get; set; }
 
-		[Required(ErrorMessage = "EmailAddress is required")]
+	
 
-		[DataType(DataType.EmailAddress)]
-		[StringLength(30)]
-		[Display(Name = "Email Address")]
+		[Required(ErrorMessage = "Email address is required")]
+		[DataType(DataType.EmailAddress)]		
 		public string Email { get; set; }
 
-		//public static implicit operator AccountViewModel(AccountDetails account)
-		//{
-		//	return new AccountViewModel
-		//	{
-		//		AccountId = account.AccountId,
-		//		FirstName = account.FirstName,
-		//		LastName = account.LastName,
-		//		Address = account.Address,
-		//		PhoneNumber = account.PhoneNumber,
-		//		Password = account.Password,
-		//		ConfirmPassword = account.ConfirmPassword,
-		//		Gender = account.Gender,
-		//		Role = account.Role,
-		//		country = account.country,
-		//		Email = account.Email
-		//	};
-		//}
-		//public static implicit operator AccountDetails(AccountViewModel validation)
-		//{
-		//	return new AccountDetails
-		//	{
-		//		AccountId = validation.AccountId,
-		//		FirstName = validation.FirstName,
-		//		LastName = validation.LastName,
-		//		Address = validation.Address,
-		//		PhoneNumber = validation.PhoneNumber,
-		//		Password =validation.Password,
-		//		ConfirmPassword = validation.ConfirmPassword,
-		//		Gender = validation.Gender,
-		//		Role = validation.Role,
-		//		country = validation.country,
-		//		Email =validation.Email
-		//	};
 
-		//}
+		[Display(Name = "Date of Birth")]		
+		[Required]
+		public DateTime? DateofBirth { get; set; }
+
 
 	}
 }

@@ -1,0 +1,49 @@
+﻿@model JobPortal.Entity.WorkExperiences
+
+@{
+    ViewBag.Title = "DisplayWorkExperience";
+}
+
+<h2 class="heading">Already entered work experiences</h2>
+
+<table border="1" class="tableborder">
+    @Html.HiddenFor(model => model.AccountId)
+    @Html.HiddenFor(model => model.WorkExperienceId)
+    <tr>
+        <th>
+            Company Name
+        </th>
+        <th>
+            Number of years
+        <th colspan="2">
+            Action
+        </th>
+    </tr>
+    @foreach (JobPortal.Entity.WorkExperiences item in (List<JobPortal.Entity.WorkExperiences>)ViewData["Experience"])
+    {
+        <tr>
+            <td>
+                @item.WorkCompanyName
+            </td>
+            <td>
+                @item.CompletedExpereince
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditWorkExperience", new { id = item.WorkExperienceId })
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteExperience", new { id = item.WorkExperienceId }, new { Onclick = "return confirm('Do u want to delete')" })
+            </td>
+
+        </tr>
+    }
+        <tr>
+            <td>
+                @Html.ActionLink("Add", "WorkExperienceDetails")
+            </td>
+        </tr>
+
+
+    </table>
+
+

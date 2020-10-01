@@ -1,63 +1,62 @@
-﻿@model JobPortal.Entity.JobDetails
+﻿@model JobPortal.Entity.SearcherJobDetails
 
 @{
-    ViewBag.Title = "CandidateDetails";
- 
+    ViewBag.Title = "DisplayJobVacancy";
 }
-    <div align="right">
-        @Html.Partial("Logout")
-    </div>
-<h2>Candidate Details</h2>
 
-@using (Html.BeginForm("CandidateDetails", "Job", FormMethod.Post))
-{
-    <table>
-        <tr>
+<h2 class="heading">Already entered vacancy Details</h2>
 
-            <td>
-                @Html.LabelFor(model => model.jobType, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.EnumDropDownListFor(model => model.jobType, "Select Job Type")
-                @Html.ValidationMessageFor(model => model.jobType, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.graduation, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.EnumDropDownListFor(model => model.graduation, "Select Graduation")
-                @Html.ValidationMessageFor(model => model.graduation, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-        <tr>
 
-            <td>
-                @Html.LabelFor(model => model.WorkExperience, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.WorkExperience, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "text-danger" })
-            </td>
-        </tr>
+<table border="1" class="tableborder">
+    <tr>
+        <th>
+            Company Name
+        </th>
+        <th>
+            Graduation
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Salary
+        </th>
+        <th>
+            Work Experience
+        </th>
 
+    </tr>
+    @foreach (JobPortal.Entity.SearcherJobDetails item in (List<JobPortal.Entity.SearcherJobDetails>)ViewData["SearcherJob"])
+    {
         <tr>
             <td>
-                @Html.LabelFor(model => model.location, htmlAttributes: new { @class = "control-label col-md-2" })
+                @item.Cgpa
+            </td>
+            
+            <td>
+                @item.Department
             </td>
             <td>
-
-                @Html.EnumDropDownListFor(model => model.location, "Select Location")
-                @Html.ValidationMessageFor(model => model.location, "", new { @class = "text-danger" })
+                @item.Domain
             </td>
-        </tr>
-        <tr>
+
             <td>
-                <input type="Submit" value="Apply" class="btn btn-default" />
+                @item.WorkExperience
             </td>
+            <td>
+                @item.graduation
+            </td>
+            <td>
+                @item.Jobtype
+            </td>
+            <td>
+                @item.location
+            </td>
+
         </tr>
 
-    </table>
-    @Html.ValidationSummary(false, "Please fix the following error and then submit the form", new { @class = "text-danger" })
-}
+    }
+</table>
+
+
+

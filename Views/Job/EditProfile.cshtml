@@ -1,0 +1,64 @@
+﻿@model OnlineJobPortal.Models.RecruiterProfileViewModel
+
+@{
+    ViewBag.Title = "DisplayProfile";
+
+}
+
+<h2 class="heading">Display Profile</h2>
+
+
+@using (Html.BeginForm("EditProfile", "Job", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.AccountId)
+    @Html.HiddenFor(model => model.ProfileId)
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.WorkingCompany)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.WorkingCompany)
+                @Html.ValidationMessageFor(model => model.WorkingCompany, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.WorkingLocation)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.WorkingLocation)
+                @Html.ValidationMessageFor(model => model.WorkingLocation, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Position)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Position)
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CompanyDescription)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.CompanyDescription)
+                @Html.ValidationMessageFor(model => model.CompanyDescription, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update" class="button" />
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "DisplayProfile", "Job", htmlAttributes: new { @class = "button" })
+            </td>
+
+        </tr>
+    </table>
+}
+

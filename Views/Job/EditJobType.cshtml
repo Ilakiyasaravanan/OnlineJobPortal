@@ -1,0 +1,33 @@
+﻿@model OnlineJobPortal.Models.JobTypeViewModel
+
+@{
+    ViewBag.Title = "EditJobType";
+    
+}
+
+<h2 class="heading">Edit JobType</h2>
+
+@using (Html.BeginForm("EditJobType", "Job", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.JobTypeId)
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.JobType, htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td>
+            @Html.EditorFor(model => model.JobType)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value="Update" class="button" />
+        </td>
+        <td>
+            @Html.ActionLink("Cancel", "JobTypes", "Job")
+        </td>
+
+    </tr>
+</table>
+}

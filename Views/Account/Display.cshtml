@@ -2,11 +2,13 @@
 
 @{
     ViewBag.Title = "Display";
-  
+
 }
 
-<h2>Display</h2>
-<table border="1">
+<h2 class="heading">Display Account Details</h2>
+
+
+<table border="1" class="tableborder">
     <tr>
         <th>
             FirstName
@@ -21,12 +23,6 @@
             Phone Number
         </th>
         <th>
-            Password
-        </th>
-        <th>
-            Confirm Password
-        </th>
-        <th>
             Gender
         </th>
         <th>
@@ -38,12 +34,13 @@
         <th>
             Country
         </th>
+        <th colspan="2">Action</th>
     </tr>
     @foreach (JobPortal.Entity.AccountDetails item in (List<JobPortal.Entity.AccountDetails>)ViewData["AccountDetails"])
     {
         <tr>
             <td>
-               @item.FirstName
+                @item.FirstName
             </td>
             <td>
                 @item.LastName
@@ -54,12 +51,7 @@
             <td>
                 @item.PhoneNumber
             </td>
-            <td>
-                @item.Password
-            </td>
-            <td>
-                @item.ConfirmPassword
-            </td>
+            
             <td>
                 @item.Gender
             </td>
@@ -68,12 +60,12 @@
             </td>
             <td>
                 @item.Email
-            </td>
-            <td>
-                @item.country
-            </td>
-           
+            </td>           
+            <td> @Html.ActionLink("Edit", "Edit", new { id = item.AccountId })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { id = item.AccountId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
         </tr>
+
     }
 </table>
+
 

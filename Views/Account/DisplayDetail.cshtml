@@ -1,0 +1,60 @@
+﻿@model JobPortal.Entity.AccountDetails
+
+@{
+    ViewBag.Title = "DisplayDetail";
+}
+
+<h2 class="heading">Hi...</h2>
+
+<table border="1">
+    <tr>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Phone Number
+        </th>
+
+        <th>
+            Gender
+        </th>
+        <th>
+            DOB
+        </th>
+
+        <th colspan="2">
+            Action
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.LastName)
+        </td>
+        <td>
+            @Html.DisplayTextFor(model => model.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(model=>model.dateOfBirth)
+        </td>
+
+        <td>@Html.ActionLink("Edit", "Edit", new { id = Model.AccountId })</td>
+
+
+    </tr>
+
+</table>

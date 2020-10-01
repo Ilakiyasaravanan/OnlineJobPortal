@@ -1,0 +1,62 @@
+﻿@model JobPortal.Entity.RecruiterJobDetails
+
+@{
+    ViewBag.Title = "DisplayJobVacancy";
+}
+
+<h2 class="heading">Already entered vacancy Details</h2>
+
+
+<table border="1" class="tableborder">
+   @Html.HiddenFor(model => model.AccountId)
+    <tr>
+        <th>
+           Company Name
+        </th>
+        <th>
+            Graduation
+        </th>
+        <th>
+         Location
+        </th>
+        <th>
+           Salary
+        </th>
+        <th>
+           Work Experience
+        </th>
+        <th>
+            Action
+        </th>
+       
+    </tr>
+    @foreach (JobPortal.Entity.RecruiterJobDetails item in (List<JobPortal.Entity.RecruiterJobDetails>)ViewData["RecruiterJob"])
+    {
+        <tr>
+            <td>
+                @item.CompanyName
+            </td>
+            <td>
+                @item.graduation
+            </td>
+            <td>
+                @item.location
+            </td>
+            <td>
+                @item.Salary
+            </td>
+
+            <td>
+                @item.WorkExperience
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteVacancy",   new { id = item.AccountId },new { Onclick = "return confirm('Do u want to delete')" }) 
+            </td>
+           
+        </tr>
+       
+    }
+</table>
+
+
+

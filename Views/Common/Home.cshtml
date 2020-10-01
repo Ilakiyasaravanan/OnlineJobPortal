@@ -1,10 +1,75 @@
-﻿
+﻿@model IEnumerable<JobPortal.Entity.RecruiterProfile>
+
 @{
     ViewBag.Title = "Home";
+
 }
 
-    <div>   
-      
-        <p>Future Feature is a job portal which make the job of recruiter easier and able to get multiple oppurtunities for the job searcher!!!</p>
+<div class="banner text-center">
+    @*<h1>
+            Future Feature
+        </h1>*@
+</div>
+<div class="search-job text-center">
+    <input type="text" class="form-control" placeholder="Search keyword" />
+    <input type="text" class="form-control" placeholder="Job Type" />
+    <input type="text" class="form-control" placeholder="Location" />
+    <input type="button" class="btn btn-primary" value="Find Job" />
+</div>
+
+<div id="center-alignment">
+    <h3>Our Recruiters</h3>
+</div>
+@if (Model.Count() > 0)
+{
+    <div id="center-alignment">
+        <h3>About</h3>
+        <p style="font-size:large">Future Feature is a job portal which make the job of recruiter easier and able to get multiple oppurtunities for the job searcher!!!</p>
 
     </div>
+}
+else 
+{
+<div class="container">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <div class="bottom">
+                    @Html.DisplayFor(modelItem => item.searcher.FirstName)
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            Working In:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkingCompany)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Position:
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Location:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkingLocation)
+                        </td>
+                    </tr>
+                </table>
+
+            </li>
+        }
+        </ul>
+    </div>
+}
+        
+

@@ -1,0 +1,62 @@
+﻿@model JobPortal.Entity.SearcherSkillSets
+
+@{
+    ViewBag.Title = "DisplaySkills";
+
+}
+
+<h2 class="heading">Display Skills</h2>
+
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Achievements)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Achievements)
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Certifications)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Certifications)
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Language)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Language)
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.SoftwareSkills)
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.SoftwareSkills)
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Sports)
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.Sports)
+
+        </td>
+    </tr>  
+</table>
+
+
+
+
+
+

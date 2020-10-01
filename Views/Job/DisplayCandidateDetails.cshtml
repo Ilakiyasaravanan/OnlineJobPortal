@@ -1,0 +1,72 @@
+﻿@model JobPortal.Entity.SearcherJobDetails
+
+@{
+    ViewBag.Title = "DisplayCandidateDetails";
+}
+<h2 class="heading">Already entered vacancy Details</h2>
+
+<table border="1" class="tableborder">
+    <tr>
+        <th>
+            CGPA
+        </th>
+       
+        <th>
+            Department
+        </th>
+        <th>
+            Domain
+        </th>
+        <th>
+            Work Experience
+        </th>
+        <th>
+            Graduation
+        </th>
+        <th>
+            Jobtype
+        </th>
+        <th>
+            Location
+        </th>
+
+    </tr>
+    @foreach (JobPortal.Entity.SearcherJobDetails item in (List<JobPortal.Entity.SearcherJobDetails>)ViewData["SearcherJob"])
+    {
+        <tr>
+            <td>
+                @item.Cgpa
+            </td>
+      
+            <td>
+                @item.Department
+            </td>
+            <td>
+                @item.Domain
+            </td>
+
+            <td>
+                @item.WorkExperience
+            </td>
+            <td>
+                @item.graduation
+            </td>
+            <td>
+                @item.Jobtype
+            </td>
+            <td>
+                @item.location
+            </td>
+             </tr>
+             <tr>
+                 <td>
+                     @Html.ActionLink("Edit Work Experience","DisplayWorkExperience","Job")
+                 </td>
+             </tr>
+
+    }
+</table>
+
+
+
+

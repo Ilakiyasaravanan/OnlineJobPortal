@@ -1,0 +1,71 @@
+﻿@model JobPortal.Entity.RecruiterJobDetails
+
+@{
+    ViewBag.Title = "RecruiterVacancyDetails";
+
+}
+
+<h2 class="heading">Recruiter Vacancy Details</h2>
+<table border="1">
+    <tr>
+        <th>
+            RecruiterName
+        </th>
+        <th>
+            RecruiterId
+        </th>
+        <th>
+            Company Name
+        </th>
+        <th>
+            Job Type
+        </th>
+        <th>
+            Job Location
+        </th>
+        <th>
+            Salary offered
+        </th>
+        <th>
+            Graduation
+        </th>
+        <th>
+            WorkExperience
+        </th>
+    </tr>
+
+
+
+    @foreach (JobPortal.Entity.RecruiterJobDetails item in (List<JobPortal.Entity.RecruiterJobDetails>)ViewData["RecruiterJobVacany"])
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model=>item.account.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model=>item.account.AccountId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Jobtype.JobType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.location)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.graduation)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.WorkExperience)
+            </td>
+        </tr>
+       
+      
+
+    }
+</table>

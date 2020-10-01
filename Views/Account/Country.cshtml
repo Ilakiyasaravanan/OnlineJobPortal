@@ -1,0 +1,29 @@
+﻿@model OnlineJobPortal.Models.CountryViewModel
+
+@{
+    ViewBag.Title = "Country";
+}
+
+<h2 class="heading">Country</h2>
+<table border="1">
+    <tr>
+        <th>
+            Country
+        </th>
+       
+    </tr>
+    @foreach (JobPortal.Entity.Country item in (List<JobPortal.Entity.Country>)ViewData["CountryDisplay"])
+    {
+        <tr>
+            <td>
+                @item.CountryName
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.ActionLink("AddCountry","AddCountry","Account")
+        </td>
+    </tr>
+ 
+</table>

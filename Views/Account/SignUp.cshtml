@@ -1,28 +1,30 @@
 ﻿@model OnlineJobPortal.Models.AccountViewModel
 
+
 @{
     ViewBag.Title = "SignUp";
-
 }
-
-<h2>SignUp</h2>
 
 @if (ViewBag.Message != null)
 {
     Response.Write(ViewBag.Message);
 }
-
+    <h2 class="heading">Register here, For explore more...</h2>
 @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
 {
-    <table>
+    @Html.AntiForgeryToken()
+   
+    
+
+    <table style="column-width:100px">
+          
         <tr>
             <td>
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
-
             <td>
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = "30", @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -30,8 +32,8 @@
                 @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = "30", @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -39,8 +41,8 @@
                 @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @maxlength = "70", @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -49,23 +51,23 @@
 
             </td>
             <td>
-
                 @Html.RadioButtonFor(model => model.Gender, "Male")
                 Male
                 @Html.RadioButtonFor(model => model.Gender, "Female")
                 Female
-                &nbsp; &nbsp; &nbsp;
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                @Html.RadioButtonFor(model => model.Gender, "Other")
+                Other
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })
             </td>
-          
+
         </tr>
         <tr>
             <td>
                 @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -73,7 +75,8 @@
                 @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -81,8 +84,8 @@
                 @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -93,21 +96,22 @@
 
                 @Html.RadioButtonFor(model => model.Role, "Recruiter")
                 Recruiter
-
                 @Html.RadioButtonFor(model => model.Role, "Searcher")
                 Searcher
-                &nbsp; &nbsp;           
-            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })</td>
+                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "ErrorMessage" })
+            </td>
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(model => model.country, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.DateofBirth, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EnumDropDownListFor(model => model.country, "Select Country")
-                @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DateofBirth, new { htmlAttributes = new { @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
+
+
         <tr>
             <td>
 
@@ -115,17 +119,28 @@
 
             </td>
             <td>
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "ErrorMessage" })
+                <div class="ErrorMessage">
+                    @if (ViewData["UserExists"] != null)
+                    {
+                        <p>@ViewData["UserExists"]</p>
+                    }
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="Submit" value="Create" class="btn btn-default" />
+                <input type="Submit" value="Create" class="button" />
             </td>
         </tr>
+        @*<tr>
+            <td>
+                @Html.ValidationSummary(false, "Please fix the following errors and then submit the form", new { @class = "ErrorMessage" })
+            </td>
+        </tr>*@
 
     </table>
-    @Html.ValidationSummary(false, "Please fix the following error and then submit the form", new { @class = "text-danger" })
+
 }
 

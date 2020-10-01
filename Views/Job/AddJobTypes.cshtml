@@ -1,0 +1,30 @@
+﻿@model OnlineJobPortal.Models.JobTypeViewModel
+
+@{
+    ViewBag.Title = "AddJobTypes";
+
+}
+
+<h2 class="heading">Add JobTypes</h2>
+
+@using (Html.BeginForm("AddJobTypes", "Job", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.JobType, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.JobType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobType, "", new {@class="ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="Submit" value="AddJobTypes" class="button" />
+            </td>
+        </tr>
+
+    </table>
+}
