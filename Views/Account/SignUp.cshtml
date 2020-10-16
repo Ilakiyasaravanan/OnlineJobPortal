@@ -9,14 +9,14 @@
 {
     Response.Write(ViewBag.Message);
 }
-    <h2 class="heading">Register here, For explore more...</h2>
+<h2 class="heading">Register here, For explore more...</h2>
 @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
 {
-    @Html.AntiForgeryToken() 
-    
+    @Html.AntiForgeryToken()
+
 
     <table align="center">
-          
+
         <tr>
             <td>
                 @Html.LabelFor(model => model.FirstName)
@@ -134,10 +134,10 @@
             </td>
         </tr>
         @*<tr>
-            <td>
-                @Html.ValidationSummary(false, "Please fix the following errors and then submit the form", new { @class = "ErrorMessage" })
-            </td>
-        </tr>*@
+                <td>
+                    @Html.ValidationSummary(false, "Please fix the following errors and then submit the form", new { @class = "ErrorMessage" })
+                </td>
+            </tr>*@
 
     </table>
 

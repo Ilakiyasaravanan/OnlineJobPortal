@@ -36,7 +36,7 @@ namespace JobPortal.Entity
 		public string Email { get; set; }
 
 		[Column("DateofBirth")]
-		[Required(ErrorMessage = "DoB is required")]	   
+		[Required(ErrorMessage = "DoB is required")]
 
 		public DateTime? DateOfBirth { get; set; }
 	}

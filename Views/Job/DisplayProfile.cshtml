@@ -14,7 +14,7 @@
         </td>
         <td>
             @Html.EditorFor(model => model.WorkingCompany)
-            
+
         </td>
     </tr>
     <tr>
@@ -23,7 +23,7 @@
         </td>
         <td>
             @Html.EditorFor(model => model.WorkingLocation)
-            
+
 
         </td>
     </tr>
@@ -33,7 +33,7 @@
         </td>
         <td>
             @Html.EditorFor(model => model.Position)
-            
+
         </td>
     </tr>
     <tr>
@@ -41,14 +41,14 @@
             @Html.LabelFor(model => model.CompanyDescription)
         </td>
         <td>
-            @Html.TextAreaFor(model => model.CompanyDescription)            
+            @Html.TextAreaFor(model => model.CompanyDescription)
         </td>
 
     </tr>
     <tr>
-        
+
         <td>@Html.ActionLink("EditProfile", "EditProfile", new { id = Model.AccountId })</td>
-        
+
     </tr>
 </table>
 

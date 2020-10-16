@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-.banner {    
+.banner {
     height: 50vh;
     background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../Images/Interview.jpg);
     background-size: cover;

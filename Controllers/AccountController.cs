@@ -22,16 +22,16 @@ namespace OnlineJobPortal.Controllers
 		}
 
 		/* Sign up Page*/
-		[HttpGet]		
+		[HttpGet]
 		public ActionResult SignUp() //Get-Register new account
-		{			
+		{
 			return View();
-		}		
+		}
 		[ValidateAntiForgeryToken]
 		[HttpPost]
 		public ActionResult SignUp(AccountViewModel account) //Post-Process account details
 		{
-			
+
 			if (ModelState.IsValid)
 			{
 				var sign = AutoMapper.Mapper.Map<AccountViewModel, AccountDetails>(account);
@@ -42,8 +42,8 @@ namespace OnlineJobPortal.Controllers
 					return View();
 				}
 				else
-				{				
-					int status = accountMediator.AddAccountDetails(sign);					
+				{
+					int status = accountMediator.AddAccountDetails(sign);
 					if (status == sign.AccountId)
 					{
 						FormsAuthentication.SetAuthCookie(sign.Email, false);
@@ -58,27 +58,27 @@ namespace OnlineJobPortal.Controllers
 							return RedirectToAction("Searcher", "Job");
 					}
 					else
-						return RedirectToAction("LogIn");				
+						return RedirectToAction("LogIn");
 
 				}
-		}
+			}
 			return View();
-	}
-	/* Login page*/
-	[HttpGet]
-	//	[AllowAnonymous]
-	public ActionResult LogIn() //Get-Login 
-	{
-		return View();
-	}	
-	[ValidateAntiForgeryToken]	
-	[HttpPost]
-	public ActionResult LogIn(LoginViewModel account)//Post-Login
-	{
-		var loginDetails = AutoMapper.Mapper.Map<LoginViewModel, AccountDetails>(account);
-		AccountDetails accountDetails = accountMediator.CheckAccountDetails(loginDetails);
-		if (ModelState.IsValid)
-		{			
+		}
+		/* Login page*/
+		[HttpGet]
+		//	[AllowAnonymous]
+		public ActionResult LogIn() //Get-Login 
+		{
+			return View();
+		}
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public ActionResult LogIn(LoginViewModel account)//Post-Login
+		{
+			var loginDetails = AutoMapper.Mapper.Map<LoginViewModel, AccountDetails>(account);
+			AccountDetails accountDetails = accountMediator.CheckAccountDetails(loginDetails);
+			if (ModelState.IsValid)
+			{
 				if (accountDetails != null)
 				{
 					FormsAuthentication.SetAuthCookie(accountDetails.Email, false);
@@ -104,78 +104,78 @@ namespace OnlineJobPortal.Controllers
 				}
 
 			}
-		else
-		{
-			TempData["User_Exists"] = "Invalid username or password";
+			else
+			{
+				TempData["User_Exists"] = "Invalid username or password";
+				return View();
+			}
 			return View();
 		}
-		return View();
-	}
 
-	[Authorize(Roles = "Admin")]
-	public ActionResult Display()//Display all accountdetails for admin
-	{
-		IEnumerable<AccountDetails> account = accountMediator.View();
-		ViewData["AccountDetails"] = account;
-		return View();
-	}
-	[Authorize(Roles = "Recruiter,Searcher")]
-	public ActionResult DisplayDetail()//Display their account details
-	{
-		Object account = null;
-		if (Session["AccountId"] != null)
+		[Authorize(Roles = "Admin")]
+		public ActionResult Display()//Display all accountdetails for admin
 		{
-			account = Session["AccountId"];
+			IEnumerable<AccountDetails> account = accountMediator.View();
+			ViewData["AccountDetails"] = account;
+			return View();
+		}
+		[Authorize(Roles = "Recruiter,Searcher")]
+		public ActionResult DisplayDetail()//Display their account details
+		{
+			Object account = null;
+			if (Session["AccountId"] != null)
+			{
+				account = Session["AccountId"];
+			}
+
+			int tempId = Convert.ToInt32(account);
+			AccountDetails accountDetails = accountMediator.ParticularDetails(tempId);
+			return View(accountDetails);
 		}
 
-		int tempId = Convert.ToInt32(account);
-		AccountDetails accountDetails = accountMediator.ParticularDetails(tempId);
-		return View(accountDetails);
-	}
+		[HttpGet]
+		[Authorize(Roles = "Admin,Recruiter,Searcher")]
+		public ActionResult Edit(int id) //Get-Editing account details
+		{
 
-	[HttpGet]
-	[Authorize(Roles = "Admin,Recruiter,Searcher")]
-	public ActionResult Edit(int id) //Get-Editing account details
-	{
-		
-		AccountDetails account=accountMediator.Edit(id);
-		var map = AutoMapper.Mapper.Map<AccountDetails, AccountViewModel>(account);
-		return View(map);
-	}
-	[ExceptionHandler]
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public ActionResult Edit(AccountViewModel account)//Post-updating edited values
-	{	
+			AccountDetails account = accountMediator.Edit(id);
+			var map = AutoMapper.Mapper.Map<AccountDetails, AccountViewModel>(account);
+			return View(map);
+		}
+		[ExceptionHandler]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(AccountViewModel account)//Post-updating edited values
+		{
 
 			var accountDetails = AutoMapper.Mapper.Map<AccountViewModel, AccountDetails>(account);
 			int result = accountMediator.Update(accountDetails);
 			if (result == 1)
-				return RedirectToAction("DisplayDetail");	
+				return RedirectToAction("DisplayDetail");
 
 
-		//ViewBag.Country = new SelectList(accountMediator.GetCountry(), "CountryId", "CountryName");
-		return View();
-	}
-	[Authorize(Roles = "Admin")]
-	public ActionResult Delete(int id)//Deleting record of account
-	{
-		accountMediator.Delete(id);
-		return RedirectToAction("Display");
-	}
-	
-	[Authorize(Roles = "Admin")]
-	public ActionResult AdminDisplay()//Displaying particular link controls
-	{
-		return View();
-	}
+			//ViewBag.Country = new SelectList(accountMediator.GetCountry(), "CountryId", "CountryName");
+			return View();
+		}
+		[Authorize(Roles = "Admin")]
+		public ActionResult Delete(int id)//Deleting record of account
+		{
+			accountMediator.Delete(id);
+			return RedirectToAction("Display");
+		}
 
-	public ActionResult LogOff()//Logout method
-	{
-		//AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-		Session.Clear();
-		FormsAuthentication.SignOut();
-		return RedirectToAction("Home", "Common");
+		[Authorize(Roles = "Admin")]
+		public ActionResult AdminDisplay()//Displaying particular link controls
+		{
+			return View();
+		}
+
+		public ActionResult LogOff()//Logout method
+		{
+			//AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+			Session.Clear();
+			FormsAuthentication.SignOut();
+			return RedirectToAction("Home", "Common");
+		}
 	}
-}
 }

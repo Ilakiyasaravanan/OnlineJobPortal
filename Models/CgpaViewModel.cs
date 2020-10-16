@@ -9,7 +9,7 @@ namespace OnlineJobPortal.Models
 	public class CgpaViewModel
 	{
 		public int CgpaId { get; set; }
-		[Required(ErrorMessage ="It is needed")]
+		[Required(ErrorMessage = "It is needed")]
 		[MaxLength(30)]
 		public string CGPA { get; set; }
 	}

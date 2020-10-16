@@ -4,10 +4,6 @@
     ViewBag.Title = "RecruiterJobDetails";
 
 }
-
-
-
-
 @*<div align="right">
 
         @Html.ActionLink("Edit Profile", "DisplayDetail", "Account")
@@ -17,88 +13,88 @@
 @using (Html.BeginForm("RecruiterJobDetails", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="CenterContent">
-    <h2 class="heading">Recruiter Vacancies</h2>
-    <table align="center">
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @maxlength = "30", @class = "colorTextbox" } })
-                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
+    <div class="CenterContent">
+        <h2 class="heading">Recruiter Vacancies</h2>
+        <table align="center">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @maxlength = "30", @class = "colorTextbox" } })
+                    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
 
-            <td>
-                @Html.LabelFor(model => model.JobTypeName, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.DropDownListFor(model => model.JobTypeId, (IEnumerable<SelectListItem>)ViewBag.JobTypes, "Choose Jobtype", htmlAttributes: new { @class = "colorTextbox" })
-                @Html.ValidationMessageFor(model => model.JobTypeName, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Graduation, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.EnumDropDownListFor(model => model.Graduation, "Select Graduation", htmlAttributes: new { @class = "colorTextbox" })
-                @Html.ValidationMessageFor(model => model.Graduation, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
+                <td>
+                    @Html.LabelFor(model => model.JobTypeName, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.JobTypeId, (IEnumerable<SelectListItem>)ViewBag.JobTypes, "Choose Jobtype", htmlAttributes: new { @class = "colorTextbox" })
+                    @Html.ValidationMessageFor(model => model.JobTypeName, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Graduation, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.EnumDropDownListFor(model => model.Graduation, "Select Graduation", htmlAttributes: new { @class = "colorTextbox" })
+                    @Html.ValidationMessageFor(model => model.Graduation, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
 
-            <td>
-                @Html.LabelFor(model => model.WorkExperience, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.WorkExperience, new { htmlAttributes = new { @class = "colorTextbox" } })
+                <td>
+                    @Html.LabelFor(model => model.WorkExperience, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.WorkExperience, new { htmlAttributes = new { @class = "colorTextbox" } })
 
-                @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "colorTextbox" } })
-                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.DropDownListFor(model => model.LocationId, (IEnumerable<SelectListItem>)ViewBag.Locations, "Choose Location", htmlAttributes: new { @class = "colorTextbox" })
-
-                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-
-        <tr>
-
-            <td>
-                @Html.LabelFor(model => model.CgpaName, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.DropDownListFor(model => model.CgpaId, (IEnumerable<SelectListItem>)ViewBag.Cgpas, "Choose Cgpa", htmlAttributes: new { @class = "colorTextbox" })
-                @Html.ValidationMessageFor(model => model.CgpaName, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Search Candidate" class="button" />
-            </td>
-        </tr>
+                    @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "colorTextbox" } })
+                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
 
 
-    </table>
-    @*@Html.ValidationSummary(false, "Please fix the following error and then submit the form", new { @class = "text-danger" })*@
-</div>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.LocationId, (IEnumerable<SelectListItem>)ViewBag.Locations, "Choose Location", htmlAttributes: new { @class = "colorTextbox" })
+
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    @Html.LabelFor(model => model.CgpaName, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.CgpaId, (IEnumerable<SelectListItem>)ViewBag.Cgpas, "Choose Cgpa", htmlAttributes: new { @class = "colorTextbox" })
+                    @Html.ValidationMessageFor(model => model.CgpaName, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Search Candidate" class="button" />
+                </td>
+            </tr>
+
+
+        </table>
+        @*@Html.ValidationSummary(false, "Please fix the following error and then submit the form", new { @class = "text-danger" })*@
+    </div>
 }

@@ -14,81 +14,81 @@
     @Html.HiddenFor(model => model.Email)
     @Html.HiddenFor(model => model.Role)
     @Html.HiddenFor(model => model.Password)
-   
-<div class="CenterContent">
-    <h2 class="heading">Edit Profile</h2>
-    <table>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.FirstName)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.FirstName)
-            </td>
-        </tr>
-        <tr>
-            <td>
 
-                @Html.LabelFor(model => model.LastName)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.LastName)
-            </td>
-        </tr>
-        <tr>
-            <td>
+    <div class="CenterContent">
+        <h2 class="heading">Edit Profile</h2>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.FirstName)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>
 
-                @Html.LabelFor(model => model.Address)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.Address)
-            </td>
-        </tr>
-        <tr>
+                    @Html.LabelFor(model => model.LastName)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
 
-            <td>
+                    @Html.LabelFor(model => model.Address)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Address)
+                </td>
+            </tr>
+            <tr>
 
-                @Html.LabelFor(model => model.PhoneNumber)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.PhoneNumber)
-            </td>
-        </tr>
+                <td>
 
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Gender)
-            </td>
-            <td>
-                @Html.RadioButtonFor(model => model.Gender, "Male")
-                Male
-                @Html.RadioButtonFor(model => model.Gender, "Female")
-                Female
-                @Html.RadioButtonFor(model => model.Gender, "Female")
-                Other
-                &nbsp; &nbsp; &nbsp;
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })
-            </td>
-        </tr>
+                    @Html.LabelFor(model => model.PhoneNumber)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.PhoneNumber)
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.DateofBirth)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.DateofBirth)
-                @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Update" class="button" />
-            </td>
-            <td>
-                @Html.ActionLink("Cancel", "DisplayDetail", "Account", htmlAttributes: new { @class = "ActionLink" })
-            </td>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Gender)
+                </td>
+                <td>
+                    @Html.RadioButtonFor(model => model.Gender, "Male")
+                    Male
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    Female
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    Other
+                    &nbsp; &nbsp; &nbsp;
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })
+                </td>
+            </tr>
 
-        </tr>
-    </table>
-</div>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DateofBirth)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.DateofBirth)
+                    @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Update" class="button" />
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel", "DisplayDetail", "Account", htmlAttributes: new { @class = "ActionLink" })
+                </td>
+
+            </tr>
+        </table>
+    </div>
 }
