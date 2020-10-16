@@ -37,7 +37,7 @@
         @if (HttpContext.Current.User.IsInRole("Admin"))
         {
             @Html.ActionLink("Display Details", "Display", "Account")
-            @Html.ActionLink("Manage Country", "Country", "Account")
+           
             @Html.ActionLink("Manage JobTypes", "JobTypes", "Job")
             @Html.ActionLink("Manage Location", "Location", "Job")
             @Html.ActionLink("Manage Vacancy", "RecruiterVacancyDetails", "Job")
