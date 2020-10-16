@@ -9,60 +9,60 @@
 @using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-   
-<div class="CenterContent">
-    <h2 class="heading">Login here for updating</h2>
-    <div align="center" style="color:red">
-        @if (TempData["User_Exists"] != null)
 
-        {
-            <p>@TempData["User_Exists"]</p>
+    <div class="CenterContent">
+        <h2 class="heading">Login here for updating</h2>
+        <div align="center" style="color:red">
+            @if (TempData["User_Exists"] != null)
 
-        }
+            {
+                <p>@TempData["User_Exists"]</p>
+
+            }
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "Label" })
+                </td>
+
+                <td>
+
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @style = "Color:red" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "Label" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @style = "Color:red" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Log In" class="button" />
+                </td>
+
+            <tr>
+                <td>
+                </td>
+            </tr>
+
+            <tr>  <td> <input type="checkbox" checked="checked" name="remember"> Remember me</td></tr>
+
+        </table>
     </div>
-    <table align="center">
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "Label" })
-            </td>
 
-            <td>
-
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @style = "Color:red" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "Label" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @style = "Color:red" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Log In" class="button" />
-            </td>
-
-        <tr>
-            <td>
-            </td>
-        </tr>
-
-        <tr>  <td> <input type="checkbox" checked="checked" name="remember"> Remember me</td></tr>
-
-    </table>
-</div>
-   
 
 }

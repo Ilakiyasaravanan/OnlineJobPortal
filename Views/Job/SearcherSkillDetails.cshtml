@@ -10,68 +10,68 @@
 @using (Html.BeginForm("SearcherSkillDetails", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="CenterContent">
+    <div class="CenterContent">
 
-    <h2 class="heading">Skill Sets</h2>
-    <table align="center">
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Achievements, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.TextAreaFor(model => model.Achievements)
-                @Html.ValidationMessageFor(model => model.Achievements, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Certifications, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.TextAreaFor(model => model.Certifications)
+        <h2 class="heading">Skill Sets</h2>
+        <table align="center">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Achievements, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Achievements)
+                    @Html.ValidationMessageFor(model => model.Achievements, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Certifications, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Certifications)
 
-                @Html.ValidationMessageFor(model => model.Certifications, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
+                    @Html.ValidationMessageFor(model => model.Certifications, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
 
-            <td>
-                @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.EnumDropDownListFor(model => model.Language, "Select Language")
-                @Html.ValidationMessageFor(model => model.Language, "", new { @class = "ErrorMessage" })
-            </td>
+                <td>
+                    @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.EnumDropDownListFor(model => model.Language, "Select Language")
+                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "ErrorMessage" })
+                </td>
 
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.SoftwareSkills, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.TextAreaFor(model => model.SoftwareSkills)
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.SoftwareSkills, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.SoftwareSkills)
 
-                @Html.ValidationMessageFor(model => model.SoftwareSkills, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Sports, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.TextAreaFor(model => model.Sports)
+                    @Html.ValidationMessageFor(model => model.SoftwareSkills, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Sports, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Sports)
 
-                @Html.ValidationMessageFor(model => model.Sports, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Submit Skills" class="button" />
-            </td>
-        </tr>
-    </table>
+                    @Html.ValidationMessageFor(model => model.Sports, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit Skills" class="button" />
+                </td>
+            </tr>
+        </table>
     </div>
-    }
+}
 
 
 
