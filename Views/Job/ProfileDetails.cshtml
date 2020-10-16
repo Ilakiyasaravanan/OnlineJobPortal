@@ -5,58 +5,61 @@
 
 }
 
-<h2 class="heading">Profile</h2>
+
 
 @using (Html.BeginForm("ProfileDetails", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<table align="center">
-    <tr>
+<div class="CenterContent">
+    <h2 class="heading">Profile</h2>
+    <table align="center">
+        <tr>
 
-        <td>
-            @Html.LabelFor(model => model.WorkingCompany, htmlAttributes: new { @class = "control-label col-md-2" })
-        </td>
-        <td>
-            @Html.EditorFor(model => model.WorkingCompany)
-            @Html.ValidationMessageFor(model => model.WorkingCompany, "", new { @class = "ErrorMessage" })
-        </td>
-    </tr>
+            <td>
+                @Html.LabelFor(model => model.WorkingCompany, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.WorkingCompany)
+                @Html.ValidationMessageFor(model => model.WorkingCompany, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
 
-    <tr>
+        <tr>
 
-        <td>
-            @Html.LabelFor(model => model.WorkingLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-        </td>
-        <td>
-            @Html.EditorFor(model => model.WorkingLocation)
-            @Html.ValidationMessageFor(model => model.WorkingLocation, "", new { @class = "ErrorMessage" })
-        </td>
-    </tr>
-    <tr>
+            <td>
+                @Html.LabelFor(model => model.WorkingLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.WorkingLocation)
+                @Html.ValidationMessageFor(model => model.WorkingLocation, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
 
-        <td>
-            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
-        </td>
-        <td>
-            @Html.EditorFor(model => model.Position)
-            @Html.ValidationMessageFor(model => model.Position, "", new { @class = "ErrorMessage" })
-        </td>
-    </tr>
-    <tr>
+            <td>
+                @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Position)
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
 
-        <td>
-            @Html.LabelFor(model => model.CompanyDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-        </td>
-        <td>
-            @Html.TextAreaFor(model => model.CompanyDescription)
-            @Html.ValidationMessageFor(model => model.CompanyDescription, "", new { @class = "ErrorMessage" })
-        </td>
-    </tr>
-    <tr>
-        <td> <input type="submit" value="Submit" class="button" /></td>
+            <td>
+                @Html.LabelFor(model => model.CompanyDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.CompanyDescription)
+                @Html.ValidationMessageFor(model => model.CompanyDescription, "", new { @class = "ErrorMessage" })
+            </td>
+        </tr>
+        <tr>
+            <td> <input type="submit" value="Submit" class="button" /></td>
 
 
-    </tr>
-</table>
-}
+        </tr>
+    </table>
+    </div>
+    }
 

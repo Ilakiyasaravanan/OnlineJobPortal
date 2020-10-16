@@ -162,6 +162,11 @@
     color:darkslateblue;
     font-size:medium;
 }
+.CenterContent{
+    padding-top:5%;
+    padding-bottom:20%;
+    
+}
 
 .container {
     width: 90%;

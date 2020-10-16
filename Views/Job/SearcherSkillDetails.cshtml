@@ -5,12 +5,14 @@
 
 }
 
-<h2 class="heading">Skill Sets</h2>
 
 
 @using (Html.BeginForm("SearcherSkillDetails", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+<div class="CenterContent">
+
+    <h2 class="heading">Skill Sets</h2>
     <table align="center">
         <tr>
             <td>
@@ -68,7 +70,8 @@
             </td>
         </tr>
     </table>
-}
+    </div>
+    }
 
 
 

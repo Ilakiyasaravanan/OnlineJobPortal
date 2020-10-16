@@ -2,14 +2,17 @@
 
 @{
     ViewBag.Title = "WorkExperienceDetails";
-    
+
 }
 
-<h2 class="heading">Work Experience Details</h2>
+
 
 @using (Html.BeginForm("WorkExperienceDetails", "Job", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+    
+        @Html.AntiForgeryToken()
+<div class="CenterContent">
+    <h2 class="heading">Work Experience Details</h2>
     <table>
         <tr>
             <td>
@@ -31,9 +34,11 @@
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Submit" class="button"/>
+                <input type="submit" value="Submit" class="button" />
             </td>
-           
+
         </tr>
     </table>
-}
+</div>
+        }
+    

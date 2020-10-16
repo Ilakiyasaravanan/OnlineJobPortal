@@ -4,11 +4,14 @@
     ViewBag.Title = "LogIn";
 }
 
-<h2 class="heading">Login here for updating</h2>
+
 
 @using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+   
+<div class="CenterContent">
+    <h2 class="heading">Login here for updating</h2>
     <div align="center" style="color:red">
         @if (TempData["User_Exists"] != null)
 
@@ -59,6 +62,7 @@
         <tr>  <td> <input type="checkbox" checked="checked" name="remember"> Remember me</td></tr>
 
     </table>
+</div>
    
 
 }

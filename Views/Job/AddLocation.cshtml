@@ -1,16 +1,17 @@
 ﻿@model OnlineJobPortal.Models.LocationViewModel
-    
+
 @{
     ViewBag.Title = "AddLocation";
 
 }
 
-<h2 class="heading">AddLocation</h2>
 
 
 @using (Html.BeginForm("AddLocation", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+<div class="CenterContent">
+    <h2 class="heading">AddLocation</h2>
     <table>
         <tr>
             <td>
@@ -28,4 +29,5 @@
         </tr>
 
     </table>
+</div>
 }

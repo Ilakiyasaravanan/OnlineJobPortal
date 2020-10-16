@@ -5,11 +5,12 @@
 
 }
 
-<h2 class="heading">Add JobTypes</h2>
+
 
 @using (Html.BeginForm("AddJobTypes", "Job", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()<div class="CenterContent">
+    <h2 class="heading">Add JobTypes</h2>
     <table>
         <tr>
             <td>
@@ -17,7 +18,7 @@
             </td>
             <td>
                 @Html.EditorFor(model => model.JobType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JobType, "", new {@class="ErrorMessage" })
+                @Html.ValidationMessageFor(model => model.JobType, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
         <tr>
@@ -27,4 +28,5 @@
         </tr>
 
     </table>
+    </div>
 }
