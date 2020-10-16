@@ -20,7 +20,7 @@
         <th style="width:120px">File Name</th>
         <th style="width:80px">Download</th>
     </tr>
-    @if (Model.Count() == 1)
+    @if (Model!=null)
     {
         foreach (var file in Model)
         {

@@ -11,6 +11,7 @@ namespace OnlineJobPortal.Models
 {
 	public class SearcherJobViewModel
 	{
+		public int SearcherId { get; set; }
 		[Display(Name = "Job Type")]
 		public int JobTypeId { get; set; }
 		public JobTypes Jobtype { get; set; }

@@ -20,9 +20,10 @@ namespace JobPortal.Entity
 		public string Position { get; set; }
 		[MaxLength(30)]
 		public string CompanyDescription { get; set; }
+
 		public int AccountId { get; set; }
 
-		public AccountDetails searcher { get; set; }
+		public AccountDetails Recruiter { get; set; }
 
 	}
 }

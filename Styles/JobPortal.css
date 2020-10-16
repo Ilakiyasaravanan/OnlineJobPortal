@@ -167,7 +167,7 @@
     width: 90%;
     margin: auto;
     overflow: hidden;
-    background: skyblue;
+    background: white;
     margin-top: 20px;
 }
 
@@ -182,7 +182,7 @@
             list-style: none;
             width: 20%;
             height: 170px;
-            background: yellow;
+            background: #859FEC;
             margin: 20px 0px 20px 55px;
             border: 2px solid blue;
             box-sizing: border-box;
@@ -199,9 +199,13 @@
                 width: 100%;
                 height: 50px;
                 line-height: 50px;
-                background: blue;
+                background: #121B3B;
                 text-align: center;
                 color: white;
                 font-size: 20px;
             }
- 
+.OpenScreenImage {
+    background-image: url(../Images/Handshake.jpg);
+    background-size: cover;
+    background-position: center;
+}

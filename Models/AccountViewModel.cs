@@ -60,6 +60,7 @@ namespace OnlineJobPortal.Models
 
 		[Display(Name = "Date of Birth")]		
 		[Required]
+		[DataType(DataType.DateTime)]
 		public DateTime? DateofBirth { get; set; }
 
 

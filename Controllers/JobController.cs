@@ -25,7 +25,8 @@ namespace OnlineJobPortal.Controllers
 
 		/*--------Recruiter---------*/
 		/*Display Recruiter page*/
-		public ActionResult Recruiter() 
+		[Authorize(Roles = "Recruiter")]
+		public ActionResult Recruiter()
 		{
 			return View();
 
@@ -46,9 +47,9 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult RecruiterJobDetails(RecruiterJobViewModel recruiterView)
 		{
-			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
-			ViewBag.Cgpas = new SelectList(jobMediator.GetCgpas(), "CgpaId", "CGPA");
+			//ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
+			//ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
+			//ViewBag.Cgpas = new SelectList(jobMediator.GetCgpas(), "CgpaId", "CGPA");
 			if (ModelState.IsValid)
 			{
 				var recruit = AutoMapper.Mapper.Map<RecruiterJobViewModel, RecruiterJobDetails>(recruiterView);
@@ -61,17 +62,17 @@ namespace OnlineJobPortal.Controllers
 		}
 
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult DisplayJobVacancy()
+		public ActionResult DisplayJobVacancy()//Get-Delete submitted vacancy
 		{
 			IEnumerable<RecruiterJobDetails> recruiterJobs = jobMediator.FetchRecruiterJobVacancy((int)Session["AccountId"]);
-			ViewData["RecruiterJob"] = recruiterJobs;			
+			ViewData["RecruiterJob"] = recruiterJobs;
 			if (recruiterJobs.Count() == 0)
 				return RedirectToAction("RecruiterJobDetails", "Job");
 			return View();
 
 		}
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult DeleteVacancy(int id)
+		public ActionResult DeleteVacancy(int id)//Post-Delete submitted vacancy
 		{
 			jobMediator.RemoveVacancy(id);
 			return RedirectToAction("DisplayJobVacancy");
@@ -84,8 +85,8 @@ namespace OnlineJobPortal.Controllers
 			Object temp = Session["AccountId"];
 			int id = Convert.ToInt32(temp);
 			RecruiterProfile recruiter = null;
-			recruiter=jobMediator.CheckProfile(id);
-			if (recruiter!=null)
+			recruiter = jobMediator.CheckProfile(id);
+			if (recruiter != null)
 			{
 				return RedirectToAction("DisplayProfile");
 			}
@@ -101,25 +102,24 @@ namespace OnlineJobPortal.Controllers
 			jobMediator.AddProfile(work);
 			return RedirectToAction("DisplayProfile");
 		}
-		
+
 		[HttpGet]
 		[Authorize(Roles = "Recruiter")]
 		public ActionResult EditProfile(int id) //Get-Editing account details
 		{
-			RecruiterProfile recruiter= jobMediator.CheckProfile(id);
+			RecruiterProfile recruiter = jobMediator.CheckProfile(id);
 			var map = AutoMapper.Mapper.Map<RecruiterProfile, RecruiterProfileViewModel>(recruiter);
 			return View(map);
 
-			
 		}
-		
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult EditProfile(RecruiterProfileViewModel account)//Post-updating edited values
 		{
 
 			var accountDetails = AutoMapper.Mapper.Map<RecruiterProfileViewModel, RecruiterProfile>(account);
-			bool result=jobMediator.UpdateProfile(accountDetails);
+			bool result = jobMediator.UpdateProfile(accountDetails);
 			if (result == true)
 				return RedirectToAction("DisplayProfile");
 			return View();
@@ -129,22 +129,26 @@ namespace OnlineJobPortal.Controllers
 		{
 			int temp = Convert.ToInt32(Session["AccountId"].ToString());
 			RecruiterProfile account = jobMediator.CheckProfile(temp);
-			return View(account);
-		}	
+			if (account != null)
+				return View(account);
+			else 
+				
+				return RedirectToAction("ProfileDetails");
+		}
 
 		/*--------Searcher---------*/
 		/*Display Searcher page*/
 		[Authorize(Roles = "Searcher")]
-		public ActionResult Searcher()
-		{			
+		public ActionResult Searcher()//Front view of searcher
+		{
 			return View();
 		}
 		/*Display applied vacancies*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplayCandidateDetails()
 		{
-			IEnumerable<SearcherJobDetails> searcherJobs = jobMediator.FetchCandidateDetails((int)Session["AccountId"]);			
-			if (searcherJobs.Count()==0)
+			IEnumerable<SearcherJobDetails> searcherJobs = jobMediator.FetchCandidateDetails((int)Session["AccountId"]);
+			if (searcherJobs.Count() == 0)
 			{
 				return RedirectToAction("CandidateJobDetails");
 			}
@@ -157,7 +161,7 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Admin,Searcher")]
 		public ActionResult CandidateJobDetails()  //Get-Apply new vacancy
 		{
-			
+
 			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
 			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
 			return View();
@@ -222,7 +226,9 @@ namespace OnlineJobPortal.Controllers
 		{
 			int temp = Convert.ToInt32(Session["AccountId"].ToString());
 			SearcherSkillSets account = jobMediator.FetchIndividualSkill(temp);
+
 			return View(account);
+
 		}
 		/*Resume of searcher*/
 		[HttpGet]
@@ -240,7 +246,7 @@ namespace OnlineJobPortal.Controllers
 				Resume resume = new Resume();
 				resume.ContentType = resumeViewModel.ContentType;
 				resume.AccountId = Convert.ToInt32(Session["AccountId"]);
-				resume.FileName=Path.GetFileName(resumeViewModel.FileName);
+				resume.FileName = Path.GetFileName(resumeViewModel.FileName);
 				resume.Data = bytes;
 				jobMediator.AttachResume(resume);
 			}
@@ -251,7 +257,7 @@ namespace OnlineJobPortal.Controllers
 		public FileResult DownloadFile(int? fileId)
 		{
 			Resume file = jobMediator.DownloadResume((int)fileId);
-			return File(file.Data, file.ContentType, file.FileName);			
+			return File(file.Data, file.ContentType, file.FileName);
 		}
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
@@ -273,15 +279,15 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplayWorkExperience()
 		{
-			IEnumerable<WorkExperiences> expereience = jobMediator.FetchWorkExperience((int)Session["AccountId"]);			
-			if (expereience.Count() ==0)
+			IEnumerable<WorkExperiences> expereience = jobMediator.FetchWorkExperience((int)Session["AccountId"]);
+			if (expereience.Count() == 0)
 				return RedirectToAction("WorkExperienceDetails", "Job");
 			ViewData["Experience"] = expereience;
 			return View();
 		}
 		/*Update work experience*/
 		[Authorize(Roles = "Searcher")]
-		[HttpGet]		
+		[HttpGet]
 		public ActionResult EditWorkExperience(int id) //Get-Editing work experience details
 		{
 			WorkExperiences experiences = jobMediator.FetchSingleWorkExperience(id);
@@ -301,7 +307,7 @@ namespace OnlineJobPortal.Controllers
 			return View();
 		}
 		[Authorize(Roles = "Searcher")]
-		public ActionResult DeleteExperience(int id)
+		public ActionResult DeleteExperience(int id)//Deleting experience 
 		{
 			jobMediator.RemoveExperience(id);
 			return RedirectToAction("DisplayWorkExperience");

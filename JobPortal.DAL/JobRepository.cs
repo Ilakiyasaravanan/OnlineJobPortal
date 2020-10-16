@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JobPortal.Common;
 using JobPortal.Entity;
 namespace JobPortal.DAL
 {
+	[ExceptionHandler]
 	public class JobRepository : IJobRepository
 	{
 		/*Recruiter*/
@@ -340,38 +339,26 @@ namespace JobPortal.DAL
 		{
 			using (DBUtills dBUtills = new DBUtills())
 			{
-
 				dBUtills.Entry(locations).State = EntityState.Modified;
 				dBUtills.SaveChanges();
 
 			}
-		}		
+		}
+		public IEnumerable<RecruiterProfile> FetchProfile()//Fetch profiles
+		{
+			IEnumerable<RecruiterProfile> profile = null;
+			using (DBUtills dB = new DBUtills())
+			{
+
+				profile = dB.ProfileDb.Include("Recruiter").ToList();
+				// return dB.ProfileDb.SqlQuery("sp_Profile").ToList();
+				// return dB.ProfileDb.SqlQuery("sp_ProfileDetails").ToList();
+
+				return profile;
+
+			}
+		}
 		
 	}
 }
-//public IEnumerable<RecruiterProfile> FetchProfile()//Fetch profiles
-//{
-//	IEnumerable<RecruiterProfile> profile = null;
-//	using (DBUtills dB = new DBUtills())
-//	{
 
-//		profile = dB.ProfileDb.Include("searcher").ToList();
-//		// return dB.ProfileDb.SqlQuery("sp_Profile").ToList();
-//		// return dB.ProfileDb.SqlQuery("sp_ProfileDetails").ToList();
-
-//		return profile;
-
-//	}
-//}
-//public RecruiterProfile FetchIndividualProfile(int log)//Fetch profiles
-//{
-//	using (DBUtills dB = new DBUtills())
-//	{
-//		RecruiterProfile profile = null;
-
-//		profile = dB.ProfileDb.FirstOrDefault(id => id.AccountId == log);
-
-
-//		return profile;
-//	}
-//}

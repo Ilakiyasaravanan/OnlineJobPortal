@@ -13,7 +13,7 @@ namespace OnlineJobPortal.Controllers
 	[ExceptionHandler]
 	public class AccountController : Controller
 	{
-		IAccountMediator accountMediator;
+		readonly IAccountMediator accountMediator;
 
 		/*Parameterless constructor*/
 		public AccountController()
@@ -24,8 +24,7 @@ namespace OnlineJobPortal.Controllers
 		/* Sign up Page*/
 		[HttpGet]		
 		public ActionResult SignUp() //Get-Register new account
-		{
-			
+		{			
 			return View();
 		}		
 		[ValidateAntiForgeryToken]
@@ -43,9 +42,7 @@ namespace OnlineJobPortal.Controllers
 					return View();
 				}
 				else
-				{
-					//string dob= sign.dateOfBirth.ToShortDateString();
-					//sign.dateOfBirth = Convert.ToDateTime(dob);
+				{				
 					int status = accountMediator.AddAccountDetails(sign);					
 					if (status == sign.AccountId)
 					{
@@ -61,8 +58,7 @@ namespace OnlineJobPortal.Controllers
 							return RedirectToAction("Searcher", "Job");
 					}
 					else
-						return RedirectToAction("LogIn");
-					
+						return RedirectToAction("LogIn");				
 
 				}
 		}
@@ -150,8 +146,7 @@ namespace OnlineJobPortal.Controllers
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public ActionResult Edit(AccountViewModel account)//Post-updating edited values
-	{
-		
+	{	
 
 			var accountDetails = AutoMapper.Mapper.Map<AccountViewModel, AccountDetails>(account);
 			int result = accountMediator.Update(accountDetails);

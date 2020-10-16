@@ -4,13 +4,14 @@ using System.Linq;
 using JobPortal.Entity;
 using JobPortal.Common;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 
+
 namespace JobPortal.DAL
 {
+	[ExceptionHandler]
 	public class AccountRepository : IAccountRepository
 	{
 		public AccountRepository() //Constructor
@@ -66,12 +67,13 @@ namespace JobPortal.DAL
 		}
 		public bool AccountExists(string account)//Account id exists or not
 		{
-			bool isexists = false;
+			bool isexists = false;		
 
 			using (DBUtills db = new DBUtills())
 			{
+				string encryptUser = Encrypt(account);
 
-				isexists = db.AccountDb.Any(x => x.Email == account);
+				isexists = db.AccountDb.Any(x => x.Email == encryptUser);
 
 			}
 			return isexists;
@@ -126,12 +128,14 @@ namespace JobPortal.DAL
 		public int Add(AccountDetails job)  //Insert DB Details
 		{
 			string encryptPassword = Encrypt(job.Password);
-			using (DBUtills db = new DBUtills())
-			{
-				job.Password = encryptPassword;				
-				db.AccountDb.Add(job);
-				db.SaveChanges();
-				return job.AccountId;
+			
+				using (DBUtills db = new DBUtills())
+				{
+					job.Password = encryptPassword;
+					db.AccountDb.Add(job);
+					db.SaveChanges();
+					return job.AccountId;
+				}
 
 				//SqlParameter firstName = new SqlParameter("@FirstName", job.FirstName);//sample for stored procedures
 				//SqlParameter lastName = new SqlParameter("@LastName", job.LastName);
@@ -153,7 +157,7 @@ namespace JobPortal.DAL
 				//}
 				//db.AccountDb.Add(job);
 				//db.SaveChanges();
-			}
+			
 		}
 		public int Update(AccountDetails job)  //Update details
 		{
@@ -174,82 +178,21 @@ namespace JobPortal.DAL
 			{
 				string encryptPassword= Encrypt(log.Password);				
 				var getValues = db.AccountDb.SingleOrDefault(p => p.Email == log.Email && p.Password == encryptPassword);
-				string decryptPassword = Decrypt(getValues.Password);			
-				if (log.Password == decryptPassword&&log.Email==getValues.Email)
+				if (getValues != null)
 				{
-					account.Role = getValues.Role;
-					account.AccountId = getValues.AccountId;
-					account.Email = getValues.Email;
-					return account;
+					string decryptPassword = Decrypt(getValues.Password);
+					if (log.Password == decryptPassword && log.Email == getValues.Email)
+					{
+						account.Role = getValues.Role;
+						account.AccountId = getValues.AccountId;
+						account.Email = getValues.Email;
+						return account;
 
-				}
+					}
+				}			
 
 			}
 			return account = null;
 		}
 	} }
-		//public IEnumerable<Country> GetCountry() //Get country details
-		//{
-		//	IEnumerable<Country> country = null;
-		//	using (DBUtills dB = new DBUtills())
-		//	{
-		//		country = dB.CountryDb.ToList();
-
-		//	}
-		//	return country;
-		//}
-		//public void AddCountry(Country country)//Add Country
-		//{
-		//	using (DBUtills db = new DBUtills())
-		//	{
-		//		using (var transaction = db.Database.BeginTransaction())
-		//		{
-					
-		//				SqlParameter countryName = new SqlParameter("@CountryName", country.CountryName);
-		//				db.Database.ExecuteSqlCommand("[Country_Insert] @CountryName", countryName);
-		//				transaction.Commit();
-					
-		//		}
-
-		//	}
-		//}
-		//public void RemoveCountry(int idValue)  //Delete country
-		//{
-		//	using (DBUtills dBUtills = new DBUtills())
-		//	{
-				
-		//			Locations loc = dBUtills.LocationDb.Find(idValue);
-		//			dBUtills.LocationDb.Remove(loc);
-				
-		//	}
-
-		//}
-		//public Locations EditCountry(int idValue)  //Edit country
-		//{
-		//	Locations loc = null;
-		//	using (DBUtills dBUtills = new DBUtills())
-		//	{
-				
-		//			loc = dBUtills.LocationDb.Find(idValue);
-				
 		
-		//	}
-		//	return loc;
-		//}
-
-
-		//public void UpdateCountry(Country country)  //Update country details
-		//{
-		//	using (DBUtills dBUtills = new DBUtills())
-		//	{
-				
-		//			dBUtills.Entry(country).State = EntityState.Modified;
-		//			dBUtills.SaveChanges();
-				
-				
-		//	}
-		//}
-
-	
-
-

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JobPortal.Entity;
 namespace JobPortal.DAL
 {
@@ -15,11 +11,7 @@ namespace JobPortal.DAL
 		int Add(AccountDetails job);
 		int Update(AccountDetails job);
 		AccountDetails Check(AccountDetails log);
-		//IEnumerable<Country> GetCountry();
-		//void AddCountry(Country country);
-		//void RemoveCountry(int idValue);
-		//Locations EditCountry(int idValue); 
-		//void UpdateCountry(Country country);
+		
 		bool AccountExists(string account);
 
 	}

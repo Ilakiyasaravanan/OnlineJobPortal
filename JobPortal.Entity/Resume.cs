@@ -11,7 +11,7 @@ namespace JobPortal.Entity
 	{
 		[Key]
 		public int ResumeId { get; set; }
-		public AccountDetails Searcher { get; set; }
+		public AccountDetails Account { get; set; }
 		public int AccountId { get; set; }
 		public string FileName { get; set; }
 		public string ContentType { get; set; }

@@ -31,8 +31,9 @@ namespace JobPortal.Entity
 		public Location Location{ get; set; }
 
 		public int CgpaId { get; set; }
+
 		[Column("CGPA")]
-		public Cgpas Cgpa { get; set; }
+		public Cgpas CGPA { get; set; }
 
 
 	}

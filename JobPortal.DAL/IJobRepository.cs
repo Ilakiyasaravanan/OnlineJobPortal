@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JobPortal.Entity;
 namespace JobPortal.DAL
 {
@@ -45,5 +41,6 @@ namespace JobPortal.DAL
 		bool UpdateExperience(WorkExperiences experience);
 		WorkExperiences FetchSingleWorkExperience(int log);
 		void RemoveExperience(int idValue);
+		IEnumerable<RecruiterProfile> FetchProfile();
 	}
 }

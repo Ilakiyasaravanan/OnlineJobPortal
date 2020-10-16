@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobPortal.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace OnlineJobPortal.Models
 {
 	public class ResumeViewModel
 	{	
-		public int ResumeId { get; set; }
+		public int ResumeId { get; set; }		
 
 		[Display(Name = "Resume Name")]
 		public string FileName { get; set; }

@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace JobPortal.Common
 {
-    //public enum Country
-    //{
-    //    India,
-    //    Australia,
-    //    Pakisthan,
-    //    Nepal
-    //}
+    
     public enum Domain
     {
         IT,

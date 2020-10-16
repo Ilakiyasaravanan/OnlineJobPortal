@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JobPortal.Entity;
 namespace JobPortal.BL
 {
@@ -17,9 +13,7 @@ namespace JobPortal.BL
 		int Update(AccountDetails account);
 
 		AccountDetails ParticularDetails(int id);
-		//IEnumerable<Country> GetCountry();
-
-		//void AddCountry(Country country);
+		
 		bool CheckAccount(string acc);
 	
 

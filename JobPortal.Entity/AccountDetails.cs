@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-//using DocumentFormat.OpenXml.Spreadsheet;
-using JobPortal.Common;
+
 namespace JobPortal.Entity
 {
 	public class AccountDetails
@@ -24,8 +23,9 @@ namespace JobPortal.Entity
 		public string Gender { get; set; }
 		[Required]
 		public long PhoneNumber { get; set; }
+
 		[Required]
-		[MaxLength(30)]
+		[MaxLength(64)]
 		public string Password { get; set; }
 		[Required]
 		[MaxLength(10)]
@@ -37,7 +37,8 @@ namespace JobPortal.Entity
 
 		[Column("DateofBirth")]
 		[Required(ErrorMessage = "DoB is required")]	   
-		public DateTime? dateOfBirth { get; set; }
+
+		public DateTime? DateOfBirth { get; set; }
 	}
 	//[Required]
 	//public int CountryId { get; set; }

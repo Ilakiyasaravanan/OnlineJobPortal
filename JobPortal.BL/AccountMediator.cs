@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using JobPortal.Entity;
 using JobPortal.DAL;
-using System;
-
 namespace JobPortal.BL
 {
 	public class AccountMediator:IAccountMediator
 	{
-		IAccountRepository accountRepository;
+		readonly IAccountRepository accountRepository;
 		public AccountMediator() //Parameterless contructor
 		{
 			accountRepository = new AccountRepository();
@@ -54,14 +52,6 @@ namespace JobPortal.BL
 		{
 			return accountRepository.GetParticularDetails(id);
 		}
-		//public IEnumerable<Country> GetCountry()//Get country
-		//{
-		//	return accountRepository.GetCountry();
-		//}
-		//public void AddCountry(Country country)//Adding new countries
-		//{
-		//	accountRepository.AddCountry(country);
-		//}
 		
 	}
 }

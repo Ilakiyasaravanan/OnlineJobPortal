@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JobPortal.DAL;
 using JobPortal.Entity;
 namespace JobPortal.BL
@@ -103,7 +99,7 @@ namespace JobPortal.BL
 		{
 			jobRepository.AddProfile(profile);
 		}
-		public RecruiterProfile CheckProfile(int id)
+		public RecruiterProfile CheckProfile(int id)//Fetch profile
 		{
 			return jobRepository.FetchProfile(id);
 		}
@@ -111,7 +107,7 @@ namespace JobPortal.BL
 		{
 		     return jobRepository.UpdateProfile(recruiter);
 		}
-		public void RemoveVacancy(int id)
+		public void RemoveVacancy(int id)//Remove vacancy of recruiter
 		{
 		 jobRepository.RemoveVacancy(id);
 		}
@@ -129,39 +125,43 @@ namespace JobPortal.BL
 			return jobRepository.FetchIndividualSkill(id);
 		}
 		
-		public IEnumerable<RecruiterJobDetails> FetchRecruiterJobVacancy(int recruiterId)
+		public IEnumerable<RecruiterJobDetails> FetchRecruiterJobVacancy(int recruiterId)//Fetch recruiter applied vacancy
 		{
 			return jobRepository.FetchRecruiterDetails(recruiterId);
 
 		}
-		public IEnumerable<SearcherJobDetails> FetchCandidateDetails(int recruiterId)
+		public IEnumerable<SearcherJobDetails> FetchCandidateDetails(int recruiterId)//Fetch candidate applied vacancy
 		{
 			return jobRepository.FetchCandidate(recruiterId);
 
 		}
-        public bool AttachResume(Resume resume)
+        public bool AttachResume(Resume resume)//Add resume
 		{
 			return jobRepository.AttachResume(resume);
 		}
-		public Resume DownloadResume(int fileId)
+		public Resume DownloadResume(int fileId)//Download file
 		{
 			return jobRepository.DownloadResume(fileId);
 		}
-		public IEnumerable<WorkExperiences> FetchWorkExperience(int id)
+		public IEnumerable<WorkExperiences> FetchWorkExperience(int id)//Fetch whole work experience of searcher
 		{
 			return jobRepository.FetchWorkExperience(id);
 		}
-		public bool UpdateExperience(WorkExperiences experience)
+		public bool UpdateExperience(WorkExperiences experience)//Update work experience of searcher
 		{
 			return jobRepository.UpdateExperience(experience);
 		}
-		public WorkExperiences FetchSingleWorkExperience(int log)
+		public WorkExperiences FetchSingleWorkExperience(int log)//Fetch individual work experience of searcher
 		{
 			return jobRepository.FetchSingleWorkExperience(log);
 		}
-		public void RemoveExperience(int idValue)
+		public void RemoveExperience(int idValue)//Remove experience of searcher
 		{
 			 jobRepository.RemoveExperience(idValue);
+		}
+		public IEnumerable<RecruiterProfile> FetchProfile()//Fetch whole profile of recruiter
+		{
+			return jobRepository.FetchProfile();
 		}
 	}
 }

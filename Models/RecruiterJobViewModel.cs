@@ -9,6 +9,7 @@ namespace OnlineJobPortal.Models
 {
 	public class RecruiterJobViewModel
 	{
+		public int RecruiterId { get; set; }
 		[Required(ErrorMessage = "Company Name is required")]
 		[Display(Name = "Company Name")]
 		public string CompanyName { get; set; }		
