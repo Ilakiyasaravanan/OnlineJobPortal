@@ -36,6 +36,8 @@ namespace JobPortal.DAL
 		IEnumerable<SearcherJobDetails> FetchCandidate(int id);
 		bool AttachResume(Resume resume);
 		Resume DownloadResume(int fileId);
+		IEnumerable<Resume> FetchFiles(int id);
+		void RemoveFile(int idValue);
 		void RemoveVacancy(int idValue);
 		IEnumerable<WorkExperiences> FetchWorkExperience(int id);
 		bool UpdateExperience(WorkExperiences experience);

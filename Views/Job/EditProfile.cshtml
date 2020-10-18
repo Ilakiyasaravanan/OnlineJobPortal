@@ -5,7 +5,7 @@
 
 }
 
-<h2 class="heading">Display Profile</h2>
+
 
 
 @using (Html.BeginForm("EditProfile", "Job", FormMethod.Post))
@@ -13,6 +13,8 @@
     @Html.HiddenFor(model => model.AccountId)
     @Html.HiddenFor(model => model.ProfileId)
     @Html.AntiForgeryToken()
+<div class="CenterContent">
+    <h2 class="heading">Edit Profile</h2>
     <table>
         <tr>
             <td>
@@ -60,5 +62,6 @@
 
         </tr>
     </table>
-}
+    </div>
+    }
 

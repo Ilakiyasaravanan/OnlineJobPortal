@@ -2,9 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-
 }
-
 
 
 @using (Html.BeginForm("Edit", "Account", FormMethod.Post))
@@ -24,6 +22,7 @@
                 </td>
                 <td>
                     @Html.EditorFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
             <tr>
@@ -33,6 +32,7 @@
                 </td>
                 <td>
                     @Html.EditorFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
             <tr>
@@ -42,6 +42,7 @@
                 </td>
                 <td>
                     @Html.EditorFor(model => model.Address)
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
             <tr>
@@ -52,6 +53,7 @@
                 </td>
                 <td>
                     @Html.EditorFor(model => model.PhoneNumber)
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
 
@@ -64,7 +66,7 @@
                     Male
                     @Html.RadioButtonFor(model => model.Gender, "Female")
                     Female
-                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    @Html.RadioButtonFor(model => model.Gender, "Other")
                     Other
                     &nbsp; &nbsp; &nbsp;
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })

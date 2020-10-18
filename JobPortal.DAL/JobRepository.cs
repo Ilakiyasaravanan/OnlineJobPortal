@@ -33,7 +33,7 @@ namespace JobPortal.DAL
 			IEnumerable<RecruiterJobDetails> recruit = null;
 			using (DBUtills dB = new DBUtills())
 			{
-				recruit = dB.RecruiterDb.Include("Jobtype").Include("account").ToList();
+				recruit = dB.RecruiterDb.Include("Jobtype").ToList()/*.Include("Account")*/;
 				return recruit;
 			}
 		}
@@ -49,8 +49,9 @@ namespace JobPortal.DAL
 		{
 			RecruiterProfile profile = null;
 			using (DBUtills db = new DBUtills())
-			{
-				profile = db.ProfileDb.Find(log);
+			{		
+
+				profile = db.ProfileDb.FirstOrDefault(id=>id.AccountId==log);
 				return profile;
 			}
 		}
@@ -85,7 +86,7 @@ namespace JobPortal.DAL
 
 			using (DBUtills dB = new DBUtills())
 			{
-				searchers = dB.SearcherDb.Include("Jobtype").Include("account").ToList();
+				searchers = dB.SearcherDb.Include("Jobtype").ToList()/*Include("Account").*/;
 				return searchers;
 			}
 		}
@@ -94,7 +95,7 @@ namespace JobPortal.DAL
 			using (DBUtills dB = new DBUtills())
 			{
 				SearcherSkillSets skill = null;
-				skill = dB.SkillDb.FirstOrDefault(id => id.AccountId == log);
+				skill = dB.SkillDb.Include("Jobtype").FirstOrDefault(id => id.AccountId == log);
 				return skill;
 			}
 		}
@@ -194,7 +195,7 @@ namespace JobPortal.DAL
 			return status;
 		}
 
-		public Resume DownloadResume(int fileId)
+		public Resume DownloadResume(int fileId)//Download file
 		{
 			Resume resume = null;
 			using (DBUtills db = new DBUtills())
@@ -203,6 +204,28 @@ namespace JobPortal.DAL
 				resume = db.ResumeDb.ToList().Find(p => p.ResumeId == fileId);
 				return resume;
 			}
+		}
+		public IEnumerable<Resume> FetchFiles(int id)//Fetch File
+		{
+			IEnumerable<Resume> resume = null;
+			using (DBUtills db = new DBUtills())
+			{
+
+				resume = db.ResumeDb.ToList().Where(p => p.AccountId == id);
+				return resume;
+			}
+		}
+		public void RemoveFile(int idValue)  //Delete files
+		{
+			using (DBUtills dBUtills = new DBUtills())
+			{
+
+				Resume resume = dBUtills.ResumeDb.Find(idValue);
+				dBUtills.ResumeDb.Remove(resume);
+				dBUtills.SaveChanges();
+
+			}
+
 		}
 		/*Admin controls*/
 		public IEnumerable<JobTypes> GetJobTypes() //Fetch JobTypes

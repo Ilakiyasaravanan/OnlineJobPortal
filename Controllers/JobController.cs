@@ -230,34 +230,53 @@ namespace OnlineJobPortal.Controllers
 			return View(account);
 
 		}
-		/*Resume of searcher*/
+		/*Uploading resume of searcher*/
 		[HttpGet]
-		public ActionResult UploadResume()
+		public ActionResult UploadResume()//Get-Template for adding resume to searcher
 		{
-			return View();
+			Object temp = Session["AccountId"];
+			int id = Convert.ToInt32(temp);
+			IEnumerable<Resume> resumes = jobMediator.FetchFiles(id);
+			return View(resumes);
 		}
 		[HttpPost]
-		public ActionResult UploadResume(HttpPostedFileBase resumeViewModel)
+		public ActionResult UploadResume(HttpPostedFileBase postedFile)//Post-Processing searcher resume
 		{
-			byte[] bytes;
-			using (BinaryReader br = new BinaryReader(resumeViewModel.InputStream))
+	
+			if (postedFile == null)
 			{
-				bytes = br.ReadBytes(resumeViewModel.ContentLength);
-				Resume resume = new Resume();
-				resume.ContentType = resumeViewModel.ContentType;
-				resume.AccountId = Convert.ToInt32(Session["AccountId"]);
-				resume.FileName = Path.GetFileName(resumeViewModel.FileName);
-				resume.Data = bytes;
-				jobMediator.AttachResume(resume);
+				ViewBag.Message = "File not uploaded";
+				return View();
 			}
+			else
+			{
+				byte[] bytes;
+				using (BinaryReader br = new BinaryReader(postedFile.InputStream))
+				{
+					bytes = br.ReadBytes(postedFile.ContentLength);
 
-			return View();
+					Resume resume = new Resume();
+					resume.ContentType = postedFile.ContentType;
+					resume.AccountId = Convert.ToInt32(Session["AccountId"]);
+					resume.FileName = Path.GetFileName(postedFile.FileName);
+					resume.Data = bytes;
+					jobMediator.AttachResume(resume);
+				}
+				ViewBag.Message = "File uploaded successfully";
+				return View();
+			}
 		}
 		[HttpPost]
-		public FileResult DownloadFile(int? fileId)
+		public FileResult DownloadFile(int? FileId)//Post-processing download resume
 		{
-			Resume file = jobMediator.DownloadResume((int)fileId);
+			Resume file = jobMediator.DownloadResume((int)FileId);
 			return File(file.Data, file.ContentType, file.FileName);
+		}
+		[Authorize(Roles = "Searcher")]
+		public ActionResult Delete(int id)//Deleting resume file of searcher
+		{
+			jobMediator.RemoveFile(id);
+			return RedirectToAction("UploadResume");
 		}
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]

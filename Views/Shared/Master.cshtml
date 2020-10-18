@@ -43,6 +43,7 @@
             @Html.ActionLink("Manage Vacancy", "RecruiterVacancyDetails", "Job")
             @Html.ActionLink("Manage Applications", "SearcherJobDetails", "Job")
             @Html.ActionLink("Manage Cgpa", "Cgpa", "Job")
+            @Html.ActionLink("Home", "AdminDisplay", "Account")
 
         }
         @if (HttpContext.Current.User.IsInRole("Searcher"))
@@ -53,6 +54,7 @@
             @Html.ActionLink("Attach Resume", "UploadResume", "Job")
             @Html.ActionLink("Your Profile", "DisplayDetail", "Account")
             @Html.ActionLink("Work Experience", "DisplayWorkExperience", "Job")
+            @Html.ActionLink("Home", "Searcher", "Job")
 
         }
         @if (HttpContext.Current.User.IsInRole("Recruiter"))
@@ -61,8 +63,9 @@
             @Html.ActionLink("New vacancy", "RecruiterJobDetails", "Job")
             @Html.ActionLink("Posted vacancy", "DisplayJobVacancy", "Job")
             @Html.ActionLink("Edit Profile", "DisplayDetail", "Account")
+            @Html.ActionLink("Home", "Recruiter", "Job")
         }
-        @Html.ActionLink("Home", "Home", "Common")
+
     </div>
     @RenderBody()
 

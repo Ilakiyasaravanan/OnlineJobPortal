@@ -14,7 +14,6 @@ namespace OnlineJobPortal.Models
 		[Display(Name = "First Name")]
 		
 		public string FirstName { get; set; }
-
 	
 		[StringLength(20)]
 		[RegularExpression("[a-zA-Z]*", ErrorMessage = "Invalid Name")]

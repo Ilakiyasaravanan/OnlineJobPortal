@@ -17,6 +17,9 @@
                 Graduation
             </th>
             <th>
+                Job Type
+            </th>
+            <th>
                 Location
             </th>
             <th>
@@ -40,6 +43,9 @@
                     @item.Graduation
                 </td>
                 <td>
+                    @item.Jobtype
+                </td>
+                <td>
                     @item.Location
                 </td>
                 <td>
@@ -50,7 +56,7 @@
                     @item.WorkExperience
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "DeleteVacancy", new { id = item.AccountId }, new { Onclick = "return confirm('Do u want to delete')" })
+                    @Html.ActionLink("Delete", "DeleteVacancy", new { id = item.RecuiterDetailId }, new { Onclick = "return confirm('Do u want to delete')" })
                 </td>
 
             </tr>

@@ -24,7 +24,7 @@ namespace JobPortal.DAL
 			using (DBUtills dBUtills = new DBUtills())
 			{
 				IEnumerable<AccountDetails> account = null;
-				account = dBUtills.AccountDb.Where(s => s.Email != "ilakya@gmail.com");/*.Include("Country").ToList();*/
+				account = dBUtills.AccountDb.Where(s => s.Role != "Admin").ToList();
 
 				return account;
 			}

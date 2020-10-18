@@ -40,6 +40,8 @@ namespace JobPortal.BL
 
 		bool AttachResume(Resume resume);
 		Resume DownloadResume(int fileId);
+		IEnumerable<Resume> FetchFiles(int id);
+		void RemoveFile(int idValue);
 		IEnumerable<WorkExperiences> FetchWorkExperience(int id);
 		bool UpdateExperience(WorkExperiences experience);
 		WorkExperiences FetchSingleWorkExperience(int log);

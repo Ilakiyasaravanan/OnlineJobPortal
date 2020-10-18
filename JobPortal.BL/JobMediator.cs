@@ -143,6 +143,14 @@ namespace JobPortal.BL
 		{
 			return jobRepository.DownloadResume(fileId);
 		}
+		public IEnumerable<Resume> FetchFiles(int id)
+		{
+			return jobRepository.FetchFiles(id);
+		}
+		public void RemoveFile(int idValue)
+		{
+			jobRepository.RemoveFile(idValue);
+		}
 		public IEnumerable<WorkExperiences> FetchWorkExperience(int id)//Fetch whole work experience of searcher
 		{
 			return jobRepository.FetchWorkExperience(id);
