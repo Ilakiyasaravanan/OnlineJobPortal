@@ -91,10 +91,19 @@ namespace JobPortal.BL
 			jobRepository.AddSkills(work);
 		}
 		
-		public bool CheckSkillDetail(int id)//Check if skill already exists
+		public bool EditSkills(SearcherSkillSets id)//Update edited skills
 		{
-			return jobRepository.CheckSkillExists(id);
+			return jobRepository.UpdateSkills(id);
 		}
+		public SearcherSkillSets FetchSkill(int id)//Fetch skill using skillid
+		{
+			return jobRepository.FetchSkill(id);
+		}
+		public SearcherSkillSets FetchIndividualSkill(int id)//Get profile details of particular one using accountid
+		{
+			return jobRepository.FetchIndividualSkill(id);
+		}
+
 		public void AddProfile(RecruiterProfile profile)//Adding Recruiter profile
 		{
 			jobRepository.AddProfile(profile);
@@ -120,10 +129,6 @@ namespace JobPortal.BL
 			return jobRepository.FetchSearcherApplications();
 		}
 		
-		public SearcherSkillSets FetchIndividualSkill(int id)//Get profile details of particular one
-		{
-			return jobRepository.FetchIndividualSkill(id);
-		}
 		
 		public IEnumerable<RecruiterJobDetails> FetchRecruiterJobVacancy(int recruiterId)//Fetch recruiter applied vacancy
 		{

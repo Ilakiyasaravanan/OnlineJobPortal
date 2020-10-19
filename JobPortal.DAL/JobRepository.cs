@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using JobPortal.Common;
 using JobPortal.Entity;
@@ -24,7 +25,7 @@ namespace JobPortal.DAL
 			IEnumerable<RecruiterJobDetails> account = null;
 			using (DBUtills db = new DBUtills())
 			{
-				account = db.RecruiterDb.Where(s => s.AccountId == recruiterId).ToList();
+				account = db.RecruiterDb.Include("Jobtype").Where(s => s.AccountId == recruiterId).ToList();
 				return account;
 			}
 		}
@@ -33,7 +34,7 @@ namespace JobPortal.DAL
 			IEnumerable<RecruiterJobDetails> recruit = null;
 			using (DBUtills dB = new DBUtills())
 			{
-				recruit = dB.RecruiterDb.Include("Jobtype").ToList()/*.Include("Account")*/;
+				recruit = dB.RecruiterDb.Include("Jobtype").Include("Account").ToList();
 				return recruit;
 			}
 		}
@@ -86,25 +87,17 @@ namespace JobPortal.DAL
 
 			using (DBUtills dB = new DBUtills())
 			{
-				searchers = dB.SearcherDb.Include("Jobtype").ToList()/*Include("Account").*/;
+				searchers = dB.SearcherDb.Include("Jobtype").Include("Account").ToList();
 				return searchers;
 			}
 		}
-		public SearcherSkillSets FetchIndividualSkill(int log)//Fetch skills
-		{
-			using (DBUtills dB = new DBUtills())
-			{
-				SearcherSkillSets skill = null;
-				skill = dB.SkillDb.Include("Jobtype").FirstOrDefault(id => id.AccountId == log);
-				return skill;
-			}
-		}
+	
 		public IEnumerable<SearcherJobDetails> FetchCandidate(int recruiterId) //Extract applied job of searcher
 		{
 			IEnumerable<SearcherJobDetails> account = null;
 			using (DBUtills db = new DBUtills())
 			{
-				account = db.SearcherDb.Where(s => s.AccountId == recruiterId).ToList();
+				account = db.SearcherDb.Include("Jobtype").Where(s => s.AccountId == recruiterId).ToList();
 				return account;
 			}
 		}
@@ -117,23 +110,60 @@ namespace JobPortal.DAL
 				db.SaveChanges();
 			}
 		}
-		public bool CheckSkillExists(int log)//Check Skill Exists
+		public SearcherSkillSets FetchSkill(int log)//Check Skill Exists
 		{
 			using (DBUtills db = new DBUtills())
 			{
-				bool output = false;
-				output = db.SkillDb.Any(id => id.AccountId == log);
+				SearcherSkillSets output = null;
+				output = db.SkillDb.Find(log);
 				return output;
+			}
+		}
+		public SearcherSkillSets FetchIndividualSkill(int log)//Fetch skills
+		{
+			SearcherSkillSets skill = null;
+			using (DBUtills dB = new DBUtills())
+			{
+
+				skill = dB.SkillDb.FirstOrDefault(id => id.AccountId == log);
+				return skill;
 			}
 		}
 		public void AddSkills(SearcherSkillSets skill)//Add skills
 		{
 			using (DBUtills db = new DBUtills())
 			{
-				db.SkillDb.Add(skill);
-				db.SaveChanges();
+				try
+				{
+					db.SkillDb.Add(skill);
+					db.SaveChanges();
+				}
+				catch (DbEntityValidationException dbEx)
+				{
+					foreach (var validationErrors in dbEx.EntityValidationErrors)
+					{
+						foreach (var validationError in validationErrors.ValidationErrors)
+						{
+							System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+						}
+					}
+				}
+
 			}
 		}
+		public bool UpdateSkills(SearcherSkillSets skillSets)  //Update skills
+		{
+			bool status = false;
+			using (DBUtills dBUtills = new DBUtills())
+			{
+				dBUtills.Entry(skillSets).State = EntityState.Modified;
+				dBUtills.SaveChanges();
+				status = true;
+
+			}
+			return status;
+		}
+	
 		public void AddExperience(WorkExperiences work)//Add work experience
 		{
 			using (DBUtills dB = new DBUtills())

@@ -37,7 +37,9 @@
                     @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "Label" })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } }) 
+
                     @Html.ValidationMessageFor(model => model.Password, "", new { @style = "Color:red" })
                 </td>
             </tr>

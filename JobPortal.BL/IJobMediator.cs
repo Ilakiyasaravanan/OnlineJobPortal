@@ -31,7 +31,8 @@ namespace JobPortal.BL
 		void RemoveVacancy(int id);
 		bool UpdateProfile(RecruiterProfile recruiter);
 
-		bool CheckSkillDetail(int id);
+		bool EditSkills(SearcherSkillSets id);
+		SearcherSkillSets FetchSkill(int id);
 
 		SearcherSkillSets FetchIndividualSkill(int log);
 

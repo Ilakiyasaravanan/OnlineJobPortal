@@ -131,8 +131,8 @@ namespace OnlineJobPortal.Controllers
 			RecruiterProfile account = jobMediator.CheckProfile(temp);
 			if (account != null)
 				return View(account);
-			else 
-				
+			else
+
 				return RedirectToAction("ProfileDetails");
 		}
 
@@ -171,8 +171,8 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult CandidateJobDetails(SearcherJobViewModel searcher)//Post-Processing and storing the candidate specifications
 		{
-			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
+			//ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
+			//ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
 			if (ModelState.IsValid)
 			{
 
@@ -199,8 +199,8 @@ namespace OnlineJobPortal.Controllers
 		{
 			Object temp = Session["AccountId"];
 			int id = Convert.ToInt32(temp);
-			bool result = jobMediator.CheckSkillDetail(id);
-			if (result == true)
+			SearcherSkillSets result = jobMediator.FetchIndividualSkill(id);
+			if (result !=null)
 			{
 				return RedirectToAction("DisplaySkills");
 			}
@@ -222,6 +222,7 @@ namespace OnlineJobPortal.Controllers
 		}
 
 		/*Display Skills of entered searcher*/
+		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplaySkills()
 		{
 			int temp = Convert.ToInt32(Session["AccountId"].ToString());
@@ -230,8 +231,28 @@ namespace OnlineJobPortal.Controllers
 			return View(account);
 
 		}
+		[HttpGet]
+		[Authorize(Roles = "Searcher")]
+		public ActionResult EditSkill(int id) //Get-edit Skills
+		{
+			SearcherSkillSets skills = jobMediator.FetchSkill(id);
+			var map = AutoMapper.Mapper.Map<SearcherSkillSets, SearcherSkillsViewModel>(skills);
+			return View(map);
+		}
+		[HttpPost]
+		public ActionResult EditSkill(SearcherSkillsViewModel skills) //Post-edit Skills
+		{
+			var map = AutoMapper.Mapper.Map<SearcherSkillsViewModel, SearcherSkillSets>(skills);
+			bool skill = jobMediator.EditSkills(map);
+			if (skill == true)
+
+				return RedirectToAction("DisplaySkills");
+
+			return RedirectToAction("SearcherSkillDetails");
+		}
 		/*Uploading resume of searcher*/
 		[HttpGet]
+		[Authorize(Roles = "Searcher")]
 		public ActionResult UploadResume()//Get-Template for adding resume to searcher
 		{
 			Object temp = Session["AccountId"];
@@ -242,7 +263,7 @@ namespace OnlineJobPortal.Controllers
 		[HttpPost]
 		public ActionResult UploadResume(HttpPostedFileBase postedFile)//Post-Processing searcher resume
 		{
-	
+
 			if (postedFile == null)
 			{
 				ViewBag.Message = "File not uploaded";
@@ -267,6 +288,7 @@ namespace OnlineJobPortal.Controllers
 			}
 		}
 		[HttpPost]
+		[Authorize(Roles = "Searcher")]
 		public FileResult DownloadFile(int? FileId)//Post-processing download resume
 		{
 			Resume file = jobMediator.DownloadResume((int)FileId);

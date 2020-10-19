@@ -29,8 +29,10 @@ namespace JobPortal.DAL
 		IEnumerable<RecruiterJobDetails> FetchRecruiterVacancies();
 		IEnumerable<SearcherJobDetails> FetchSearcherApplications();
 
-		bool CheckSkillExists(int log);
+		SearcherSkillSets FetchSkill(int log);
 		SearcherSkillSets FetchIndividualSkill(int log);
+		bool UpdateSkills(SearcherSkillSets skillSets);
+	
 		IEnumerable<RecruiterJobDetails> FetchRecruiterDetails(int recruiterId);
 		
 		IEnumerable<SearcherJobDetails> FetchCandidate(int id);

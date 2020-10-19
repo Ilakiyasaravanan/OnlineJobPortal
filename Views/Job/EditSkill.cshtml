@@ -1,25 +1,25 @@
 ﻿@model OnlineJobPortal.Models.SearcherSkillsViewModel
 
 @{
-    ViewBag.Title = "SearcherSkillDetails";
-
+    ViewBag.Title = "DisplayProfile";
 }
 
 
 
-@using (Html.BeginForm("SearcherSkillDetails", "Job", FormMethod.Post))
+@using (Html.BeginForm("EditSkill", "Job", FormMethod.Post))
 {
+    @Html.HiddenFor(model => model.AccountId)
+    @Html.HiddenFor(model => model.SkillId)
     @Html.AntiForgeryToken()
     <div class="CenterContent">
-
-        <h2 class="heading">Skill Sets</h2>
-        <table align="center">
+        <h2 class="heading">Edit Profile</h2>
+        <table>
             <tr>
                 <td>
                     @Html.LabelFor(model => model.Achievements)
                 </td>
                 <td>
-                    @Html.TextAreaFor(model => model.Achievements)
+                    @Html.EditorFor(model => model.Achievements)
                     @Html.ValidationMessageFor(model => model.Achievements, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -28,19 +28,16 @@
                     @Html.LabelFor(model => model.Certifications)
                 </td>
                 <td>
-                    @Html.TextAreaFor(model => model.Certifications)
-
+                    @Html.EditorFor(model => model.Certifications)
                     @Html.ValidationMessageFor(model => model.Certifications, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
-          
             <tr>
                 <td>
                     @Html.LabelFor(model => model.SoftwareSkills)
                 </td>
                 <td>
-                    @Html.TextAreaFor(model => model.SoftwareSkills)
-
+                    @Html.EditorFor(model => model.SoftwareSkills)
                     @Html.ValidationMessageFor(model => model.SoftwareSkills, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -50,18 +47,33 @@
                 </td>
                 <td>
                     @Html.TextAreaFor(model => model.Sports)
-
                     @Html.ValidationMessageFor(model => model.Sports, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
             <tr>
+
                 <td>
-                    <input type="submit" value="Submit Skills" class="button" />
+                    @Html.LabelFor(model => model.Language)
                 </td>
+                <td>
+                    @Html.EnumDropDownListFor(model => model.Language, "Select Language")
+                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "ErrorMessage" })
+                </td>
+
+            </tr>
+            
+
+            <tr>
+                <td>
+                    <input type="submit" value="Update" class="button" />
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel", "DisplaySkills", "Job", htmlAttributes: new { @class = "button" })
+                </td>
+
             </tr>
         </table>
     </div>
 }
-
 
 
