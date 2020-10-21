@@ -23,6 +23,7 @@ namespace OnlineJobPortal.Controllers
 		{
 			IEnumerable<RecruiterProfile> profiles = job.FetchProfile();
 			return View(profiles);
+			
 		}
 		
 		public ActionResult SearchResult()

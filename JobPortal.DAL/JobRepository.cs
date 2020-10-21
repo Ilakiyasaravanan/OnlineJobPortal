@@ -87,7 +87,7 @@ namespace JobPortal.DAL
 
 			using (DBUtills dB = new DBUtills())
 			{
-				searchers = dB.SearcherDb.Include("Jobtype").Include("Account").ToList();
+				searchers = dB.SearcherDb.Include("Jobtype").Include("Account").Include("cgpa").ToList();
 				return searchers;
 			}
 		}
@@ -97,7 +97,7 @@ namespace JobPortal.DAL
 			IEnumerable<SearcherJobDetails> account = null;
 			using (DBUtills db = new DBUtills())
 			{
-				account = db.SearcherDb.Include("Jobtype").Where(s => s.AccountId == recruiterId).ToList();
+				account = db.SearcherDb.Include("Jobtype").Include("cgpa").Where(s => s.AccountId == recruiterId).ToList();
 				return account;
 			}
 		}
@@ -411,7 +411,16 @@ namespace JobPortal.DAL
 
 			}
 		}
-		
+		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(SearcherJobDetails job)//Fetch matched recruiter applications
+		{
+			IEnumerable<RecruiterJobDetails> details = null;
+			using (DBUtills dB = new DBUtills())
+			{
+				details = dB.RecruiterDb.Where(a=>a.Jobtype==job.Jobtype).Where(b=>b.Graduation==job.graduation).ToList();				
+				return details;
+			}
+		}
+
 	}
 }
 

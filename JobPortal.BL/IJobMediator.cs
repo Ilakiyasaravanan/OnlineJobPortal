@@ -48,5 +48,6 @@ namespace JobPortal.BL
 		WorkExperiences FetchSingleWorkExperience(int log);
 		void RemoveExperience(int idValue);
 		IEnumerable<RecruiterProfile> FetchProfile();
+		IEnumerable<RecruiterJobDetails> FetchMatchedApplication(SearcherJobDetails job);
 	}
 }

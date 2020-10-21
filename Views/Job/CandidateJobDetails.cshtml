@@ -86,7 +86,7 @@
                     @Html.LabelFor(model => model.Cgpa, htmlAttributes: new { @class = "Label" })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Cgpa, new { htmlAttributes = new { @class = "colorTextbox" } })
+                    @Html.DropDownListFor(model => model.CgpaId, (IEnumerable<SelectListItem>)ViewBag.Cgpas, "Choose Cgpa", htmlAttributes: new { @class = "colorTextbox" })
                     @Html.ValidationMessageFor(model => model.Cgpa, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>

@@ -28,7 +28,11 @@ namespace OnlineJobPortal.Models
 		[Display(Name = "Domain")]
 		public string Domain { get; set; }
 		[Display(Name = "CGPA")]
-		public float Cgpa { get; set; }
+		public int CgpaId { get; set; }
+		public Cgpas Cgpa { get; set; }
+		[Display(Name = "Location")]
+		public string Cgpas { get; set; }
+
 		[Display(Name = "Your Department")]
 		public string Department { get; set; }
 

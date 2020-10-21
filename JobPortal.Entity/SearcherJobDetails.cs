@@ -27,7 +27,9 @@ namespace JobPortal.Entity
 		[MaxLength(5)]
 		public string Domain { get; set; }
 		[Column("CGPA")]
-		public float Cgpa { get; set; }
+		public int CgpaId { get; set; }
+		public Cgpas cgpa { get; set; }
+		
 		[MaxLength(20)]
 		public string Department { get; set; }
 

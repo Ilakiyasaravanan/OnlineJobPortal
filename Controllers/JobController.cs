@@ -161,9 +161,9 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Admin,Searcher")]
 		public ActionResult CandidateJobDetails()  //Get-Apply new vacancy
 		{
-
 			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
 			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
+			ViewBag.Cgpas = new SelectList(jobMediator.GetCgpas(), "CgpaId", "CGPA");
 			return View();
 		}
 
@@ -171,8 +171,9 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult CandidateJobDetails(SearcherJobViewModel searcher)//Post-Processing and storing the candidate specifications
 		{
-			//ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			//ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
+			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
+			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
+			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
 			if (ModelState.IsValid)
 			{
 
@@ -184,10 +185,7 @@ namespace OnlineJobPortal.Controllers
 				{
 					return RedirectToAction("WorkExperienceDetails");
 				}
-				else
-				{
-					return RedirectToAction("Help", "Common");
-				}
+				
 			}
 			return View();
 		}
@@ -304,6 +302,10 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public ActionResult WorkExperienceDetails()//Get-Template for adding experience of searcher
 		{
+
+			IEnumerable<WorkExperiences> expereience = jobMediator.FetchWorkExperience((int)Session["AccountId"]);
+			if (expereience.Count() == 0)
+				ViewBag.Message = "Your experience is zero, check once";
 			return View();
 		}
 		[HttpPost]

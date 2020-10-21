@@ -16,7 +16,7 @@ namespace JobPortal.DAL
 							.Update(sp => sp.HasName("sp_UpdateAccountDetails"))
 							.Delete(sp => sp.HasName("sp_DeleteAccountDetails"))
 					);
-			//modelBuilder.Entity<Country>().MapToStoredProcedures();
+			
 		}
 		public DBUtills() : base("DbConnection") { }
 		public DbSet<AccountDetails> AccountDb { get; set; }

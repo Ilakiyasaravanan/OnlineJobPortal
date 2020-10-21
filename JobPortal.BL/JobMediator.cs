@@ -176,5 +176,9 @@ namespace JobPortal.BL
 		{
 			return jobRepository.FetchProfile();
 		}
+		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(SearcherJobDetails job)
+		{
+			return jobRepository.FetchMatchedApplication(job);
+		}
 	}
 }
