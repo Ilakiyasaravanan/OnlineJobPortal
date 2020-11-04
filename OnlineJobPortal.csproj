@@ -280,6 +280,7 @@
     <Content Include="Views\Job\EditCgpa.cshtml" />
     <Content Include="Views\Job\AddCgpa.cshtml" />
     <Content Include="Views\Job\EditSkill.cshtml" />
+    <Content Include="Views\Job\MatchedVacancy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

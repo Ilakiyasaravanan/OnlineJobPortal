@@ -4,66 +4,65 @@
     ViewBag.Title = "Display";
 
 }
+<div class="CenterContent">
+    <h2 class="heading">Display Account Details</h2>
 
-<h2 class="heading">Display Account Details</h2>
 
-
-<table border="1" class="tableborder">
-    <tr>
-        <th>
-            FirstName
-        </th>
-        <th>
-            LastName
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            Phone Number
-        </th>
-        <th>
-            Gender
-        </th>
-        <th>
-            Role
-        </th>
-        <th>
-            Email
-        </th>
-     
-        <th colspan="2">Action</th>
-    </tr>
-    @foreach (JobPortal.Entity.AccountDetails item in (List<JobPortal.Entity.AccountDetails>)ViewData["AccountDetails"])
-    {
+    <table border="1" class="tableborder">
         <tr>
-            <td>
-                @item.FirstName
-            </td>
-            <td>
-                @item.LastName
-            </td>
-            <td>
-                @item.Address
-            </td>
-            <td>
-                @item.PhoneNumber
-            </td>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Email
+            </th>
 
-            <td>
-                @item.Gender
-            </td>
-            <td>
-                @item.Role
-            </td>
-            <td>
-                @item.Email
-            </td>
-            <td> @Html.ActionLink("Edit", "Edit", new { id = item.AccountId })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { id = item.AccountId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+            <th colspan="2">Action</th>
         </tr>
+        @foreach (JobPortal.Entity.AccountDetails item in (List<JobPortal.Entity.AccountDetails>)ViewData["AccountDetails"])
+        {
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    @item.PhoneNumber
+                </td>
 
-    }
-</table>
+                <td>
+                    @item.Gender
+                </td>
+                <td>
+                    @item.Role
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td> @Html.ActionLink("Edit", "Edit", new { id = item.AccountId })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { id = item.AccountId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+            </tr>
 
-
+        }
+    </table>
+</div>

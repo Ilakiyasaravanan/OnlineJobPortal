@@ -61,6 +61,15 @@
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="IJobRepository.cs" />
     <Compile Include="JobRepository.cs" />
+    <Compile Include="Migrations\202010211719517_InitialCreate.cs" />
+    <Compile Include="Migrations\202010211719517_InitialCreate.designer.cs">
+      <DependentUpon>202010211719517_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011031046210_columnchange.cs" />
+    <Compile Include="Migrations\202011031046210_columnchange.designer.cs">
+      <DependentUpon>202011031046210_columnchange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +116,14 @@
     <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202010211719517_InitialCreate.resx">
+      <DependentUpon>202010211719517_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011031046210_columnchange.resx">
+      <DependentUpon>202011031046210_columnchange.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

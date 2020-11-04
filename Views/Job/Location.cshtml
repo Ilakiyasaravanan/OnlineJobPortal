@@ -4,33 +4,32 @@
     ViewBag.Title = "Location";
 
 }
+<div class="CenterContent">
+    <h2 class="heading">Location</h2>
+    <table border="1" class="tableborder" align="center">
+        <tr>
+            <th>
+                Locations
+            </th>
+            <th colspan="2">Action</th>
+        </tr>
+        @foreach (JobPortal.Entity.Locations item in (List<JobPortal.Entity.Locations>)ViewData["LocationDisplay"])
+        {
 
-<h2 class="heading">Location</h2>
-
-
-<table border="1" class="tableborder">
-    <tr>
-        <th>
-            Locations
-        </th>
-        <th colspan="2">Action</th>
-    </tr>
-    @foreach (JobPortal.Entity.Locations item in (List<JobPortal.Entity.Locations>)ViewData["LocationDisplay"])
-    {
-
+            <tr>
+                <td>
+                    @item.Location
+                </td>
+                <td> @Html.ActionLink("Edit", "EditLocation", new { id = item.LocationId })</td>
+                <td>@Html.ActionLink("Delete", "DeleteLocation", new { id = item.LocationId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+            </tr>
+        }
         <tr>
             <td>
-                @item.Location
+                @Html.ActionLink("AddLocation", "AddLocation", "Job")
             </td>
-            <td> @Html.ActionLink("Edit", "EditLocation", new { id = item.LocationId })</td>
-            <td>@Html.ActionLink("Delete", "DeleteLocation", new { id = item.LocationId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+
         </tr>
-    }
-    <tr>
-        <td>
-            @Html.ActionLink("AddLocation", "AddLocation", "Job")
-        </td>
 
-    </tr>
-
-</table>
+    </table>
+</div>

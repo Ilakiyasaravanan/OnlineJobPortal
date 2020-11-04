@@ -47,9 +47,6 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult RecruiterJobDetails(RecruiterJobViewModel recruiterView)
 		{
-			//ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			//ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
-			//ViewBag.Cgpas = new SelectList(jobMediator.GetCgpas(), "CgpaId", "CGPA");
 			if (ModelState.IsValid)
 			{
 				var recruit = AutoMapper.Mapper.Map<RecruiterJobViewModel, RecruiterJobDetails>(recruiterView);
@@ -117,7 +114,6 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult EditProfile(RecruiterProfileViewModel account)//Post-updating edited values
 		{
-
 			var accountDetails = AutoMapper.Mapper.Map<RecruiterProfileViewModel, RecruiterProfile>(account);
 			bool result = jobMediator.UpdateProfile(accountDetails);
 			if (result == true)
@@ -170,16 +166,12 @@ namespace OnlineJobPortal.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult CandidateJobDetails(SearcherJobViewModel searcher)//Post-Processing and storing the candidate specifications
-		{
-			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
-			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
+		{			
+			var recruit = AutoMapper.Mapper.Map<SearcherJobViewModel, SearcherJobDetails>(searcher);
 			if (ModelState.IsValid)
 			{
-
-				var recruit = AutoMapper.Mapper.Map<SearcherJobViewModel, SearcherJobDetails>(searcher);
 				Object temp = Session["AccountId"];
-				recruit.AccountId = Convert.ToInt32(temp);
+				recruit.AccountId = Convert.ToInt32(temp);			
 				jobMediator.AddDetails(recruit);
 				if (searcher.WorkExperience > 0)
 				{
@@ -187,9 +179,39 @@ namespace OnlineJobPortal.Controllers
 				}
 				
 			}
+			ViewData["Recruit"] = recruit;
 			return View();
 		}
+		[HttpGet]
+		/*Display matched recruiter vacancies*/
+		[Authorize(Roles = "Searcher")]
+		public ActionResult MatchedVacancy()
+		{
+			IEnumerable<SearcherJobDetails> searcherJobs = jobMediator.FetchCandidateDetails((int)Session["AccountId"]);
+			if (searcherJobs.Count() == 0)
+			{
+				return RedirectToAction("CandidateJobDetails");
+			}
+			IEnumerable<RecruiterJobDetails> Matchedjobs = jobMediator.FetchMatchedApplication(searcherJobs);
+			if (Matchedjobs.Count()==0)
+				return RedirectToAction("DisplayCandidateDetails");
+			else
+				ViewData["MatchedJobs"] = Matchedjobs;				
+			return View();
+		}
+		//[HttpPost]
+		///*Display matched recruiter vacancies*/
+		//[Authorize(Roles = "Searcher")]
+		//public ActionResult MatchedVacancy(int id)
+		//{
+			
+		//	return View();
+		//}
+		public ActionResult Apply()
+		{
 
+			return View();
+		}
 		/*Adding Searcher skill details*/
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
@@ -261,7 +283,6 @@ namespace OnlineJobPortal.Controllers
 		[HttpPost]
 		public ActionResult UploadResume(HttpPostedFileBase postedFile)//Post-Processing searcher resume
 		{
-
 			if (postedFile == null)
 			{
 				ViewBag.Message = "File not uploaded";

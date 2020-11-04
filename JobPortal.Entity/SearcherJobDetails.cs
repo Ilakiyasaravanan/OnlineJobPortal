@@ -26,7 +26,7 @@ namespace JobPortal.Entity
 		[Required]
 		[MaxLength(5)]
 		public string Domain { get; set; }
-		[Column("CGPA")]
+		
 		public int CgpaId { get; set; }
 		public Cgpas cgpa { get; set; }
 		

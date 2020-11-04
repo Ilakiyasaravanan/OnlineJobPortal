@@ -411,14 +411,18 @@ namespace JobPortal.DAL
 
 			}
 		}
-		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(SearcherJobDetails job)//Fetch matched recruiter applications
+		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(IEnumerable<SearcherJobDetails> job)//Fetch matched recruiter applications
 		{
-			IEnumerable<RecruiterJobDetails> details = null;
-			using (DBUtills dB = new DBUtills())
-			{
-				details = dB.RecruiterDb.Where(a=>a.Jobtype==job.Jobtype).Where(b=>b.Graduation==job.graduation).ToList();				
-				return details;
+			IEnumerable<RecruiterJobDetails> details = null;			
+				using (DBUtills dB = new DBUtills())
+				{
+				foreach (var recruit in job)
+				{
+					details = dB.RecruiterDb.Include("Jobtype").Include("Account").Include("Cgpa").Where(a => a.JobTypeId == recruit.JobTypeId).Where(b => b.Graduation == recruit.graduation).ToList();
+					
+				}
 			}
+			return details;
 		}
 
 	}

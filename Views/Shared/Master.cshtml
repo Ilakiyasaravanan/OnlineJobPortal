@@ -54,6 +54,7 @@
             @Html.ActionLink("Attach Resume", "UploadResume", "Job")
             @Html.ActionLink("Your Profile", "DisplayDetail", "Account")
             @Html.ActionLink("Work Experience", "DisplayWorkExperience", "Job")
+            @Html.ActionLink("Notification", "MatchedVacancy", "Job")
             @Html.ActionLink("Home", "Searcher", "Job")
 
         }
@@ -76,7 +77,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Styles.Render("~/Content/fontawesome")
+    @Styles.Render("~/Content/fontawesome")    
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     @RenderSection("scripts", required: false)

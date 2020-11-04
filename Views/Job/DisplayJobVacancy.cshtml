@@ -29,37 +29,44 @@
                 Work Experience
             </th>
             <th>
+                CGPA
+            </th>
+            <th>
                 Action
             </th>
 
         </tr>
         @foreach (JobPortal.Entity.RecruiterJobDetails item in (List<JobPortal.Entity.RecruiterJobDetails>)ViewData["RecruiterJob"])
         {
-            <tr>
-                <td>
-                    @item.CompanyName
-                </td>
-                <td>
-                    @item.Graduation
-                </td>
-                <td>
-                    @item.Jobtype.JobType
-                </td>
-                <td>
-                    @item.Location
-                </td>
-                <td>
-                    @item.Salary
-                </td>
+    <tr>
+        <td>
+            @item.CompanyName
+        </td>
+        <td>
+            @item.Graduation
+        </td>
+        <td>
+            @item.Jobtype.JobType
+        </td>
+        <td>
+            @item.Location
+        </td>
+        <td>
+            @item.Salary
+        </td>
 
-                <td>
-                    @item.WorkExperience
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "DeleteVacancy", new { id = item.RecuiterDetailId }, new { Onclick = "return confirm('Do u want to delete')" })
-                </td>
+        <td>
+            @item.WorkExperience
+        </td>
+        <td>
+            @item.Cgpa.CGPA
+        </td>
+        
+        <td>
+            @Html.ActionLink("Delete", "DeleteVacancy", new { id = item.RecuiterDetailId }, new { Onclick = "return confirm('Do u want to delete')" })
+        </td>
 
-            </tr>
+    </tr>
 
         }
     </table>
