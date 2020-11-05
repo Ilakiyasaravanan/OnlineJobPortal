@@ -54,8 +54,7 @@
                     @item.WorkExperience
                 </td>
                 <td>
-                    @*@Html.ActionLink("Apply", "MatchedVacancy", new { id = item.RecuiterDetailId })*@
-                    @Html.ActionLink("Apply", "DisplayCandidateDetails", "Job")
+                    @Html.ActionLink("Apply", "Apply", new { id = item.RecuiterDetailId })                    
                 </td>
 
             </tr>

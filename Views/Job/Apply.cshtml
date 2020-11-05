@@ -1,0 +1,36 @@
+﻿@model IEnumerable<JobPortal.Entity.Resume>
+
+@{
+    ViewBag.Title = "Apply";
+}
+<div class="CenterContent">
+    <h2 class="heading">Make sure you are selecting correct resumes here, it will be sent to the recruiter.....</h2>
+    @using (Html.BeginForm("Apply", "Job", FormMethod.Post))
+    {
+
+        <table cellpadding="0" cellspacing="0">
+
+            @if (Model == null)
+            {
+                <tr>
+                    <td colspan="3">&nbsp;</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th style="width:120px">File Name</th>
+                </tr>
+
+                foreach (var file in Model)
+                {
+                    <tr>
+                        <td>@file.FileName</td>                        
+                        <td>@Html.ActionLink("Select", "ApplyMessage", new { id = file.ResumeId })</td>
+                    </tr>
+                }
+            }
+
+        </table>
+    }
+</div>

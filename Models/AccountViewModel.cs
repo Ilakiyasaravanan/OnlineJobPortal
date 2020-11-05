@@ -48,18 +48,15 @@ namespace OnlineJobPortal.Models
 
 		[Display(Name = "Role")]
 		[Required(ErrorMessage = "Select role")]
-		public string Role { get; set; }
-
-	
+		public string Role { get; set; }	
 
 		[Required(ErrorMessage = "Email address is required")]
 		[DataType(DataType.EmailAddress)]		
 		public string Email { get; set; }
 
-
 		[Display(Name = "Date of Birth")]		
-		[Required]
-		[DataType(DataType.DateTime)]
+		[Required(ErrorMessage = "DoB is required")]
+		[DataType(DataType.Date)]		
 		public DateTime? DateofBirth { get; set; }
 
 

@@ -182,7 +182,6 @@ namespace OnlineJobPortal.Controllers
 			ViewData["Recruit"] = recruit;
 			return View();
 		}
-		[HttpGet]
 		/*Display matched recruiter vacancies*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult MatchedVacancy()
@@ -199,19 +198,22 @@ namespace OnlineJobPortal.Controllers
 				ViewData["MatchedJobs"] = Matchedjobs;				
 			return View();
 		}
-		//[HttpPost]
-		///*Display matched recruiter vacancies*/
-		//[Authorize(Roles = "Searcher")]
-		//public ActionResult MatchedVacancy(int id)
-		//{
-			
-		//	return View();
-		//}
-		public ActionResult Apply()
+		[Authorize(Roles = "Searcher")]
+		/*Display particular resumes*/
+		public ActionResult Apply(int id)
 		{
-
+			Session["RecruiterId"] = id;
+			int accountid = Convert.ToInt32(Session["AccountId"]);
+			IEnumerable<Resume> resumes = jobMediator.FetchFiles(accountid);
+			return View(resumes);		
+		}
+		[Authorize(Roles = "Searcher")]
+		public ActionResult ApplyMessage(int id)
+		{
+			Session["ResumeId"] = id;
 			return View();
 		}
+
 		/*Adding Searcher skill details*/
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
@@ -247,7 +249,6 @@ namespace OnlineJobPortal.Controllers
 		{
 			int temp = Convert.ToInt32(Session["AccountId"].ToString());
 			SearcherSkillSets account = jobMediator.FetchIndividualSkill(temp);
-
 			return View(account);
 
 		}
@@ -310,7 +311,7 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public FileResult DownloadFile(int? FileId)//Post-processing download resume
 		{
-			Resume file = jobMediator.DownloadResume((int)FileId);
+			Resume file = jobMediator.DownloadResume((int)FileId);			
 			return File(file.Data, file.ContentType, file.FileName);
 		}
 		[Authorize(Roles = "Searcher")]

@@ -23,6 +23,7 @@ namespace OnlineJobPortal.App_Start
 				config.CreateMap<LocationViewModel, Locations>();
 				config.CreateMap<Locations, LocationViewModel>();
 				config.CreateMap<WorkExperienceViewModel, WorkExperiences>();
+				
 				config.CreateMap<RecruiterProfileViewModel, RecruiterProfile>();
 				config.CreateMap<SearcherSkillsViewModel, SearcherSkillSets>();
 				config.CreateMap<RecruiterProfile, RecruiterProfileViewModel>();

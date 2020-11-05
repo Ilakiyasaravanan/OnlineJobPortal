@@ -10,6 +10,7 @@
         <input type="submit" id="Upload" value="Upload" />
         @ViewBag.Message
     }
+
     @using (Html.BeginForm("DownloadFile", "Job", FormMethod.Post))
     {
         <input type="hidden" id="hfFileId" name="FileId" />
@@ -25,7 +26,8 @@
                 <td colspan="3">&nbsp;</td>
             </tr>
         }
-        else { 
+        else
+        {
             <tr>
                 <th style="width:120px">File Name</th>
                 <th style="width:80px">Download</th>
@@ -40,7 +42,13 @@
                 </tr>
             }
         }
-      
+
     </table>
+    <script type="text/javascript">
+        function DownloadFile(fileId) {
+            $("#hfFileId").val(fileId);
+            $("#btnDownload")[0].click();
+        };
+    </script>
 </div>
 

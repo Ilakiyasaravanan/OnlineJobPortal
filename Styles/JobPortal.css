@@ -46,7 +46,7 @@
 .textbox {
     width: 100%;
     padding: 1% 1%;
-    margin: 1% 1%;    
+    margin: 1% 1%;
     border: none;
     border-bottom: 2px solid #cce6ff;
 }
@@ -188,7 +188,7 @@
             }
            
 .OpenScreenImage {
-    background-image: url(../Images/Handshake.jpg);
+   
     background-size: cover;
     background-position: center;
 }

@@ -210,6 +210,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Handshake.jpg" />
+    <Content Include="Images\Resume.jpg" />
     <Content Include="Styles\Home.css" />
     <Content Include="Images\Interview.jpg" />
     <Content Include="Images\logo.jpg" />
@@ -281,6 +282,8 @@
     <Content Include="Views\Job\AddCgpa.cshtml" />
     <Content Include="Views\Job\EditSkill.cshtml" />
     <Content Include="Views\Job\MatchedVacancy.cshtml" />
+    <Content Include="Views\Job\Apply.cshtml" />
+    <Content Include="Views\Job\ApplyMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
