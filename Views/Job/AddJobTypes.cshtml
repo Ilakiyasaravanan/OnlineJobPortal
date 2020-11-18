@@ -2,11 +2,7 @@
 
 @{
     ViewBag.Title = "AddJobTypes";
-
 }
-
-
-
 @using (Html.BeginForm("AddJobTypes", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()<div class="CenterContent">
@@ -23,10 +19,12 @@
             </tr>
             <tr>
                 <td>
-                    <input type="Submit" value="Add Jobtypes" class="button" />
+                    <input type="Submit" value="Add" class="btn btn-primary" />
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel", "JobTypes", "Job", new { @class = "btn btn-primary" })
                 </td>
             </tr>
-
         </table>
     </div>
 }

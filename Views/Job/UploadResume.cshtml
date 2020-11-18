@@ -28,17 +28,19 @@
         }
         else
         {
-            <tr>
-                <th style="width:120px">File Name</th>
-                <th style="width:80px">Download</th>
-            </tr>
+    <tr>
+        <th style="width:120px">File Name</th>
+        <th style="width:80px">Download</th>
+        <th style="width:80px">Delete</th>
+    </tr>
 
             foreach (var file in Model)
             {
                 <tr>
                     <td>@file.FileName</td>
-                    <td><a href="javascript:;" onclick="DownloadFile(@file.ResumeId)">Download</a></td>
-                    <td>@Html.ActionLink("Delete", "Delete", new { id = file.ResumeId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
+                    <td><a href="javascript:;" onclick="DownloadFile(@file.ResumeId)">
+                   <i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    <td>@Html.ActionLink(" ", "Delete", new { id = file.ResumeId }, new { @class = "fa fa-trash", Onclick = "return confirm('Do u want to delete')" })</td>
                 </tr>
             }
         }

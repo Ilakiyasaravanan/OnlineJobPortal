@@ -130,7 +130,7 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult Notification()
 		{
 			IEnumerable<VacancyMatching> vacancy = this.jobMediator.FetchMatching((int)Session["AccountId"]);
-			if (vacancy == null)
+			if (vacancy.Count()==0)
 				return RedirectToAction("DisplayJobVacancy");
 			ViewData["Vacancy"] = vacancy;
 			return View();
@@ -145,7 +145,6 @@ namespace OnlineJobPortal.Controllers
 			if (vacancy == null)
 				return RedirectToAction("DisplayJobVacancy");
 			return View(map);
-
 		}
 		//Post- send message to searcher by recruiter
 		[HttpPost]

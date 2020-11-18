@@ -10,27 +10,26 @@
         <input type="hidden" id="hfFileId" name="FileId" />
         <input type="submit" id="btnDownload" value="Download" style="display:none" />
     }
-    <table border="1">
+    <table>
         <tr>
-            <th>
+            <th style="width:120px">
                 Resume
             </th>
-            <th>
+            <th style="width:120px">
                 Download
             </th>
-            <th>
+            <th style="width:120px">
                 Message
             </th>
 
         </tr>
         @foreach (var item in (List<JobPortal.Entity.VacancyMatching>)ViewData["Vacancy"])
         {
-            <tr>
-            </tr>
+            
             <tr>
                 <td>@item.Resume.FileName</td>
-                <td><a href="javascript:;" onclick="DownloadFile(@item.ResumeId)">Download</a></td>
-                <td>@Html.ActionLink("Message", "Message_Recruiter", new { id = item.ResumeId })</td>
+                <td><a href="javascript:;" onclick="DownloadFile(@item.ResumeId)"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                <td>@Html.ActionLink(" ", "Message_Recruiter", new { id = item.ResumeId },new{@class="fa fa-comment"})</td>
             </tr>
         }
     </table>

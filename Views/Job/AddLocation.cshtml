@@ -4,9 +4,6 @@
     ViewBag.Title = "AddLocation";
 
 }
-
-
-
 @using (Html.BeginForm("AddLocation", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -24,7 +21,10 @@
             </tr>
             <tr>
                 <td>
-                    <input type="Submit" value="AddLocations" class="button" />
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel", "Location", "Job", new { @class = "btn btn-primary" })
                 </td>
             </tr>
 

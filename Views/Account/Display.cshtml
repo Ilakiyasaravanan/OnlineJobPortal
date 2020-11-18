@@ -31,7 +31,9 @@
             <th>
                 Email
             </th>
-
+            <th>
+                Date of Birth
+            </th>
             <th colspan="2">Action</th>
         </tr>
         @foreach (JobPortal.Entity.AccountDetails item in (List<JobPortal.Entity.AccountDetails>)ViewData["AccountDetails"])
@@ -58,6 +60,9 @@
                 </td>
                 <td>
                     @item.Email
+                </td>
+                <td>
+                    @item.DateOfBirth
                 </td>
                 <td> @Html.ActionLink("Edit", "Edit", new { id = item.AccountId })</td>
                 <td>@Html.ActionLink("Delete", "Delete", new { id = item.AccountId }, new { Onclick = "return confirm('Do u want to delete')" })</td>
