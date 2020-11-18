@@ -49,5 +49,10 @@ namespace JobPortal.BL
 		void RemoveExperience(int idValue);
 		IEnumerable<RecruiterProfile> FetchProfile();
 		IEnumerable<RecruiterJobDetails> FetchMatchedApplication(IEnumerable<SearcherJobDetails> job);
+		int FetchRecruiterAccountId(int id);
+		void AddMatching(VacancyMatching vacancyMatching);
+		IEnumerable<VacancyMatching> FetchMatching(int id);
+		VacancyMatching FetchMatch(int id);
+		void UpdateVacancyMatching(VacancyMatching matching);
 	}
 }

@@ -20,7 +20,7 @@ namespace JobPortal.Common
    
     public enum Graduation
     {
-        BE,
+        BE=1,
         BTech
     }
 

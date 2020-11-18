@@ -1,4 +1,5 @@
-﻿using OnlineJobPortal.App_Start;
+﻿using Microsoft.Practices.Unity.Configuration;
+using OnlineJobPortal.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace OnlineJobPortal
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			MapConfig.RegisterMaps();
+			UnityConfig.RegisterComponents();
 		}
+
 		protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
 		{
 			var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];

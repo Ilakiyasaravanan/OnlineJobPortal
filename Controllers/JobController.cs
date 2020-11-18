@@ -8,6 +8,7 @@ using JobPortal.Entity;
 using JobPortal.BL;
 using OnlineJobPortal.Models;
 using JobPortal.Common;
+using System.Drawing;
 
 namespace OnlineJobPortal.Controllers
 {
@@ -15,32 +16,30 @@ namespace OnlineJobPortal.Controllers
 	[ExceptionHandler]
 	public class JobController : Controller
 	{
-		IJobMediator jobMediator;
-
-		//Paramterless constructor
-		public JobController()
+		/// <summary>
+		/// Here the job related operations are performed like adding informations and attaching resumes by searcher and posting vacancies by searcher
+		/// </summary>
+		private IJobMediator jobMediator;
+		public JobController(IJobMediator jobMediator)
 		{
-			jobMediator = new JobMediator();
+			this.jobMediator = jobMediator;
 		}
-
 		/*--------Recruiter---------*/
 		/*Display Recruiter page*/
 		[Authorize(Roles = "Recruiter")]
 		public ActionResult Recruiter()
 		{
 			return View();
-
 		}
 		/* Get-Recruiter job vacancies*/
 		[HttpGet]
 		[Authorize(Roles = "Admin,Recruiter")]
 		public ActionResult RecruiterJobDetails()
 		{
-			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
-			ViewBag.Cgpas = new SelectList(jobMediator.GetCgpas(), "CgpaId", "CGPA");
+			ViewBag.JobTypes = new SelectList(this.jobMediator.GetJobTypes(), "JobTypeId", "JobType");
+			ViewBag.Locations = new SelectList(this.jobMediator.GetLocations(), "LocationId", "Location");
+			ViewBag.Cgpas = new SelectList(this.jobMediator.GetCgpas(), "CgpaId", "CGPA");
 			return View();
-
 		}
 		//Post-Processing and storing the vacancy specified by recruiter
 		[HttpPost]
@@ -50,100 +49,128 @@ namespace OnlineJobPortal.Controllers
 			if (ModelState.IsValid)
 			{
 				var recruit = AutoMapper.Mapper.Map<RecruiterJobViewModel, RecruiterJobDetails>(recruiterView);
-				object temp = Session["AccountId"].ToString();
-				recruit.AccountId = Convert.ToInt32(temp);
-				new JobMediator().AddJobDetails(recruit);
+				recruit.AccountId = Convert.ToInt32((int)Session["AccountId"]);
+				this.jobMediator.AddJobDetails(recruit);
 				return RedirectToAction("DisplayJobVacancy", "Job");
 			}
 			return View();
 		}
-
+		//Display submitted vacancy by recruiter
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult DisplayJobVacancy()//Get-Delete submitted vacancy
+		public ActionResult DisplayJobVacancy()
 		{
-			IEnumerable<RecruiterJobDetails> recruiterJobs = jobMediator.FetchRecruiterJobVacancy((int)Session["AccountId"]);
+			IEnumerable<RecruiterJobDetails> recruiterJobs = this.jobMediator.FetchRecruiterJobVacancy((int)Session["AccountId"]);
 			ViewData["RecruiterJob"] = recruiterJobs;
 			if (recruiterJobs.Count() == 0)
 				return RedirectToAction("RecruiterJobDetails", "Job");
 			return View();
-
 		}
+		//Delete submitted vacancy by recruiter
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult DeleteVacancy(int id)//Post-Delete submitted vacancy
+		public ActionResult DeleteVacancy(int id)
 		{
-			jobMediator.RemoveVacancy(id);
+			this.jobMediator.RemoveVacancy(id);
 			return RedirectToAction("DisplayJobVacancy");
 		}
-
+		//Get-Template for recruiter profiles
 		[HttpGet]
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult ProfileDetails()//Get-Template for recruiter profiles
+		public ActionResult ProfileDetails()
 		{
-			Object temp = Session["AccountId"];
-			int id = Convert.ToInt32(temp);
 			RecruiterProfile recruiter = null;
-			recruiter = jobMediator.CheckProfile(id);
+			recruiter = this.jobMediator.CheckProfile((int)Session["AccountId"]);
 			if (recruiter != null)
 			{
 				return RedirectToAction("DisplayProfile");
 			}
 			return View();
 		}
+		//Post-Processing profie of recruiter
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult ProfileDetails(RecruiterProfileViewModel job)//Post-Processing profie of recruiter
+		public ActionResult ProfileDetails(RecruiterProfileViewModel job)
 		{
 			var work = AutoMapper.Mapper.Map<RecruiterProfileViewModel, RecruiterProfile>(job);
-			Object temp = Session["AccountId"];
-			work.AccountId = Convert.ToInt32(temp);
-			jobMediator.AddProfile(work);
+			work.AccountId = Convert.ToInt32(Session["AccountId"]);
+			this.jobMediator.AddProfile(work);
 			return RedirectToAction("DisplayProfile");
 		}
-
+		//Get-Editing profile details
 		[HttpGet]
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult EditProfile(int id) //Get-Editing account details
+		public ActionResult EditProfile(int id)
 		{
-			RecruiterProfile recruiter = jobMediator.CheckProfile(id);
+			RecruiterProfile recruiter = this.jobMediator.CheckProfile(id);
 			var map = AutoMapper.Mapper.Map<RecruiterProfile, RecruiterProfileViewModel>(recruiter);
 			return View(map);
-
 		}
-
+		//Post-updating edited profile
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult EditProfile(RecruiterProfileViewModel account)//Post-updating edited values
+		public ActionResult EditProfile(RecruiterProfileViewModel account)
 		{
 			var accountDetails = AutoMapper.Mapper.Map<RecruiterProfileViewModel, RecruiterProfile>(account);
-			bool result = jobMediator.UpdateProfile(accountDetails);
+			bool result = this.jobMediator.UpdateProfile(accountDetails);
 			if (result == true)
 				return RedirectToAction("DisplayProfile");
 			return View();
 		}
+		//Display profile details of recruiter
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult DisplayProfile() //Get-Editing profile details
+		public ActionResult DisplayProfile()
 		{
-			int temp = Convert.ToInt32(Session["AccountId"].ToString());
-			RecruiterProfile account = jobMediator.CheckProfile(temp);
+			RecruiterProfile account = this.jobMediator.CheckProfile(Convert.ToInt32(Session["AccountId"]));
 			if (account != null)
 				return View(account);
 			else
 
 				return RedirectToAction("ProfileDetails");
 		}
+		//Display matched candidate details to recruiter
+		[Authorize(Roles = "Recruiter")]
+		public ActionResult Notification()
+		{
+			IEnumerable<VacancyMatching> vacancy = this.jobMediator.FetchMatching((int)Session["AccountId"]);
+			if (vacancy == null)
+				return RedirectToAction("DisplayJobVacancy");
+			ViewData["Vacancy"] = vacancy;
+			return View();
+		}
+		//Get- send message to searcher by recruiter
+		[Authorize(Roles = "Recruiter")]
+		[HttpGet]
+		public ActionResult Message_Recruiter(int id)
+		{
+			VacancyMatching vacancy = this.jobMediator.FetchMatch(id);
+			var map = AutoMapper.Mapper.Map<VacancyMatching, VacancyMatchingViewModel>(vacancy);
+			if (vacancy == null)
+				return RedirectToAction("DisplayJobVacancy");
+			return View(map);
 
+		}
+		//Post- send message to searcher by recruiter
+		[HttpPost]
+		public ActionResult Message_Recruiter(VacancyMatchingViewModel vacancyMatching)
+		{
+			if (ModelState.IsValid)
+			{
+				var recruit = AutoMapper.Mapper.Map<VacancyMatchingViewModel, VacancyMatching>(vacancyMatching);
+				this.jobMediator.UpdateVacancyMatching(recruit);
+			}
+			return RedirectToAction("DisplayJobVacancy");
+		}
 		/*--------Searcher---------*/
-		/*Display Searcher page*/
+		/*Display searcher front page*/
 		[Authorize(Roles = "Searcher")]
-		public ActionResult Searcher()//Front view of searcher
+		public ActionResult Searcher()
 		{
 			return View();
 		}
-		/*Display applied vacancies*/
+		/*Display applied vacancies by searcher*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplayCandidateDetails()
 		{
-			IEnumerable<SearcherJobDetails> searcherJobs = jobMediator.FetchCandidateDetails((int)Session["AccountId"]);
+			IEnumerable<SearcherJobDetails> searcherJobs = this.jobMediator.FetchCandidateDetails((int)Session["AccountId"]);
 			if (searcherJobs.Count() == 0)
 			{
 				return RedirectToAction("CandidateJobDetails");
@@ -151,112 +178,139 @@ namespace OnlineJobPortal.Controllers
 			ViewData["SearcherJob"] = searcherJobs;
 			return View();
 		}
-
-		/*Apply new vacancy*/
+		//Get-Apply new vacancy by searcher
 		[HttpGet]
 		[Authorize(Roles = "Admin,Searcher")]
-		public ActionResult CandidateJobDetails()  //Get-Apply new vacancy
+		public ActionResult CandidateJobDetails()
 		{
-			ViewBag.JobTypes = new SelectList(jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			ViewBag.Locations = new SelectList(jobMediator.GetLocations(), "LocationId", "Location");
-			ViewBag.Cgpas = new SelectList(jobMediator.GetCgpas(), "CgpaId", "CGPA");
+			ViewBag.JobTypes = new SelectList(this.jobMediator.GetJobTypes(), "JobTypeId", "JobType");
+			ViewBag.Locations = new SelectList(this.jobMediator.GetLocations(), "LocationId", "Location");
+			ViewBag.Cgpas = new SelectList(this.jobMediator.GetCgpas(), "CgpaId", "CGPA");
 			return View();
 		}
-
+		//Post-Processing and storing the candidate specifications
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult CandidateJobDetails(SearcherJobViewModel searcher)//Post-Processing and storing the candidate specifications
-		{			
+		public ActionResult CandidateJobDetails(SearcherJobViewModel searcher)
+		{
 			var recruit = AutoMapper.Mapper.Map<SearcherJobViewModel, SearcherJobDetails>(searcher);
 			if (ModelState.IsValid)
 			{
-				Object temp = Session["AccountId"];
-				recruit.AccountId = Convert.ToInt32(temp);			
-				jobMediator.AddDetails(recruit);
+				recruit.AccountId = Convert.ToInt32(Session["AccountId"]);
+				this.jobMediator.AddDetails(recruit);
 				if (searcher.WorkExperience > 0)
-				{
 					return RedirectToAction("WorkExperienceDetails");
-				}
-				
 			}
 			ViewData["Recruit"] = recruit;
 			return View();
 		}
-		/*Display matched recruiter vacancies*/
+		/*Display matched recruiter vacancies for searcher*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult MatchedVacancy()
 		{
-			IEnumerable<SearcherJobDetails> searcherJobs = jobMediator.FetchCandidateDetails((int)Session["AccountId"]);
+			IEnumerable<SearcherJobDetails> searcherJobs = this.jobMediator.FetchCandidateDetails((int)Session["AccountId"]);
 			if (searcherJobs.Count() == 0)
 			{
 				return RedirectToAction("CandidateJobDetails");
 			}
-			IEnumerable<RecruiterJobDetails> Matchedjobs = jobMediator.FetchMatchedApplication(searcherJobs);
-			if (Matchedjobs.Count()==0)
+			IEnumerable<RecruiterJobDetails> Matchedjobs = this.jobMediator.FetchMatchedApplication(searcherJobs);
+			if (Matchedjobs.Count() == 0)
 				return RedirectToAction("DisplayCandidateDetails");
 			else
-				ViewData["MatchedJobs"] = Matchedjobs;				
+				ViewData["MatchedJobs"] = Matchedjobs;
 			return View();
 		}
+		/*Display resumes of searcher*/
 		[Authorize(Roles = "Searcher")]
-		/*Display particular resumes*/
 		public ActionResult Apply(int id)
 		{
 			Session["RecruiterId"] = id;
-			int accountid = Convert.ToInt32(Session["AccountId"]);
-			IEnumerable<Resume> resumes = jobMediator.FetchFiles(accountid);
-			return View(resumes);		
+			IEnumerable<Resume> resumes = this.jobMediator.FetchFiles(Convert.ToInt32(Session["AccountId"]));
+			return View(resumes);
 		}
+		/*Add particular resumes for showing to recruiter*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult ApplyMessage(int id)
 		{
-			Session["ResumeId"] = id;
+			IEnumerable<VacancyMatching> vacancies = this.jobMediator.FetchMatching((int)Session["AccountId"]);
+			VacancyMatching vacancy = new VacancyMatching();
+			if (vacancies.Count() == 0)
+			{
+				vacancy.ResumeId = id;
+				vacancy.Searcher_AccountId = (int)Session["AccountId"];
+				vacancy.Recruiterid = (int)Session["RecruiterId"];
+				vacancy.Recruiter_AccountId = this.jobMediator.FetchRecruiterAccountId((int)Session["RecruiterId"]);
+				this.jobMediator.AddMatching(vacancy);
+			}
+			else
+				ViewBag.Message = "Already registered";
 			return View();
 		}
-
-		/*Adding Searcher skill details*/
+		/*Display any messages from recruiter*/
+		[Authorize(Roles = "Searcher")]
+		public ActionResult Message()
+		{
+			IEnumerable<VacancyMatching> vacancy = this.jobMediator.FetchMatching((int)Session["AccountId"]);
+			List<VacancyMatching> vacancyMatchings = null;
+			VacancyMatching vacancyMatching;
+			foreach (var item in vacancy)
+			{
+				if (item.Message != null)
+				{
+					vacancyMatching = new VacancyMatching();
+					vacancyMatching.Message = item.Message;
+					vacancyMatching.Url = item.Url;
+					vacancyMatchings = new List<VacancyMatching>();
+					vacancyMatchings.Add(vacancyMatching);
+				}
+			}
+			if (vacancyMatchings != null)
+			{
+				ViewData["Message"] = vacancyMatchings;
+				return View();
+			}
+			else
+				return RedirectToAction("MatchedVacancy");
+		}
+		//Get-Template for adding searcher skills
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
-		public ActionResult SearcherSkillDetails()//Get-Template for adding searcher skills
+		public ActionResult SearcherSkillDetails()
 		{
-			Object temp = Session["AccountId"];
-			int id = Convert.ToInt32(temp);
-			SearcherSkillSets result = jobMediator.FetchIndividualSkill(id);
-			if (result !=null)
+			int id = Convert.ToInt32(Session["AccountId"]);
+			SearcherSkillSets result = this.jobMediator.FetchIndividualSkill(id);
+			if (result != null)
 			{
 				return RedirectToAction("DisplaySkills");
 			}
 			return View();
 		}
+		//Post-Processing searcher skills
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult SearcherSkillDetails(SearcherSkillsViewModel job)//Post-Processing searcher skills
+		public ActionResult SearcherSkillDetails(SearcherSkillsViewModel job)
 		{
 			if (ModelState.IsValid)
 			{
 				var recruit = AutoMapper.Mapper.Map<SearcherSkillsViewModel, SearcherSkillSets>(job);
-				Object temp = Session["AccountId"];
-				recruit.AccountId = Convert.ToInt32(temp);
-				jobMediator.AddSearcherSkillSet(recruit);
+				recruit.AccountId = Convert.ToInt32(Session["AccountId"]);
+				this.jobMediator.AddSearcherSkillSet(recruit);
 				return RedirectToAction("DisplaySkills");
 			}
 			return View();
 		}
-
 		/*Display Skills of entered searcher*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplaySkills()
 		{
-			int temp = Convert.ToInt32(Session["AccountId"].ToString());
-			SearcherSkillSets account = jobMediator.FetchIndividualSkill(temp);
+			SearcherSkillSets account = this.jobMediator.FetchIndividualSkill(Convert.ToInt32(Session["AccountId"]));
 			return View(account);
-
 		}
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
 		public ActionResult EditSkill(int id) //Get-edit Skills
 		{
-			SearcherSkillSets skills = jobMediator.FetchSkill(id);
+			SearcherSkillSets skills = this.jobMediator.FetchSkill(id);
 			var map = AutoMapper.Mapper.Map<SearcherSkillSets, SearcherSkillsViewModel>(skills);
 			return View(map);
 		}
@@ -264,11 +318,9 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult EditSkill(SearcherSkillsViewModel skills) //Post-edit Skills
 		{
 			var map = AutoMapper.Mapper.Map<SearcherSkillsViewModel, SearcherSkillSets>(skills);
-			bool skill = jobMediator.EditSkills(map);
+			bool skill = this.jobMediator.EditSkills(map);
 			if (skill == true)
-
 				return RedirectToAction("DisplaySkills");
-
 			return RedirectToAction("SearcherSkillDetails");
 		}
 		/*Uploading resume of searcher*/
@@ -276,9 +328,7 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public ActionResult UploadResume()//Get-Template for adding resume to searcher
 		{
-			Object temp = Session["AccountId"];
-			int id = Convert.ToInt32(temp);
-			IEnumerable<Resume> resumes = jobMediator.FetchFiles(id);
+			IEnumerable<Resume> resumes = this.jobMediator.FetchFiles((int)Session["AccountId"]);
 			return View(resumes);
 		}
 		[HttpPost]
@@ -295,13 +345,12 @@ namespace OnlineJobPortal.Controllers
 				using (BinaryReader br = new BinaryReader(postedFile.InputStream))
 				{
 					bytes = br.ReadBytes(postedFile.ContentLength);
-
 					Resume resume = new Resume();
 					resume.ContentType = postedFile.ContentType;
 					resume.AccountId = Convert.ToInt32(Session["AccountId"]);
 					resume.FileName = Path.GetFileName(postedFile.FileName);
 					resume.Data = bytes;
-					jobMediator.AttachResume(resume);
+					this.jobMediator.AttachResume(resume);
 				}
 				ViewBag.Message = "File uploaded successfully";
 				return View();
@@ -311,21 +360,20 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public FileResult DownloadFile(int? FileId)//Post-processing download resume
 		{
-			Resume file = jobMediator.DownloadResume((int)FileId);			
+			Resume file = this.jobMediator.DownloadResume((int)FileId);
 			return File(file.Data, file.ContentType, file.FileName);
 		}
 		[Authorize(Roles = "Searcher")]
 		public ActionResult Delete(int id)//Deleting resume file of searcher
 		{
-			jobMediator.RemoveFile(id);
+			this.jobMediator.RemoveFile(id);
 			return RedirectToAction("UploadResume");
 		}
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
 		public ActionResult WorkExperienceDetails()//Get-Template for adding experience of searcher
 		{
-
-			IEnumerable<WorkExperiences> expereience = jobMediator.FetchWorkExperience((int)Session["AccountId"]);
+			IEnumerable<WorkExperiences> expereience = this.jobMediator.FetchWorkExperience((int)Session["AccountId"]);
 			if (expereience.Count() == 0)
 				ViewBag.Message = "Your experience is zero, check once";
 			return View();
@@ -337,14 +385,14 @@ namespace OnlineJobPortal.Controllers
 			var work = AutoMapper.Mapper.Map<WorkExperienceViewModel, WorkExperiences>(job);
 			Object temp = Session["AccountId"];
 			work.AccountId = Convert.ToInt32(temp);
-			jobMediator.CompletedExperience(work);
+			this.jobMediator.CompletedExperience(work);
 			return RedirectToAction("DisplayWorkExperience");
 		}
 		/*Display work experience*/
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplayWorkExperience()
 		{
-			IEnumerable<WorkExperiences> expereience = jobMediator.FetchWorkExperience((int)Session["AccountId"]);
+			IEnumerable<WorkExperiences> expereience = this.jobMediator.FetchWorkExperience((int)Session["AccountId"]);
 			if (expereience.Count() == 0)
 				return RedirectToAction("WorkExperienceDetails", "Job");
 			ViewData["Experience"] = expereience;
@@ -355,7 +403,7 @@ namespace OnlineJobPortal.Controllers
 		[HttpGet]
 		public ActionResult EditWorkExperience(int id) //Get-Editing work experience details
 		{
-			WorkExperiences experiences = jobMediator.FetchSingleWorkExperience(id);
+			WorkExperiences experiences = this.jobMediator.FetchSingleWorkExperience(id);
 			var map = AutoMapper.Mapper.Map<WorkExperiences, WorkExperienceViewModel>(experiences);
 			return View(map);
 		}
@@ -364,9 +412,8 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult EditWorkExperience(WorkExperienceViewModel account)//Post-updating edited values
 		{
-
 			var exp = AutoMapper.Mapper.Map<WorkExperienceViewModel, WorkExperiences>(account);
-			bool result = jobMediator.UpdateExperience(exp);
+			bool result = this.jobMediator.UpdateExperience(exp);
 			if (result == true)
 				return RedirectToAction("DisplayWorkExperience");
 			return View();
@@ -374,7 +421,7 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DeleteExperience(int id)//Deleting experience 
 		{
-			jobMediator.RemoveExperience(id);
+			this.jobMediator.RemoveExperience(id);
 			return RedirectToAction("DisplayWorkExperience");
 		}
 		/*--------Admin---------*/
@@ -382,7 +429,7 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Admin")]
 		public ActionResult JobTypes()
 		{
-			IEnumerable<JobTypes> jobTypes = jobMediator.GetJobTypes();
+			IEnumerable<JobTypes> jobTypes = this.jobMediator.GetJobTypes();
 			ViewData["JobTypeDisplay"] = jobTypes;
 			return View();
 		}
@@ -397,14 +444,14 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult AddJobTypes(JobTypeViewModel job)//Post-Adding jobtypes to database
 		{
 			var jobMapper = AutoMapper.Mapper.Map<JobTypeViewModel, JobTypes>(job);
-			jobMediator.AddJobTypes(jobMapper);
+			this.jobMediator.AddJobTypes(jobMapper);
 			return RedirectToAction("JobTypes");
 		}
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
 		public ActionResult EditJobType(int id) //Get-Editing JobTypes
 		{
-			JobTypes account = jobMediator.EditJobTypes(id);
+			JobTypes account = this.jobMediator.EditJobTypes(id);
 			var map = AutoMapper.Mapper.Map<JobTypes, JobTypeViewModel>(account);
 			return View(map);
 		}
@@ -414,19 +461,19 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult EditJobType(JobTypeViewModel account)//Updating-jobtypes
 		{
 			var jobDetails = AutoMapper.Mapper.Map<JobTypeViewModel, JobTypes>(account);
-			jobMediator.UpdateJobTypes(jobDetails);
+			this.jobMediator.UpdateJobTypes(jobDetails);
 			return RedirectToAction("JobTypes");
 		}
 		[Authorize(Roles = "Admin")]
 		public ActionResult DeleteJobType(int id)  //Deleting jobtypes
 		{
-			jobMediator.DeleteJobTypes(id);
+			this.jobMediator.DeleteJobTypes(id);
 			return RedirectToAction("JobTypes");
 		}
 		[Authorize(Roles = "Admin")]
 		public ActionResult Location()  //Display Location
 		{
-			IEnumerable<Locations> jobTypes = jobMediator.GetLocations();
+			IEnumerable<Locations> jobTypes = this.jobMediator.GetLocations();
 			ViewData["LocationDisplay"] = jobTypes;
 			return View();
 		}
@@ -441,7 +488,7 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult AddLocation(LocationViewModel job) //Post-Processing and adding location
 		{
 			var jobMapper = AutoMapper.Mapper.Map<LocationViewModel, Locations>(job);
-			jobMediator.AddLocation(jobMapper);
+			this.jobMediator.AddLocation(jobMapper);
 			return RedirectToAction("Location");
 		}
 		[HttpGet]
@@ -449,7 +496,7 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult EditLocation(int id) //Get-edit location
 		{
 
-			Locations account = jobMediator.EditLocation(id);
+			Locations account = this.jobMediator.EditLocation(id);
 			var map = AutoMapper.Mapper.Map<Locations, LocationViewModel>(account);
 			return View(map);
 		}
@@ -459,19 +506,19 @@ namespace OnlineJobPortal.Controllers
 		{
 
 			var jobDetails = AutoMapper.Mapper.Map<LocationViewModel, Locations>(account);
-			jobMediator.UpdateLocation(jobDetails);
+			this.jobMediator.UpdateLocation(jobDetails);
 			return RedirectToAction("Location");
 		}
 		[Authorize(Roles = "Admin")]
 		public ActionResult DeleteLocation(int id) //Deleting location
 		{
-			jobMediator.DeleteLocation(id);
+			this.jobMediator.DeleteLocation(id);
 			return RedirectToAction("Location");
 		}
 		[Authorize(Roles = "Admin")]
 		public ActionResult Cgpa()  //Display Cgpa
 		{
-			IEnumerable<Cgpas> jobTypes = jobMediator.GetCgpas();
+			IEnumerable<Cgpas> jobTypes = this.jobMediator.GetCgpas();
 			ViewData["CgpaDisplay"] = jobTypes;
 			return View();
 		}
@@ -486,15 +533,14 @@ namespace OnlineJobPortal.Controllers
 		public ActionResult AddCgpa(CgpaViewModel job) //Post-Processing and adding Cgpa
 		{
 			var jobMapper = AutoMapper.Mapper.Map<CgpaViewModel, Cgpas>(job);
-			jobMediator.AddCgpa(jobMapper);
+			this.jobMediator.AddCgpa(jobMapper);
 			return RedirectToAction("Cgpa");
 		}
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
 		public ActionResult EditCgpa(int id) //Get-edit cgpas
 		{
-
-			Cgpas account = jobMediator.EditCgpa(id);
+			Cgpas account = this.jobMediator.EditCgpa(id);
 			var map = AutoMapper.Mapper.Map<Cgpas, CgpaViewModel>(account);
 			return View(map);
 		}
@@ -502,29 +548,28 @@ namespace OnlineJobPortal.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult EditCgpa(CgpaViewModel account)//Post-updating cgpas
 		{
-
 			var jobDetails = AutoMapper.Mapper.Map<CgpaViewModel, Cgpas>(account);
-			jobMediator.UpdateCgpa(jobDetails);
+			this.jobMediator.UpdateCgpa(jobDetails);
 			return RedirectToAction("Cgpa");
 		}
 		[Authorize(Roles = "Admin")]
 		public ActionResult DeleteCgpa(int id) //Deleting location
 		{
-			jobMediator.DeleteCgpa(id);
+			this.jobMediator.DeleteCgpa(id);
 			return RedirectToAction("Cgpa");
 		}
 
 		[Authorize(Roles = "Admin")]
 		public ActionResult RecruiterVacancyDetails()//Display all recruiter details
 		{
-			IEnumerable<RecruiterJobDetails> recruiterjob = jobMediator.GetRecruiterRequirements();
+			IEnumerable<RecruiterJobDetails> recruiterjob = this.jobMediator.GetRecruiterRequirements();
 			ViewData["RecruiterJobVacany"] = recruiterjob;
 			return View();
 		}
 		[Authorize(Roles = "Admin")]
 		public ActionResult SearcherJobDetails() //Display all searcher details
 		{
-			IEnumerable<SearcherJobDetails> recruiterjob = jobMediator.GetSearcherrApplications();
+			IEnumerable<SearcherJobDetails> recruiterjob = this.jobMediator.GetSearcherrApplications();
 			ViewData["SearcherJobVacany"] = recruiterjob;
 			return View();
 		}

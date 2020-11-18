@@ -4,8 +4,16 @@
 }
 
 <h2 class="heading">
-      Your resume is sent to the recruiter...
-    </h2>
+    <div align="center" style="color:red">
+        @if (ViewBag.Message != null)
+
+        {
+            <p>@ViewBag.Message</p>
+
+        }
+    </div>
+    Your resume is sent to the recruiter...
+</h2>
 <div>
     <img src="~/Images/Resume.jpg" style="width:100%"/>
 </div>

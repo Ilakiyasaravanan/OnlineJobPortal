@@ -1,0 +1,27 @@
+﻿@model JobPortal.Entity.VacancyMatching
+
+@{
+    ViewBag.Title = "Message";
+}
+
+<div class="CenterContent">
+    <h2 class="heading">Message from recruiter</h2>
+
+    <table class="tableborder">
+        <tr>
+            <th>
+                Message
+            </th>
+        </tr>
+        @foreach (var item in (List<JobPortal.Entity.VacancyMatching>)ViewData["Message"])
+        {
+            <tr>               
+                <td>
+                    <blockquote>  @item.Message</blockquote>
+                 
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>

@@ -1,0 +1,33 @@
+﻿@model OnlineJobPortal.Models.VacancyMatchingViewModel
+
+@{
+    ViewBag.Title = "Message_Recruiter";
+}
+<div class="CenterContent">
+    <h2 class="heading">Message</h2>
+    @using (Html.BeginForm("Message_Recruiter", "Job", FormMethod.Post))
+    {
+        <table class="tableborder">
+            @Html.HiddenFor(model => model.Recruiter_AccountId)
+            @Html.HiddenFor(model => model.Searcher_AccountId)
+            @Html.HiddenFor(model => model.ResumeId)
+            @Html.HiddenFor(model => model.Recruiterid)
+            @Html.HiddenFor(model => model.VacancyId)
+            <tr>
+               
+                <td>
+                    @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @maxlength = "200", style = "width: 100" } })
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="Update" class="button" />
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel", "Notification", "Job", htmlAttributes: new { @class = "button" })
+                </td>
+            </tr>
+        </table>
+    }
+</div>

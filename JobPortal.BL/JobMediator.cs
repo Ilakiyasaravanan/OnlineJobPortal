@@ -13,18 +13,18 @@ namespace JobPortal.BL
 		public void AddJobDetails(RecruiterJobDetails account) //Add recruiter details
 		{
 			jobRepository.AddRecruiterDetails(account);
-			
+
 		}
 		public void AddDetails(SearcherJobDetails account) //Add searcher details
 		{
 			jobRepository.AddCandidateDetails(account);
-			
+
 		}
 		public IEnumerable<JobTypes> GetJobTypes() //Get jobtypes
 		{
 			return jobRepository.GetJobTypes();
 		}
-		
+
 		public void AddJobTypes(JobTypes job) //Add new jobtype
 		{
 			jobRepository.AddJobTypes(job);
@@ -85,12 +85,12 @@ namespace JobPortal.BL
 		{
 			jobRepository.AddExperience(work);
 		}
-		
+
 		public void AddSearcherSkillSet(SearcherSkillSets work)//Adding Searcher Skillset
 		{
 			jobRepository.AddSkills(work);
 		}
-		
+
 		public bool EditSkills(SearcherSkillSets id)//Update edited skills
 		{
 			return jobRepository.UpdateSkills(id);
@@ -114,11 +114,11 @@ namespace JobPortal.BL
 		}
 		public bool UpdateProfile(RecruiterProfile recruiter)//Update profiles
 		{
-		     return jobRepository.UpdateProfile(recruiter);
+			return jobRepository.UpdateProfile(recruiter);
 		}
 		public void RemoveVacancy(int id)//Remove vacancy of recruiter
 		{
-		 jobRepository.RemoveVacancy(id);
+			jobRepository.RemoveVacancy(id);
 		}
 		public IEnumerable<RecruiterJobDetails> GetRecruiterRequirements()//fetch all recruiter details
 		{
@@ -128,8 +128,8 @@ namespace JobPortal.BL
 		{
 			return jobRepository.FetchSearcherApplications();
 		}
-		
-		
+
+
 		public IEnumerable<RecruiterJobDetails> FetchRecruiterJobVacancy(int recruiterId)//Fetch recruiter applied vacancy
 		{
 			return jobRepository.FetchRecruiterDetails(recruiterId);
@@ -140,7 +140,7 @@ namespace JobPortal.BL
 			return jobRepository.FetchCandidate(recruiterId);
 
 		}
-        public bool AttachResume(Resume resume)//Add resume
+		public bool AttachResume(Resume resume)//Add resume
 		{
 			return jobRepository.AttachResume(resume);
 		}
@@ -170,15 +170,35 @@ namespace JobPortal.BL
 		}
 		public void RemoveExperience(int idValue)//Remove experience of searcher
 		{
-			 jobRepository.RemoveExperience(idValue);
+			jobRepository.RemoveExperience(idValue);
 		}
 		public IEnumerable<RecruiterProfile> FetchProfile()//Fetch whole profile of recruiter
 		{
 			return jobRepository.FetchProfile();
 		}
-		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(IEnumerable<SearcherJobDetails> job)
+		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(IEnumerable<SearcherJobDetails> job)//Fetch matched recruiter application
 		{
 			return jobRepository.FetchMatchedApplication(job);
 		}
+		public int FetchRecruiterAccountId(int id)//Fetch recruiter account id
+		{
+			return jobRepository.FetchRecruiterAccountId(id);
+		}
+		public void AddMatching(VacancyMatching vacancyMatching)//Add matching vacancy to table
+		{
+			jobRepository.AddMatching(vacancyMatching);
+		}
+		public IEnumerable<VacancyMatching> FetchMatching(int id)//Fetch proper matching
+		{
+			return jobRepository.FetchMatching(id);
+		}
+		public VacancyMatching FetchMatch(int id)
+		{
+			return jobRepository.FetchMatch(id);
+		}
+		public void UpdateVacancyMatching(VacancyMatching matching)
+		{
+			jobRepository.UpdateVacancyMatching(matching);
+		}
+		}
 	}
-}

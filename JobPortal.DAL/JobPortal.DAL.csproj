@@ -69,6 +69,18 @@
     <Compile Include="Migrations\202011031046210_columnchange.designer.cs">
       <DependentUpon>202011031046210_columnchange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011061227542_Newtable.cs" />
+    <Compile Include="Migrations\202011061227542_Newtable.designer.cs">
+      <DependentUpon>202011061227542_Newtable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011061256247_Newtabledelete.cs" />
+    <Compile Include="Migrations\202011061256247_Newtabledelete.designer.cs">
+      <DependentUpon>202011061256247_Newtabledelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011070826438_tableproblem.cs" />
+    <Compile Include="Migrations\202011070826438_tableproblem.designer.cs">
+      <DependentUpon>202011070826438_tableproblem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +135,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011031046210_columnchange.resx">
       <DependentUpon>202011031046210_columnchange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011061227542_Newtable.resx">
+      <DependentUpon>202011061227542_Newtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011061256247_Newtabledelete.resx">
+      <DependentUpon>202011061256247_Newtabledelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011070826438_tableproblem.resx">
+      <DependentUpon>202011070826438_tableproblem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

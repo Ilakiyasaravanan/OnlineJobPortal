@@ -67,7 +67,7 @@ namespace JobPortal.DAL
 		}
 		public bool AccountExists(string account)//Account id exists or not
 		{
-			bool isexists = false;		
+			bool isexists = false;
 
 			using (DBUtills db = new DBUtills())
 			{
@@ -122,52 +122,45 @@ namespace JobPortal.DAL
 				}
 			}
 			return cipherText;
-
 		}
-
 		public int Add(AccountDetails job)  //Insert DB Details
 		{
 			string encryptPassword = Encrypt(job.Password);
-			
-				using (DBUtills db = new DBUtills())
-				{
-					job.Password = encryptPassword;
-					db.AccountDb.Add(job);
-					db.SaveChanges();
-					return job.AccountId;
-				}
-
-				//SqlParameter firstName = new SqlParameter("@FirstName", job.FirstName);//sample for stored procedures
-				//SqlParameter lastName = new SqlParameter("@LastName", job.LastName);
-				//SqlParameter address = new SqlParameter("@Address", job.Address);
-				//SqlParameter gender = new SqlParameter("@Gender", job.Gender);
-				//SqlParameter phone = new SqlParameter("@PhoneNumber", job.PhoneNumber);
-				//SqlParameter password = new SqlParameter("@Password", job.Password);
-				//SqlParameter role = new SqlParameter("@Role", job.Role);
-				//SqlParameter countryId = new SqlParameter("@CountryId", job.CountryId);
-				//SqlParameter email = new SqlParameter("@Email", job.Email);
-				//try
-				//{
-				//int result = db.Database.ExecuteSqlCommand("sp_InsertAccountDetails @FirstName,@LastName, @Address,@Gender,@PhoneNumber,@Password,@Role,@CountryId,@Email", firstName, lastName, address, gender, phone, password, role, countryId, email);
-				//return result;
-				//}
-				//catch (System.Data.SqlClient.SqlException)
-				//{
-				//	return 0;
-				//}
-				//db.AccountDb.Add(job);
-				//db.SaveChanges();
-			
+			using (DBUtills db = new DBUtills())
+			{
+				job.Password = encryptPassword;
+				db.AccountDb.Add(job);
+				db.SaveChanges();
+				return job.AccountId;
+			}
+			//SqlParameter firstName = new SqlParameter("@FirstName", job.FirstName);//sample for stored procedures
+			//SqlParameter lastName = new SqlParameter("@LastName", job.LastName);
+			//SqlParameter address = new SqlParameter("@Address", job.Address);
+			//SqlParameter gender = new SqlParameter("@Gender", job.Gender);
+			//SqlParameter phone = new SqlParameter("@PhoneNumber", job.PhoneNumber);
+			//SqlParameter password = new SqlParameter("@Password", job.Password);
+			//SqlParameter role = new SqlParameter("@Role", job.Role);
+			//SqlParameter countryId = new SqlParameter("@CountryId", job.CountryId);
+			//SqlParameter email = new SqlParameter("@Email", job.Email);
+			//try
+			//{
+			//int result = db.Database.ExecuteSqlCommand("sp_InsertAccountDetails @FirstName,@LastName, @Address,@Gender,@PhoneNumber,@Password,@Role,@CountryId,@Email", firstName, lastName, address, gender, phone, password, role, countryId, email);
+			//return result;
+			//}
+			//catch (System.Data.SqlClient.SqlException)
+			//{
+			//	return 0;
+			//}
+			//db.AccountDb.Add(job);
+			//db.SaveChanges();
 		}
 		public int Update(AccountDetails job)  //Update details
 		{
 			using (DBUtills dBUtills = new DBUtills())
 			{
-
 				dBUtills.Entry(job).State = EntityState.Modified;
 				dBUtills.SaveChanges();
 				return 1;
-
 			}
 		}
 		public AccountDetails Check(AccountDetails log)  //Login Check
@@ -176,7 +169,7 @@ namespace JobPortal.DAL
 
 			using (DBUtills db = new DBUtills())
 			{
-				string encryptPassword= Encrypt(log.Password);				
+				string encryptPassword = Encrypt(log.Password);
 				var getValues = db.AccountDb.SingleOrDefault(p => p.Email == log.Email && p.Password == encryptPassword);
 				if (getValues != null)
 				{
@@ -189,10 +182,10 @@ namespace JobPortal.DAL
 						return account;
 
 					}
-				}			
+				}
 
 			}
 			return account = null;
 		}
-	} }
-		
+	}
+}

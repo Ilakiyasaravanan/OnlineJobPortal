@@ -18,14 +18,14 @@ namespace JobPortal.DAL
 				db.SaveChanges();
 			}
 		}
-		
+
 		public IEnumerable<RecruiterJobDetails> FetchRecruiterDetails(int recruiterId)//Extract vacancy of recruiter
-		{		
-			
+		{
+
 			IEnumerable<RecruiterJobDetails> account = null;
 			using (DBUtills db = new DBUtills())
 			{
-				account = db.RecruiterDb.Include("Jobtype").Where(s => s.AccountId == recruiterId).ToList();
+				account = db.RecruiterDb.Include("Jobtype").Include("Cgpa").Where(s => s.AccountId == recruiterId).ToList();
 				return account;
 			}
 		}
@@ -50,9 +50,9 @@ namespace JobPortal.DAL
 		{
 			RecruiterProfile profile = null;
 			using (DBUtills db = new DBUtills())
-			{		
+			{
 
-				profile = db.ProfileDb.FirstOrDefault(id=>id.AccountId==log);
+				profile = db.ProfileDb.FirstOrDefault(id => id.AccountId == log);
 				return profile;
 			}
 		}
@@ -69,7 +69,7 @@ namespace JobPortal.DAL
 			}
 			return status;
 		}
-			
+
 		public void RemoveVacancy(int idValue)  //Delete vacancy
 		{
 			using (DBUtills dBUtills = new DBUtills())
@@ -79,7 +79,7 @@ namespace JobPortal.DAL
 				dBUtills.SaveChanges();
 			}
 		}
-		
+
 		/*Searcher*/
 		public IEnumerable<SearcherJobDetails> FetchSearcherApplications()//Getting applications of searcher
 		{
@@ -91,7 +91,7 @@ namespace JobPortal.DAL
 				return searchers;
 			}
 		}
-	
+
 		public IEnumerable<SearcherJobDetails> FetchCandidate(int recruiterId) //Extract applied job of searcher
 		{
 			IEnumerable<SearcherJobDetails> account = null;
@@ -163,7 +163,7 @@ namespace JobPortal.DAL
 			}
 			return status;
 		}
-	
+
 		public void AddExperience(WorkExperiences work)//Add work experience
 		{
 			using (DBUtills dB = new DBUtills())
@@ -240,7 +240,6 @@ namespace JobPortal.DAL
 			IEnumerable<Resume> resume = null;
 			using (DBUtills db = new DBUtills())
 			{
-
 				resume = db.ResumeDb.ToList().Where(p => p.AccountId == id);
 				return resume;
 			}
@@ -266,7 +265,7 @@ namespace JobPortal.DAL
 				job = dB.JobTypeDb.ToList();
 				return job;
 			}
-		}		
+		}
 		public void AddJobTypes(JobTypes job)//Add JobTypes
 		{
 			using (DBUtills db = new DBUtills())
@@ -275,7 +274,7 @@ namespace JobPortal.DAL
 				db.SaveChanges();
 			}
 		}
-		
+
 		public void RemoveJobType(int idValue) //Delete Jobtypes
 		{
 			using (DBUtills dBUtills = new DBUtills())
@@ -286,7 +285,7 @@ namespace JobPortal.DAL
 			}
 
 		}
-	
+
 		public JobTypes EditJobType(int idValue)  //Fetch particular Jobtypes
 		{
 			using (DBUtills dBUtills = new DBUtills())
@@ -314,7 +313,7 @@ namespace JobPortal.DAL
 				db.SaveChanges();
 			}
 		}
-		
+
 		public IEnumerable<Cgpas> GetCgpas() //Fetch Cgpas
 		{
 			IEnumerable<Cgpas> cgpa = null;
@@ -394,7 +393,6 @@ namespace JobPortal.DAL
 			{
 				dBUtills.Entry(locations).State = EntityState.Modified;
 				dBUtills.SaveChanges();
-
 			}
 		}
 		public IEnumerable<RecruiterProfile> FetchProfile()//Fetch profiles
@@ -402,29 +400,79 @@ namespace JobPortal.DAL
 			IEnumerable<RecruiterProfile> profile = null;
 			using (DBUtills dB = new DBUtills())
 			{
-
 				profile = dB.ProfileDb.Include("Recruiter").ToList();
 				// return dB.ProfileDb.SqlQuery("sp_Profile").ToList();
-				// return dB.ProfileDb.SqlQuery("sp_ProfileDetails").ToList();
-
 				return profile;
 
 			}
 		}
 		public IEnumerable<RecruiterJobDetails> FetchMatchedApplication(IEnumerable<SearcherJobDetails> job)//Fetch matched recruiter applications
 		{
-			IEnumerable<RecruiterJobDetails> details = null;			
-				using (DBUtills dB = new DBUtills())
-				{
+			IEnumerable<RecruiterJobDetails> details = null;
+			using (DBUtills dB = new DBUtills())
+			{
 				foreach (var recruit in job)
 				{
 					details = dB.RecruiterDb.Include("Jobtype").Include("Account").Include("Cgpa").Where(a => a.JobTypeId == recruit.JobTypeId).Where(b => b.Graduation == recruit.graduation).ToList();
-					
+
 				}
 			}
 			return details;
 		}
 
+		public int FetchRecruiterAccountId(int id)//Fetch recruiter account id for matching
+		{
+			int Id = 0;
+			using (DBUtills db = new DBUtills())
+			{
+				Id = (from o in db.RecruiterDb
+					  where o.RecuiterDetailId == id                    //linq query				  
+					  select o.AccountId).FirstOrDefault();
+			}
+			return Id;
+		}
+		public void AddMatching(VacancyMatching vacancyMatching)//Add details to vacancy matching
+		{
+			using (DBUtills db = new DBUtills())
+			{
+				db.VacancyDB.Add(vacancyMatching);
+				db.SaveChanges();
+			}
+		}
+		public IEnumerable<VacancyMatching> FetchMatching(int id)//Fetch details from vacancy matching table
+		{
+			IEnumerable<VacancyMatching> vacancy = null;
+			string role;
+			using (DBUtills db = new DBUtills())
+			{
+				role = (from o in db.AccountDb
+						where o.AccountId == id                    //linq query				  
+						select o.Role).FirstOrDefault();
+				if (role == "Searcher")
+					vacancy = db.VacancyDB.Include("Recruiter").Include("Resume").Where(a => a.Searcher_AccountId == id).ToList();
+				else if (role == "Recruiter")
+					vacancy = db.VacancyDB.Include("Recruiter").Include("Resume").Where(a => a.Recruiter_AccountId == id).ToList();
+				
+			}
+			return vacancy;
+		}
+		public VacancyMatching FetchMatch(int id)//Fetch individual detail from vacancy matching table 
+		{
+			VacancyMatching vacancy = null;
+			using (DBUtills db = new DBUtills())
+			{
+				vacancy = db.VacancyDB.FirstOrDefault(item=>item.ResumeId==id);
+			}
+			return vacancy;
+		}
+		public void UpdateVacancyMatching(VacancyMatching matching)  //Update Location
+		{
+			using (DBUtills dBUtills = new DBUtills())
+			{
+				dBUtills.Entry(matching).State = EntityState.Modified;
+				dBUtills.SaveChanges();
+			}
+		}
 	}
 }
 

@@ -28,7 +28,7 @@
     background-image: linear-gradient(to right,#859FEC,#121B3B);     
 }
     /* Navbar links */
-    .topnav a {        
+    .topnav a {       
         float: right;
         display: block;
         color: #f2f2f2;

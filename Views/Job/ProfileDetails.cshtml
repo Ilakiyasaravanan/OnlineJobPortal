@@ -4,9 +4,6 @@
     ViewBag.Title = "ProfileDetails";
 
 }
-
-
-
 @using (Html.BeginForm("ProfileDetails", "Job", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -23,9 +20,7 @@
                     @Html.ValidationMessageFor(model => model.WorkingCompany, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
-
             <tr>
-
                 <td>
                     @Html.LabelFor(model => model.WorkingLocation)
                 </td>

@@ -47,5 +47,10 @@ namespace JobPortal.DAL
 		void RemoveExperience(int idValue);
 		IEnumerable<RecruiterProfile> FetchProfile();
 		IEnumerable<RecruiterJobDetails> FetchMatchedApplication(IEnumerable<SearcherJobDetails> job);
+		int FetchRecruiterAccountId(int id);
+		IEnumerable<VacancyMatching> FetchMatching(int id);
+		void AddMatching(VacancyMatching vacancyMatching);
+		VacancyMatching FetchMatch(int id);
+		void UpdateVacancyMatching(VacancyMatching matching);
 	}
 }

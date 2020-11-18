@@ -21,16 +21,15 @@ namespace JobPortal.DAL
 		public DBUtills() : base("DbConnection") { }
 		public DbSet<AccountDetails> AccountDb { get; set; }
 		public DbSet<RecruiterJobDetails> RecruiterDb { get; set; }
-		public DbSet<SearcherJobDetails> SearcherDb { get; set; }
-	
+		public DbSet<SearcherJobDetails> SearcherDb { get; set; }	
 		public DbSet<JobTypes> JobTypeDb { get; set; }
 		public DbSet<Locations> LocationDb { get; set; }
 		public DbSet<WorkExperiences> WorkExperienceDb { get; set; }
 		public DbSet<RecruiterProfile> ProfileDb {get;set;}
 		public DbSet<SearcherSkillSets> SkillDb { get; set; }
-
 		public DbSet<Resume> ResumeDb { get; set; }
 		public DbSet<Cgpas> CgpaDb { get; set; }
+		public DbSet<VacancyMatching> VacancyDB { get; set; }
 
 
 

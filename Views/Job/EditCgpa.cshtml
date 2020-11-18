@@ -1,18 +1,33 @@
-﻿@model OnlineJobPortal.Models.SearcherJobViewModel
+﻿@model OnlineJobPortal.Models.CgpaViewModel
 
 @{
-    Layout = null;
+    ViewBag.Title = "EditCgpa";
 }
 
-<!DOCTYPE html>
+<h2 class="heading">EditCgpa</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>EditCgpa</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+
+@using (Html.BeginForm("EditJobType", "Job", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.CgpaId)
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CGPA)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CGPA)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update" class="button" />
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "Cgpa", "Job")
+            </td>
+
+        </tr>
+    </table>
+}

@@ -13,19 +13,19 @@ namespace OnlineJobPortal.Controllers
 	[ExceptionHandler]
 	public class CommonController : Controller
 	{
+		/// <summary>
+		/// Here the home, contact and help page are worked here
+		/// </summary>
 		readonly IJobMediator job;
 		public CommonController()//constructor
 		{
 			job = new JobMediator();
 		}
-	
 		public ActionResult Home()//Home page
 		{
 			IEnumerable<RecruiterProfile> profiles = job.FetchProfile();
 			return View(profiles);
-			
 		}
-		
 		public ActionResult SearchResult()
 		{
 			return View();

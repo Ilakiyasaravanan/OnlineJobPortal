@@ -18,7 +18,6 @@ namespace OnlineJobPortal
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Common", action = "Home", id = UrlParameter.Optional }
 			);
-		
 		}
 	}
 }

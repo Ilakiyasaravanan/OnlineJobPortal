@@ -1,0 +1,32 @@
+﻿@model JobPortal.Entity.VacancyMatching
+@{
+    ViewBag.Title = "Notification";
+}
+
+<div class="CenterContent">
+    <h2 class="heading">Notification</h2>
+    <table border="1">
+        <tr>
+            <th>
+                Resume
+            </th>
+            <th>
+                Download
+            </th>
+            <th>
+                Message
+            </th>
+
+        </tr>
+        @foreach (var item in (List<JobPortal.Entity.VacancyMatching>)ViewData["Vacancy"])
+        {
+            <tr>
+            </tr>
+            <tr>
+                <td>@item.Resume.FileName</td>
+                <td><a href="javascript:;" onclick="DownloadFile(@item.ResumeId)">Download</a></td>
+                <td>@Html.ActionLink("Message", "Message_Recruiter", new { id = item.ResumeId })</td>
+            </tr>
+        }
+    </table>
+</div>
