@@ -8,7 +8,6 @@ using JobPortal.Entity;
 using JobPortal.BL;
 using OnlineJobPortal.Models;
 using JobPortal.Common;
-using System.Drawing;
 
 namespace OnlineJobPortal.Controllers
 {
@@ -357,7 +356,7 @@ namespace OnlineJobPortal.Controllers
 			}
 		}
 		[HttpPost]
-		[Authorize(Roles = "Searcher")]
+		[Authorize(Roles = "Searcher,Recruiter")]
 		public FileResult DownloadFile(int? FileId)//Post-processing download resume
 		{
 			Resume file = this.jobMediator.DownloadResume((int)FileId);

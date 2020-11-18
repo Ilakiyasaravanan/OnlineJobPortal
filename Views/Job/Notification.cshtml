@@ -1,10 +1,15 @@
-﻿@model JobPortal.Entity.VacancyMatching
+﻿@model JobPortal.Entity.Resume
+
 @{
     ViewBag.Title = "Notification";
 }
-
 <div class="CenterContent">
     <h2 class="heading">Notification</h2>
+    @using (Html.BeginForm("DownloadFile", "Job", FormMethod.Post))
+    {
+        <input type="hidden" id="hfFileId" name="FileId" />
+        <input type="submit" id="btnDownload" value="Download" style="display:none" />
+    }
     <table border="1">
         <tr>
             <th>
@@ -29,4 +34,10 @@
             </tr>
         }
     </table>
+    <script type="text/javascript">
+        function DownloadFile(fileId) {
+            $("#hfFileId").val(fileId);
+            $("#btnDownload")[0].click();
+        };
+    </script>
 </div>

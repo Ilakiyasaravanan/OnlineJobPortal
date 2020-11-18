@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Message_Recruiter";
 }
+
 <div class="CenterContent">
     <h2 class="heading">Message</h2>
     @using (Html.BeginForm("Message_Recruiter", "Job", FormMethod.Post))
@@ -14,18 +15,15 @@
             @Html.HiddenFor(model => model.Recruiterid)
             @Html.HiddenFor(model => model.VacancyId)
             <tr>
-               
                 <td>
-                    @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @maxlength = "200", style = "width: 100" } })
+                    @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @maxlength = "200" } })
                 </td>
             </tr>
-
             <tr>
                 <td>
-                    <input type="submit" value="Update" class="button" />
-                </td>
-                <td>
-                    @Html.ActionLink("Cancel", "Notification", "Job", htmlAttributes: new { @class = "button" })
+                    <input type="submit" value="Update" class="btn btn-primary" />
+             
+                    @Html.ActionLink("Cancel", "Notification", "Job", new { @class ="btn btn-primary"})
                 </td>
             </tr>
         </table>

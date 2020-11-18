@@ -3,31 +3,32 @@
 @{
     ViewBag.Title = "EditCgpa";
 }
+<div class="CenterContent">
+    <h2 class="heading">EditCgpa</h2>
 
-<h2 class="heading">EditCgpa</h2>
 
+    @using (Html.BeginForm("EditJobType", "Job", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.CgpaId)
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CGPA)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CGPA)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel", "Cgpa", "Job", new { @class = "btn btn-primary" })
+                </td>
 
-@using (Html.BeginForm("EditJobType", "Job", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.CgpaId)
-    <table>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.CGPA)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.CGPA)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Update" class="button" />
-            </td>
-            <td>
-                @Html.ActionLink("Cancel", "Cgpa", "Job")
-            </td>
-
-        </tr>
-    </table>
-}
+            </tr>
+        </table>
+    }
+</div>
