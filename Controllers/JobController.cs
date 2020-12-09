@@ -146,9 +146,9 @@ namespace OnlineJobPortal.Controllers
 				return RedirectToAction("DisplayJobVacancy");
 			return View(map);
 		}
-		//Post- send message to searcher by recruiter
+		[ValidateAntiForgeryToken]
 		[HttpPost]
-		public ActionResult Message_Recruiter(VacancyMatchingViewModel vacancyMatching)
+		public ActionResult Message_Recruiter(VacancyMatchingViewModel vacancyMatching)//Post- send message to searcher by recruiter
 		{
 			if (ModelState.IsValid)
 			{

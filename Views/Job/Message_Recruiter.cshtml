@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Message_Recruiter";
 }
-
 <div class="CenterContent">
     <h2 class="heading">Message</h2>
-    @using (Html.BeginForm("Message_Recruiter", "Job", FormMethod.Post))
-    {
-        <table class="tableborder">
+    <table class="tableborder">
+        @using (Html.BeginForm("Message_Recruiter", "Job", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.Recruiter_AccountId)
             @Html.HiddenFor(model => model.Searcher_AccountId)
             @Html.HiddenFor(model => model.ResumeId)
@@ -22,10 +22,10 @@
             <tr>
                 <td>
                     <input type="submit" value="Update" class="btn btn-primary" />
-             
-                    @Html.ActionLink("Cancel", "Notification", "Job", new { @class ="btn btn-primary"})
+
+                    @Html.ActionLink("Cancel", "Notification", "Job", new { @class = "btn btn-primary" })
                 </td>
             </tr>
-        </table>
-    }
+        }
+    </table>
 </div>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="www.futurefeature.com" />
+  <setParameter name="DbConnection-Web.config Connection String" value="Data Source=LAPTOP-T01470G0\SQLEXPRESS; database=OnlineJobPortal;user id=sa;password=ilakiya09;Integrated Security=true" />
+</parameters>

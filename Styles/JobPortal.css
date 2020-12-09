@@ -1,19 +1,18 @@
 ﻿
 .header {
     overflow: hidden;
-   
     background-color: #859FEC;
     /* position: fixed;
     width: 100%;*/
-}   
+}
 
     .header a {
         display: block;
         color: royalblue;
         padding: 1%;
-        font-family:'Times New Roman';
-       
+        font-family: 'Times New Roman';
     }
+
         .header a:hover {
             color: white;
             text-decoration: none;
@@ -25,10 +24,10 @@
 /* The navbar container */
 .topnav {
     overflow: hidden;
-    background-image: linear-gradient(to right,#859FEC,#121B3B);     
+    background-image: linear-gradient(to right,#859FEC,#121B3B);
 }
     /* Navbar links */
-    .topnav a {       
+    .topnav a {
         float: right;
         display: block;
         color: #f2f2f2;
@@ -38,13 +37,13 @@
 
         /* Links - change color on hover */
         .topnav a:hover {
-            text-decoration:none;
+            text-decoration: none;
             background-color: #ddd;
             color: black;
         }
 
 .textbox {
-    width: 100%;
+    width:100%;
     padding: 1% 1%;
     margin: 1% 1%;
     border: none;
@@ -81,6 +80,7 @@
     cursor: pointer;
     border-radius: 12px;
 }
+
 .search {
     width: 100%;
     box-sizing: border-box;
@@ -93,6 +93,7 @@
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
 }
+
 .footer {
     background-color: royalblue;
     text-align: center;
@@ -120,15 +121,18 @@
     padding: 1%;
     margin: 1%;
 }
+
 .textcolor {
     color: blueviolet;
 }
+
 .heading {
-  text-align:center;
-  color:royalblue;
-  font-size:larger;
+    text-align: center;
+    color: royalblue;
+    font-size: larger;
 }
-.colorTextbox{
+
+.colorTextbox {
     width: 100%;
     padding: 1% 2%;
     margin: 8px 0;
@@ -137,14 +141,15 @@
     background-color: #3CBC8D;
     color: white;
 }
-.Label{
-    color:darkslateblue;
-    font-size:medium;
+
+.Label {
+    color: darkslateblue;
+    font-size: medium;
 }
-.CenterContent{
-    padding-top:5%;
-    padding-bottom:20%;
-    
+
+.CenterContent {
+    padding-top: 5%;
+    padding-bottom: 20%;
 }
 
 .container {
@@ -159,6 +164,7 @@
         padding: 0px;
         margin: 0px;
     }
+
         .container ul li {
             float: left;
             list-style: none;
@@ -167,7 +173,7 @@
             background: #859FEC;
             margin: 20px 0px 20px 55px;
             border: 2px solid blue;
-            box-sizing: border-box;           
+            box-sizing: border-box;
         }
 
             .container ul li:hover {
@@ -186,9 +192,8 @@
                 color: white;
                 font-size: 20px;
             }
-           
+
 .OpenScreenImage {
-   
     background-size: cover;
     background-position: center;
 }

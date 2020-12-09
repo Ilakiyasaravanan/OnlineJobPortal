@@ -12,130 +12,180 @@
 @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="CenterContent">
-    <h2 class="heading">Register here, For explore more...</h2>
-    <table align="center">
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.FirstName)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = "30", @class = "textbox", @placeholder = "First letter must be upper case" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.LastName)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = "30", @class = "textbox" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Address)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @maxlength = "70", @class = "textbox" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Gender)
-
-            </td>
-            <td>
-                @Html.RadioButtonFor(model => model.Gender, "Male")
-                Male
-                @Html.RadioButtonFor(model => model.Gender, "Female")
-                Female
-                @Html.RadioButtonFor(model => model.Gender, "Other")
-                Other
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.PhoneNumber)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "textbox" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Password)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "textbox", @placeholder = "Abc@123 Uppercase,lowercase,number,special character is must" } })
-                
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.ConfirmPassword@*, htmlAttributes: new { @class = "control-label col-md-2" }*@)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "textbox", @placeholder = "Abc@123 Uppercase,lowercase,number,special character is must" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Role)
-            </td>
-            <td>
-
-                @Html.RadioButtonFor(model => model.Role, "Recruiter")
-                Recruiter
-                @Html.RadioButtonFor(model => model.Role, "Searcher")
-                Searcher
-                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.DateofBirth)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.DateofBirth, new { htmlAttributes = new { @class = "textbox", @placeholder = "DD-MM-YYYY" } })
-                @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "ErrorMessage" })
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Email)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox",@placeholder = "slm@abc.com" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "ErrorMessage" })
-                <div class="ErrorMessage">
-                    @if (ViewData["UserExists"] != null)
-                    {
-                        <p>@ViewData["UserExists"]</p>
-                    }
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="Submit" value="Create" class="button" />
-            </td>
-        </tr>
-        @*<tr>
+    <div class="CenterContent">
+        <h2 class="heading">Register here, For explore more...</h2>
+        <table align="center">
+            
+            <tr>
                 <td>
-                    @Html.ValidationSummary(false, "Please fix the following errors and then submit the form", new { @class = "ErrorMessage" })
+                    @Html.LabelFor(model => model.FirstName)
                 </td>
-            </tr>*@
+                <td>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = "30", @class = "textbox", @placeholder = "Aspire" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.LastName)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = "30", @class = "textbox" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Address)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @maxlength = "70", @class = "textbox" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Gender)
 
-    </table>
-</div>
+                </td>
+                <td>
+                    @Html.RadioButtonFor(model => model.Gender, "Male")
+                    Male
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    Female
+                    @Html.RadioButtonFor(model => model.Gender, "Other")
+                    Other
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @style = "Color:red" })
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PhoneNumber)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "textbox" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "textbox", @placeholder = "Abc@123" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ConfirmPassword)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "textbox", @placeholder = "Abc@123" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Role)
+                </td>
+                <td>
+
+                    @Html.RadioButtonFor(model => model.Role, "Recruiter")
+                    Recruiter
+                    @Html.RadioButtonFor(model => model.Role, "Searcher")
+                    Searcher
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DateofBirth)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.DateofBirth, new { htmlAttributes = new { @class = "textbox", @placeholder = "DD-MM-YYYY" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "ErrorMessage" })
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox", @placeholder = "slm@abc.com" } })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "ErrorMessage" })
+                    <div class="ErrorMessage">
+                        @if (ViewData["UserExists"] != null)
+                        {
+                            <p>@ViewData["UserExists"]</p>
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="Submit" value="Create" class="button" />
+                </td>
+            </tr>
+            @*<tr>
+            <td>
+                @Html.ValidationSummary(false, "Please fix the following errors and then submit the form", new { @class = "ErrorMessage" })
+            </td>
+        </tr>*@
+
+        </table>
+    </div>
 }
 
