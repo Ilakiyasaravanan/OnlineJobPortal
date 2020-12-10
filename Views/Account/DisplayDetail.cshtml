@@ -6,53 +6,59 @@
 <div class="CenterContent">
     <h2 class="heading">Hi... Here is your profile details</h2>
 
-    <table border="1">
+    <table border="0">
+        <col style="width:20%" />
+        <col style="width:50%" />
         <tr>
-            <th>
-                FirstName
-            </th>
-            <th>
-                LastName
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Phone Number
-            </th>
-
-            <th>
-                Gender
-            </th>
-            <th>
-                DOB
-            </th>
-
-            <th colspan="2">
-                Action
-            </th>
+            <td>
+                @Html.LabelFor(model => model.FirstName)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "textbox",@readonly="readonly" } } )
+            </td>
+        </tr>
+        <tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.LastName)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "textbox", @readonly = "readonly" } })
+            </td>
         </tr>
         <tr>
             <td>
-                @Html.DisplayFor(model => model.FirstName)
+                @Html.LabelFor(model => model.Address)
             </td>
             <td>
-                @Html.DisplayFor(model => model.LastName)
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox", @readonly = "readonly" } })
             </td>
+        </tr>
+        <tr>
             <td>
-                @Html.DisplayTextFor(model => model.Address)
+                @Html.LabelFor(model => model.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(model => model.PhoneNumber)
             </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Gender)
+            </td>
             <td>
                 @Html.DisplayFor(model => model.Gender)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.DateOfBirth)
             </td>
             <td>
                 @Html.DisplayFor(model => model.DateOfBirth)
             </td>
 
-            <td>@Html.ActionLink("Edit", "Edit", new { id = Model.AccountId })</td>
+
 
 
         </tr>

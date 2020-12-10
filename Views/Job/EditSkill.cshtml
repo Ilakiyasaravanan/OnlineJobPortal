@@ -14,12 +14,14 @@
     <div class="CenterContent">
         <h2 class="heading">Edit Profile</h2>
         <table>
+            <col style="width:20%" />
+            <col style="width:100%" />
             <tr>
                 <td>
                     @Html.LabelFor(model => model.Achievements)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Achievements)
+                    @Html.EditorFor(model => model.Achievements, new { htmlAttributes = new { @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.Achievements, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -28,7 +30,7 @@
                     @Html.LabelFor(model => model.Certifications)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Certifications)
+                    @Html.EditorFor(model => model.Certifications, new { htmlAttributes = new { @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.Certifications, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -37,7 +39,7 @@
                     @Html.LabelFor(model => model.SoftwareSkills)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.SoftwareSkills)
+                    @Html.EditorFor(model => model.SoftwareSkills, new { htmlAttributes = new { @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.SoftwareSkills, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -46,7 +48,7 @@
                     @Html.LabelFor(model => model.Sports)
                 </td>
                 <td>
-                    @Html.TextAreaFor(model => model.Sports)
+                    @Html.TextAreaFor(model => model.Sports, new { htmlAttributes = new { @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.Sports, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -61,7 +63,7 @@
                 </td>
 
             </tr>
-            
+
 
             <tr>
                 <td>

@@ -7,12 +7,9 @@
     <h2 class="heading">Already entered vacancy Details, we let u know matched candidates soon</h2>
 
 
-    <table border="1" class="tableborder">
+    <table class="table">       
         @Html.HiddenFor(model => model.AccountId)
-        <tr>
-            <th>
-                Company Name
-            </th>
+        <tr>           
             <th>
                 Graduation
             </th>
@@ -39,9 +36,7 @@
         @foreach (JobPortal.Entity.RecruiterJobDetails item in (List<JobPortal.Entity.RecruiterJobDetails>)ViewData["RecruiterJob"])
         {
     <tr>
-        <td>
-            @item.CompanyName
-        </td>
+       
         <td>
             @item.Graduation
         </td>
@@ -63,12 +58,17 @@
         </td>
         
         <td>
-            @Html.ActionLink("Delete", "DeleteVacancy", new { id = item.RecuiterDetailId }, new { Onclick = "return confirm('Do u want to delete')" })
+            @Html.ActionLink("Delete", "DeleteVacancy", new { id = item.RecuiterDetailId , Onclick = "return confirm('Do u want to delete')" })
         </td>
 
     </tr>
 
         }
+        <tr>
+            <td>
+                @Html.ActionLink("New Vacancy","RecruiterJobDetails","Job")
+            </td>
+        </tr>
     </table>
 </div>
 

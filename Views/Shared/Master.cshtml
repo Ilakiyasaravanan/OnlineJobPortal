@@ -36,7 +36,6 @@
         @if (HttpContext.Current.User.IsInRole("Admin"))
         {
             @Html.ActionLink("Display Details", "Display", "Account")
-
             @Html.ActionLink("Manage JobTypes", "JobTypes", "Job")
             @Html.ActionLink("Manage Location", "Location", "Job")
             @Html.ActionLink("Manage Vacancy", "RecruiterVacancyDetails", "Job")
@@ -47,22 +46,17 @@
         }
         @if (HttpContext.Current.User.IsInRole("Searcher"))
         {
-            @Html.ActionLink("Extra curricular", "SearcherSkillDetails", "Job")
-            @Html.ActionLink("Apply job", "CandidateJobDetails", "Job")
+            @Html.ActionLink("Profile", "Edit", "Account")                
             @Html.ActionLink("Applied job", "DisplayCandidateDetails", "Job")
-            @Html.ActionLink("Attach Resume", "UploadResume", "Job")
-            @Html.ActionLink("Your Profile", "DisplayDetail", "Account")
-            @Html.ActionLink("Work Experience", "DisplayWorkExperience", "Job")
+            @Html.ActionLink("Resume", "UploadResume", "Job")            
             @Html.ActionLink("Notification", "MatchedVacancy", "Job")
             @Html.ActionLink("Message", "Message", "Job")
             @Html.ActionLink("Home", "Searcher", "Job")
         }
         @if (HttpContext.Current.User.IsInRole("Recruiter"))
         {
-            @Html.ActionLink("Current Status", "ProfileDetails", "Job")
-            @Html.ActionLink("New vacancy", "RecruiterJobDetails", "Job")
-            @Html.ActionLink("Posted vacancy", "DisplayJobVacancy", "Job")
-            @Html.ActionLink("Edit Profile", "DisplayDetail", "Account")
+            @Html.ActionLink("Profile", "Edit", "Account")            
+            @Html.ActionLink("Vacancy", "DisplayJobVacancy", "Job")
             @Html.ActionLink("Notification", "Notification", "Job")
             @Html.ActionLink("Home", "Recruiter", "Job")
         }

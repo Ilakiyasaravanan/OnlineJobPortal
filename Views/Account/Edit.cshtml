@@ -16,12 +16,14 @@
     <div class="CenterContent">
         <h2 class="heading">Edit Profile</h2>
         <table>
+            <col style="width:20%" />
+            <col style="width:50%" />
             <tr>
                 <td>
                     @Html.LabelFor(model => model.FirstName)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.FirstName)
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = "30", autocomplete = "off", @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -31,7 +33,7 @@
                     @Html.LabelFor(model => model.LastName)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.LastName)
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = "30", autocomplete = "off", @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -41,7 +43,7 @@
                     @Html.LabelFor(model => model.Address)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Address)
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @maxlength = "30", autocomplete = "off", @class = "textbox" } })
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
@@ -89,7 +91,24 @@
                 <td>
                     @Html.ActionLink("Cancel", "DisplayDetail", "Account", new { @class = "btn btn-primary" })
                 </td>
-
+            </tr>
+            <tr>
+                
+                <td class="heading">
+                    You can also check
+                </td>
+            </tr>
+            <tr>
+                <td>
+                @if (Model.Role == "Searcher")
+                {
+                    @Html.ActionLink("Extra curricular", "SearcherSkillDetails", "Job")
+                }
+                else if (Model.Role == "Recruiter")
+                {
+                    @Html.ActionLink("Working In", "ProfileDetails", "Job")
+                }
+                </td>
             </tr>
         </table>
     </div>

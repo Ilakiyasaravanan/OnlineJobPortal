@@ -16,12 +16,14 @@
 <div class="CenterContent">
     <h2 class="heading">Edit Profile</h2>
     <table>
+        <col style="width:20%" />
+        <col style="width:50%"/>
         <tr>
             <td>
                 @Html.LabelFor(model => model.WorkingCompany)
             </td>
             <td>
-                @Html.EditorFor(model => model.WorkingCompany)
+                @Html.EditorFor(model => model.WorkingCompany, new { htmlAttributes = new { @class = "textbox" } })
                 @Html.ValidationMessageFor(model => model.WorkingCompany, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
@@ -30,7 +32,7 @@
                 @Html.LabelFor(model => model.WorkingLocation)
             </td>
             <td>
-                @Html.EditorFor(model => model.WorkingLocation)
+                @Html.EditorFor(model => model.WorkingLocation, new { htmlAttributes = new { @class = "textbox" } })
                 @Html.ValidationMessageFor(model => model.WorkingLocation, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
@@ -39,7 +41,7 @@
                 @Html.LabelFor(model => model.Position)
             </td>
             <td>
-                @Html.EditorFor(model => model.Position)
+                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "textbox" } })
                 @Html.ValidationMessageFor(model => model.Position, "", new { @class = "ErrorMessage" })
             </td>
         </tr>
@@ -48,7 +50,7 @@
                 @Html.LabelFor(model => model.CompanyDescription)
             </td>
             <td>
-                @Html.TextAreaFor(model => model.CompanyDescription)
+                @Html.TextAreaFor(model => model.CompanyDescription, new { @class = "textbox" })
                 @Html.ValidationMessageFor(model => model.CompanyDescription, "", new { @class = "ErrorMessage" })
             </td>
         </tr>

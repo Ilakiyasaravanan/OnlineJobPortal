@@ -6,7 +6,7 @@
 <div class="CenterContent">
     <h2 class="heading">Already entered vacancy Details</h2>
 
-    <table border="1" class="tableborder">
+    <table class="table">
         <tr>
             <th>
                 CGPA
@@ -30,7 +30,9 @@
             <th>
                 Location
             </th>
-
+            <th>
+                Edit
+            </th>
         </tr>
         @foreach (JobPortal.Entity.SearcherJobDetails item in (List<JobPortal.Entity.SearcherJobDetails>)ViewData["SearcherJob"])
         {
@@ -60,11 +62,15 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit Work Experience", "DisplayWorkExperience", "Job")
+                    @Html.ActionLink("Work Experience", "DisplayWorkExperience", "Job")
                 </td>
             </tr>
 
         }
+        <tr>
+            <td>        @Html.ActionLink("New Vacancy", "CandidateJobDetails", "Job")</td>
+
+        </tr>
     </table>
 </div>
 

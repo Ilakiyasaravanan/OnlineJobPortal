@@ -21,12 +21,11 @@
                     @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "Label" })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @maxlength = "30", @class = "colorTextbox" } })
+                    <input type="text" value="@ViewBag.CompanyName" class="colorTextbox" readonly />
                     @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "ErrorMessage" })
                 </td>
             </tr>
             <tr>
-
                 <td>
                     @Html.LabelFor(model => model.JobTypeName, htmlAttributes: new { @class = "Label" })
                 </td>

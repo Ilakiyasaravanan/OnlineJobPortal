@@ -35,9 +35,16 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Admin,Recruiter")]
 		public ActionResult RecruiterJobDetails()
 		{
-			ViewBag.JobTypes = new SelectList(this.jobMediator.GetJobTypes(), "JobTypeId", "JobType");
-			ViewBag.Locations = new SelectList(this.jobMediator.GetLocations(), "LocationId", "Location");
-			ViewBag.Cgpas = new SelectList(this.jobMediator.GetCgpas(), "CgpaId", "CGPA");
+			RecruiterProfile account = this.jobMediator.CheckProfile(Convert.ToInt32(Session["AccountId"]));
+			if (account == null)
+				return RedirectToAction("ProfileDetails", "Job");
+			else
+			{
+				ViewBag.CompanyName= account.WorkingCompany;
+				ViewBag.JobTypes = new SelectList(this.jobMediator.GetJobTypes(), "JobTypeId", "JobType");
+				ViewBag.Locations = new SelectList(this.jobMediator.GetLocations(), "LocationId", "Location");
+				ViewBag.Cgpas = new SelectList(this.jobMediator.GetCgpas(), "CgpaId", "CGPA");
+			}
 			return View();
 		}
 		//Post-Processing and storing the vacancy specified by recruiter
@@ -80,7 +87,7 @@ namespace OnlineJobPortal.Controllers
 			recruiter = this.jobMediator.CheckProfile((int)Session["AccountId"]);
 			if (recruiter != null)
 			{
-				return RedirectToAction("DisplayProfile");
+				return RedirectToAction("EditProfile");
 			}
 			return View();
 		}
@@ -92,14 +99,14 @@ namespace OnlineJobPortal.Controllers
 			var work = AutoMapper.Mapper.Map<RecruiterProfileViewModel, RecruiterProfile>(job);
 			work.AccountId = Convert.ToInt32(Session["AccountId"]);
 			this.jobMediator.AddProfile(work);
-			return RedirectToAction("DisplayProfile");
+			return RedirectToAction("EditProfile");
 		}
 		//Get-Editing profile details
 		[HttpGet]
 		[Authorize(Roles = "Recruiter")]
-		public ActionResult EditProfile(int id)
+		public ActionResult EditProfile()
 		{
-			RecruiterProfile recruiter = this.jobMediator.CheckProfile(id);
+			RecruiterProfile recruiter = this.jobMediator.CheckProfile((int)Session["AccountId"]);
 			var map = AutoMapper.Mapper.Map<RecruiterProfile, RecruiterProfileViewModel>(recruiter);
 			return View(map);
 		}
@@ -277,9 +284,10 @@ namespace OnlineJobPortal.Controllers
 		{
 			int id = Convert.ToInt32(Session["AccountId"]);
 			SearcherSkillSets result = this.jobMediator.FetchIndividualSkill(id);
+			Session["SkillId"] = result.SkillId;
 			if (result != null)
 			{
-				return RedirectToAction("DisplaySkills");
+				return RedirectToAction("EditSkill");
 			}
 			return View();
 		}
@@ -301,14 +309,14 @@ namespace OnlineJobPortal.Controllers
 		[Authorize(Roles = "Searcher")]
 		public ActionResult DisplaySkills()
 		{
-			SearcherSkillSets account = this.jobMediator.FetchIndividualSkill(Convert.ToInt32(Session["AccountId"]));
+			SearcherSkillSets account = this.jobMediator.FetchIndividualSkill(Convert.ToInt32(Session["AccountId"]));			
 			return View(account);
 		}
 		[HttpGet]
 		[Authorize(Roles = "Searcher")]
-		public ActionResult EditSkill(int id) //Get-edit Skills
+		public ActionResult EditSkill() //Get-edit Skills
 		{
-			SearcherSkillSets skills = this.jobMediator.FetchSkill(id);
+			SearcherSkillSets skills = this.jobMediator.FetchSkill((int)Session["SkillId"]);
 			var map = AutoMapper.Mapper.Map<SearcherSkillSets, SearcherSkillsViewModel>(skills);
 			return View(map);
 		}
@@ -319,7 +327,7 @@ namespace OnlineJobPortal.Controllers
 			bool skill = this.jobMediator.EditSkills(map);
 			if (skill == true)
 				return RedirectToAction("DisplaySkills");
-			return RedirectToAction("SearcherSkillDetails");
+			return View();
 		}
 		/*Uploading resume of searcher*/
 		[HttpGet]

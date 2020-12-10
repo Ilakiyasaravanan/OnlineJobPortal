@@ -90,10 +90,10 @@ namespace OnlineJobPortal.Controllers
 					HttpContext.Response.Cookies.Add(authCookie);
 					Session["AccountId"] = accountDetails.AccountId;
 					if (accountDetails.Role.Equals("Recruiter"))
-						return RedirectToAction("Recruiter", "Job");
+						return RedirectToAction("Notification", "Job");
 
 					else if (accountDetails.Role.Equals("Searcher"))
-						return RedirectToAction("Searcher", "Job");
+						return RedirectToAction("MatchedVacancy", "Job");
 
 					else if (accountDetails.Role.Equals("Admin"))
 						return RedirectToAction("AdminDisplay");
@@ -130,9 +130,9 @@ namespace OnlineJobPortal.Controllers
 		//Get-Editing account details
 		[HttpGet]
 		[Authorize(Roles = "Admin,Recruiter,Searcher")]
-		public ActionResult Edit(int id) 
+		public ActionResult Edit() 
 		{
-			AccountDetails account = this.accountMediator.Edit(id);
+			AccountDetails account = this.accountMediator.Edit((int)Session["AccountId"]);
 			var map = AutoMapper.Mapper.Map<AccountDetails, AccountViewModel>(account);
 			return View(map);
 		}

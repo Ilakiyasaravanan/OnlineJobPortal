@@ -26,10 +26,9 @@
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "Label" })
                     <i class="fa fa-envelope-o" aria-hidden="true"  style="color:darkblue"></i>
                 </td>
-
                 <td>
 
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete="off",@class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @style = "Color:red" })
                 </td>
             </tr>

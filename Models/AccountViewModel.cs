@@ -31,7 +31,7 @@ namespace OnlineJobPortal.Models
 
 		[Display(Name = "Phone Number")]
 		[Required(ErrorMessage = "Phone number field is required")]
-		[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
+		[RegularExpression("^[1-9]{10}", ErrorMessage = "Invalid Phone number")]
 		public long PhoneNumber { get; set; }
 
 		[RegularExpression("^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$", ErrorMessage = "Must have 1 Uppercase,1 Lowercase,1 special,Minimum 6 characters")]
